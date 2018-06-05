@@ -125,9 +125,9 @@
         el: "#app",
         template: `<div>
             <zd-timer></zd-timer>
-            <button onclick="nodecg.sendMessage("timer:start")">Start</button>
-            <button onclick="nodecg.sendMessage("timer:stop")">Stop</button>
-            <button onclick="nodecg.sendMessage("timer:reset")">Reset</button>
+            <button onclick="nodecg.sendMessage('timer:start')">Start</button>
+            <button onclick="nodecg.sendMessage('timer:stop')">Stop</button>
+            <button onclick="nodecg.sendMessage('timer:reset')">Reset</button>
             <table>
                 <zd-runner v-for="n in show" v-if="n < show" :position="n - 1"></zd-runner>
             </table>

@@ -5,7 +5,7 @@
         template: `<tr class="zd-wars__option">
             <td><input v-model.lazy="option.label" /></td>
             <td><input type="number" v-model.number.lazy="option.amount" /></td>
-            <td><button @click="$emit(option.newOption ? "add" : "remove")">{{ option.newOption ? "Add" : "Remove" }}</button></td>
+            <td><button @click="$emit(option.newOption ? 'add' : 'remove')">{{ option.newOption ? 'Add' : 'Remove' }}</button></td>
         </tr>`,
         props: ["option"]
     });

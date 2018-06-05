@@ -5,50 +5,61 @@
         el: "#app",
         template: `<div class="zd-players">
             <select v-model="selected">
-                <option v-for="(player, index) in players" :value="index">{{ player.name }}</option>
+                <option v-for="name in playerNames" :value="name">{{ name }}</option>
             </select>
             <button @click="addPlayer">Add</button>
-            <table v-if="players[selected]">
-                <tr><th>Player {{ selected + 1 }}</th><td><button @click="down">-</button> <button @click="up">+</button> <button @click="remove">Remove</button></td></tr>
-                <tr><th>Name</th><td><input v-model.lazy="players[selected].name" /></td></tr>
-                <tr><th>Twitter</th><td><input v-model.lazy="players[selected].twitter" /></td></tr>
-                <tr><th>Twitch</th><td><input v-model.lazy="players[selected].twitch" /></td></tr>
-                <tr><th>Filename</th><td><input v-model.lazy="players[selected].filename" /></td></tr>
-                <tr><th>TP Handicap (minutes)</th><td><input type="number" v-model.number.lazy="players[selected].tpHandicap" /></td></tr>
+            <table v-if="player">
+                <tr><th>Name</th><td><input v-model.lazy="player.name" @change="changePlayerName" /></td></tr>
+                <tr><th>Twitter</th><td><input v-model.lazy="player.twitter" /></td></tr>
+                <tr><th>Twitch</th><td><input v-model.lazy="player.twitch" /></td></tr>
+                <tr><th>Filename</th><td><input v-model.lazy="player.filename" /></td></tr>
+                <tr><th>TP Handicap (minutes)</th><td><input type="number" v-model.number.lazy="player.tpHandicap" /></td></tr>
             </table>
+            <button v-if="player" @click="remove">Remove</button>
         </div>`,
         replicants: {
-            players: []
+            players: {}
         },
         data: {
-            selected: 0
+            selected: undefined
+        },
+        computed: {
+            playerNames: function() {
+                return this.players ? Object.keys(this.players) : [];
+            },
+            player: function() {
+                return this.players && this.selected ? this.players[this.selected] : undefined;
+            }
         },
         methods: {
             addPlayer: function() {
                 const newPlayer = {
-                    name: "",
+                    name: "New Player",
                     twitter: "",
                     twitch: "",
                     filename: "",
                     tpHandicap: 0
                 };
-                this.players.push(newPlayer);
-                this.selected = this.players.length - 1;
-            },
-            down: function() {
-                if (this.selected > 0) {
-                    this.players.splice(this.selected - 1, 0, this.players.splice(this.selected, 1)[0]);
-                    this.selected--;
-                }
-            },
-            up: function() {
-                if (this.selected < this.players.length - 1) {
-                    this.players.splice(this.selected + 1, 0, this.players.splice(this.selected, 1)[0]);
-                    this.selected++;
-                }
+                this.$set(this.players, "New Player", newPlayer);
+                this.selected = "New Player";
             },
             remove: function() {
-                if (window.confirm("sure?")) this.players.splice(this.selected, 1);
+                if (window.confirm("sure?")) {
+                    const toDelete = this.selected;
+                    this.selected = undefined;
+                    this.$delete(this.players, toDelete);
+                }
+            },
+            changePlayerName: function() {
+                if (this.players[this.player.name]) {
+                    window.alert("Player already exists!");
+                    this.player.name = this.selected;
+                } else {
+                    const toDelete = this.selected;
+                    this.$set(this.players, this.player.name, this.player);
+                    this.selected = this.player.name;
+                    this.$delete(this.players, toDelete);
+                }
             }
         }
 	});

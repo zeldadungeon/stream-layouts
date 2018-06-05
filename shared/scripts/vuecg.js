@@ -8,13 +8,13 @@ var Vue; // late binding
  * @param {any} defaultValue initial value before the replicant is synced (or if the replicant needs initialization)
  */
 function bind(vm, key, defaultValue) {
+    const replicant = defaultValue === undefined ? nodecg.Replicant(key) : nodecg.Replicant(key, { defaultValue: defaultValue });
+    
     if (key in vm) {
         vm[key] = defaultValue === undefined ? {} : defaultValue;
     } else {
         Vue.util.defineReactive(vm, key, defaultValue === undefined ? {} : defaultValue);
     }
-
-    const replicant = defaultValue === undefined ? nodecg.Replicant(key) : nodecg.Replicant(key, { defaultValue: defaultValue });
     
     const callback = function(val, oldVal) {
         val = val && JSON.parse(JSON.stringify(val));

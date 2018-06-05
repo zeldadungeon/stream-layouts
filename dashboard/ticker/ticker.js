@@ -5,7 +5,7 @@
         template: `<tr class="zd-ticker__line">
             <td><input v-model.lazy="line.label" /></td>
             <td><input v-model.lazy="line.message" /></td>
-            <td><button @click="$emit(line.newline ? "add" : "remove")">{{ line.newline ? "Add" : "Remove" }}</button></td>
+            <td><button @click="$emit(line.newline ? 'add' : 'remove')">{{ line.newline ? "Add" : "Remove" }}</button></td>
         </tr>`,
         props: ["line"]
     });

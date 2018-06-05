@@ -2,7 +2,7 @@
     "use strict";
     
     Vue.component("zd-timer", {
-        template: `<div class="zd-timer" :class="{ "zd-timer--running": stopwatch.state == "running" }">{{ display }}</div>`,
+        template: `<div class="zd-timer" :class="{ 'zd-timer--running': stopwatch.state == 'running' }">{{ display }}</div>`,
         replicants: ["stopwatch"],
         computed: {
             display: function() {
