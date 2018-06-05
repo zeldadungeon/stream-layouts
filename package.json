@@ -1,0 +1,87 @@
+{
+    "name": "zeldadungeon-layouts",
+    "version": "1.0.0",
+    "description": "Stream layouts for ZeldaDungeon",
+    "private": true,
+    "dependencies": {
+        "nanotimer": "^0.3.14",
+        "request-promise": "^4.2.1",
+        "twemoji": "^2.0.5",
+        "twitchps": "^0.5.5",
+        "twitter-stream-api": "^0.5.0"
+    },
+    "nodecg": {
+        "compatibleRange": "~0.9.0",
+        "dashboardPanels": [
+            {
+                "name": "timer",
+                "title": "Timer",
+                "file": "timer/timer.html",
+                "width": 2,
+                "headerColor": "#9f9bbd"
+            },
+            {
+                "name": "twitter",
+                "title": "Twitter",
+                "width": 2,
+                "file": "twitter/twitter.html",
+                "headerColor": "#9f9bbd"
+            },
+            {
+                "name": "donations",
+                "title": "Donations",
+                "width": 2,
+                "file": "donations/donations.html",
+                "headerColor": "#9f9bbd"
+            },
+            {
+                "name": "wars",
+                "title": "Donation Wars",
+                "width": 2,
+                "file": "wars/wars.html",
+                "headerColor": "#9f9bbd"
+            },
+            {
+                "name": "ticker",
+                "title": "Ticker",
+                "file": "ticker/ticker.html",
+                "workspace": "Manage",
+                "width": 4,
+                "headerColor": "#9f9bbd"
+            },
+            {
+                "name": "twitch",
+                "title": "Twitch",
+                "file": "twitch.html",
+                "workspace": "Manage",
+                "width": 2,
+                "headerColor": "#9f9bbd"
+            },
+            {
+                "name": "players",
+                "title": "Players",
+                "file": "players/players.html",
+                "workspace": "Manage",
+                "width": 2,
+                "headerColor": "#9f9bbd"
+            }
+        ],
+        "graphics": [
+            {
+                "file": "2x8x7.html",
+                "width": 1280,
+                "height": 720
+            },
+            {
+                "file": "omnibar.html",
+                "width": 1920,
+                "height": 150
+            }
+        ],
+        "soundCues": [
+            {
+                "name": "Donation"
+            }
+        ]
+    }
+}

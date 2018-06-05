@@ -1,0 +1,88 @@
+.zd-player {
+    width: 400px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    background-color: rgba(0,0,0,.5);
+
+}
+
+.zd-player__twitch {
+    background: url("../images/Glitch_Purple_RGB.svg") no-repeat;
+    padding-left: 1.25em;
+}
+
+.zd-player__twitter {
+    background: url("../images/Twitter_Logo_Blue.svg") no-repeat;
+    padding-left: 1.25em;
+}
+
+.zd-player__result {
+    position: absolute;
+    height: 0;
+    overflow: hidden;
+    background-color: rgba(0,0,0,.5);
+}
+
+.zd-player__result--show {
+    animation-name: slideabove;
+    animation-duration: 1s;
+    top: -100%;
+    height: 100%;
+}
+
+.zd-spinner {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.zd-spinner__item {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.zd-spinner__item--show {
+    animation-name: slidein;
+    animation-duration: 1s;
+}
+
+.zd-spinner__item--hide {
+    top: 100%;
+    animation-name: slideout;
+    animation-duration: 1s;
+}
+
+@keyframes slidein {
+    from {
+        left: 100%;
+    }
+
+    to {
+        left: 0%;
+    }
+}
+
+@keyframes slideout {
+    from {
+        top: 0%;
+    }
+
+    to {
+        top: 100%;
+    }
+}
+
+@keyframes slideabove {
+    from {
+        top: 0%;
+        height: 0%;
+    }
+
+    to {
+        top: -100%;
+        height: 100%;
+    }
+}

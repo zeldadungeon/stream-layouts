@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../shared/styles/common.css" />
+    <link rel="stylesheet" href="../shared/styles/player.css" />
+    <link rel="stylesheet" href="../shared/styles/timer.css" />
+    <script defer src="../shared/scripts/lodash.core.js"></script>
+    <script defer src="../shared/scripts/vue.js"></script>
+    <script defer src="../shared/scripts/vuecg.js"></script>
+    <script defer src="../shared/components/player.js"></script>
+    <script defer src="../shared/components/timer.js"></script>
+    <script defer src="../shared/scripts/app.js"></script>
+    <style>
+        #app {
+            height: 720px;
+            width: 1280px;
+            position: relative;
+        }
+        
+        .zd-player {
+            position: absolute;
+            top: 560px;
+        }
+
+        #p1 {
+            left: 120px;
+        }
+
+        #p2 {
+            left: 760px;
+        }
+
+        .zd-timer {
+            position: absolute;
+            top: 560px;
+            left: 540px;
+        }
+    </style>
+</head>
+<body> 
+    <div id="app">
+        <zd-timer></zd-timer>
+        <zd-player id="p1" :num="0"></zd-player>
+        <zd-player id="p2" :num="1"></zd-player>
+    </div>
+</body>
+</html>

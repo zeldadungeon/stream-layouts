@@ -1,0 +1,11 @@
+.zd-timer {
+    width: 200px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    background-color: rgba(0,0,0,.5);
+}
+
+.zd-timer--running {
+    color: white;
+}
