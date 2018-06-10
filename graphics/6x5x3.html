@@ -20,21 +20,32 @@
         
         .zd-player {
             position: absolute;
-            top: 672px;
         }
 
-        #p1 {
-            left: 184px;
+        #p1, #p2, #p3 {
+            top: 360px;
         }
 
-        #p2 {
-            right: 184px;
+        #p4, #p5, #p6 {
+            top: 577px;
+        }
+
+        #p1, #p4 {
+            left: 0px;
+        }
+
+        #p2, #p5 {
+            left: 760px;
+        }
+
+        #p3, #p6 {
+            right: 0px;
         }
 
         .zd-timer {
             position: absolute;
-            top: 0px;
-            left: 860px;
+            top: 470px;
+            left: 100px;
         }
     </style>
 </head>
@@ -43,6 +54,10 @@
         <zd-timer></zd-timer>
         <zd-player id="p1" :num="0"></zd-player>
         <zd-player id="p2" :num="1"></zd-player>
+        <zd-player id="p3" :num="2"></zd-player>
+        <zd-player id="p4" :num="3"></zd-player>
+        <zd-player id="p5" :num="4"></zd-player>
+        <zd-player id="p6" :num="5"></zd-player>
     </div>
 </body>
 </html>

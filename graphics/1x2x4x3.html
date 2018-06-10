@@ -20,21 +20,14 @@
         
         .zd-player {
             position: absolute;
-            top: 672px;
-        }
-
-        #p1 {
-            left: 184px;
-        }
-
-        #p2 {
-            right: 184px;
+            bottom: 120px;
+            left: 120px;
         }
 
         .zd-timer {
             position: absolute;
-            top: 0px;
-            left: 860px;
+            bottom: 120px;
+            right: 220px;
         }
     </style>
 </head>
@@ -42,7 +35,6 @@
     <div id="app">
         <zd-timer></zd-timer>
         <zd-player id="p1" :num="0"></zd-player>
-        <zd-player id="p2" :num="1"></zd-player>
     </div>
 </body>
 </html>

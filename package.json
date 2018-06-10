@@ -83,9 +83,74 @@
                 "height": 60
             },
             {
+                "file": "2x4x3.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
                 "file": "2x8x7.html",
-                "width": 1280,
-                "height": 720
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "2x10x9.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "2x5x3.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "3x5x3.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "4x4x3.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "1x2x4x3.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "2x2x4x3.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "3x2x4x3.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "1x16x9.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "3x16x9.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "4x16x9.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "6x5x3.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "FSA.html",
+                "width": 1920,
+                "height": 1080
             }
         ],
         "soundCues": [

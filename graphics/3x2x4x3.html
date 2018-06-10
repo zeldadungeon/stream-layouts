@@ -18,23 +18,25 @@
             position: relative;
         }
         
-        .zd-player {
+        .zd-player, .zd-timer {
             position: absolute;
-            top: 672px;
+            top: 884px;
         }
 
         #p1 {
-            left: 184px;
+            left: 56px;
         }
 
         #p2 {
-            right: 184px;
+            right: 568px;
+        }
+
+        #p3 {
+            right: 56px;
         }
 
         .zd-timer {
-            position: absolute;
-            top: 0px;
-            left: 860px;
+            left: 604px;
         }
     </style>
 </head>
@@ -43,6 +45,7 @@
         <zd-timer></zd-timer>
         <zd-player id="p1" :num="0"></zd-player>
         <zd-player id="p2" :num="1"></zd-player>
+        <zd-player id="p3" :num="2"></zd-player>
     </div>
 </body>
 </html>
