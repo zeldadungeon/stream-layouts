@@ -68,14 +68,24 @@
         ],
         "graphics": [
             {
-                "file": "2x8x7.html",
-                "width": 1280,
-                "height": 720
-            },
-            {
                 "file": "omnibar.html",
                 "width": 1920,
                 "height": 150
+            },
+            {
+                "file": "timer.html",
+                "width": 200,
+                "height": 60
+            },
+            {
+                "file": "nameplate.html",
+                "width": 400,
+                "height": 60
+            },
+            {
+                "file": "2x8x7.html",
+                "width": 1280,
+                "height": 720
             }
         ],
         "soundCues": [
