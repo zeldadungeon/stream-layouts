@@ -26,6 +26,10 @@ module.exports = function (nodecg) {
         }
     });
 
+    const queue = nodecg.Replicant("queue", {
+        defaultValue: []
+    });
+
     const pubsub = new TwitchPubSub({
         init_topics: [{
             topic: `channel-bits-events-v1.${config.channelId}`,
@@ -89,7 +93,6 @@ module.exports = function (nodecg) {
     });
 
     pubsub.on("bits", cheer => {
-        nodecg.sendMessage("twitch:cheer", cheer);
         /*
         bits_used - {integer} 
         channel_id - {string} 
@@ -104,10 +107,16 @@ module.exports = function (nodecg) {
         user_name - {string}
         version - {string}
         */
+       queue.value.unshift({
+           type: "cheer",
+           id: time,
+           name: cheer.user_name,
+           bits: cheer.bits_used
+       });
+       if (queue.value.length > 10) queue.value.splice(10, queue.value.length);
     });
 
     pubsub.on("subscribe", sub => {
-        nodecg.sendMessage("twitch:sub", sub);
         /*
         user_name - {string} 
         display_name - {string} 
@@ -123,6 +132,12 @@ module.exports = function (nodecg) {
         sub_message.message - {string}
         sub_message.emotes - {array}
         */
+       queue.value.unshift({
+           type: "sub",
+           id: time,
+           name: sub.display_name
+       });
+       if (queue.value.length > 10) queue.value.splice(10, queue.value.length);
     });
 
     function getChannelStatus() {
@@ -192,7 +207,12 @@ module.exports = function (nodecg) {
             for (let i = res.follows.length - 1; i >= 0; --i) {
                 if (followers.indexOf(res.follows[i].user._id) === -1) {
                     followers.push(res.follows[i].user._id);
-                    nodecg.sendMessage("twitch:follow", follows[i]);
+                    queue.value.unshift({
+                        type: "follow",
+                        id: res.follows[i].created_at,
+                        name: res.follows[i].user.display_name // .user.name
+                    });
+                    if (queue.value.length > 10) queue.value.splice(10, queue.value.length);
                 }
             }
         }).catch(err => {

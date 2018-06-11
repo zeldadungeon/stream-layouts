@@ -4,7 +4,11 @@
     line-height: 60px;
     text-align: center;
     background-color: rgba(0,0,0,.5);
+}
 
+.zd-social .zd-player {
+    width: 420px;
+    margin: auto;
 }
 
 .zd-player__twitch {
@@ -12,8 +16,23 @@
     padding-left: 1.25em;
 }
 
+.zd-player__youtube {
+    background: url("../images/youtube_social_icon_red.png") no-repeat;
+    padding-left: 70px;
+}
+
 .zd-player__twitter {
     background: url("../images/Twitter_Logo_Blue.svg") no-repeat;
+    padding-left: 1.25em;
+}
+
+.zd-player__facebook {
+    background: url("../images/flogo_RGB_HEX-72.svg") no-repeat;
+    padding-left: 60px;
+}
+
+.zd-player__discord {
+    background: url("../images/Discord-Logo-Color.svg") no-repeat;
     padding-left: 1.25em;
 }
 
@@ -55,6 +74,40 @@
     animation-duration: 1s;
 }
 
+.zd-social {
+    height: 100%;
+}
+
+.zd-social__queue {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: calc(100% - 60px);
+    overflow: hidden;
+    font-size: 24px;
+    -webkit-mask-image: -webkit-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,1) 100px);
+    mask-image: -webkit-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,1) 100px);
+}
+
+.zd-social__event--wrapper {
+    background-color: #253125;
+    margin: 3px 0;
+    padding: 10px;
+}
+
+.zd-social__event--tweet {
+    background: url("../images/LA_Weathervane.gif") no-repeat left;
+    padding-left: 42px;
+}
+
+.zd-social__queue-enter-active {
+    transition: all .5s;
+}
+
+.zd-social__queue-enter {
+    transform: scaleY(0);
+}
+
 @keyframes slidein {
     from {
         left: 100%;
@@ -84,5 +137,11 @@
     to {
         top: -100%;
         height: 100%;
+    }
+}
+
+@keyframes expand {
+    from {
+        transform: scale(1,0);
     }
 }

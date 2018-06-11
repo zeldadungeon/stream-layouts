@@ -83,6 +83,11 @@
                 "height": 60
             },
             {
+                "file": "social.html",
+                "width": 400,
+                "height": 400
+            },
+            {
                 "file": "2x4x3.html",
                 "width": 1920,
                 "height": 1080

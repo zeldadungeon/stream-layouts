@@ -11,3 +11,8 @@ body {
     text-transform: uppercase;
     color: white;
 }
+
+strong, .hashtag {
+    color: white;
+    font-weight: bold;
+}

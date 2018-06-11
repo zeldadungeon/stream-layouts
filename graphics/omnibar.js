@@ -7,9 +7,9 @@
             <img class="zd-omnibar__logo" src="../shared/images/ZDMarathon2018.png" />
             <div ref="boundary" class="zd-omnibar__ticker">
                 <div class="zd-label" :class="frame0LabelClass">{{ frame0Label }}</div>
-                <div ref="frame0Message" :class="frame0MessageClass">{{ frame0Message }}</div>
+                <div ref="frame0Message" :class="frame0MessageClass" v-html="frame0Message"></div>
                 <div class="zd-label" :class="frame1LabelClass">{{ frame1Label }}</div>
-                <div ref="frame1Message" :class="frame1MessageClass">{{ frame1Message }}</div>
+                <div ref="frame1Message" :class="frame1MessageClass" v-html="frame1Message"></div>
             </div>
             <div class="zd-omnibar__total">
                 <div>{{ totalDisplay }}</div>
@@ -120,10 +120,10 @@
                     if (war.title === this.messages[index].label) {
                         const sortedOptions = war.options.sort((a, b) => b.amount - a.amount);
                         let message = "";
-                        if (sortedOptions.length > 0) message = `1st: ${sortedOptions[0].label} ($${sortedOptions[0].amount.toFixed(2)})`
-                        if (sortedOptions.length > 1) message = `${message}, 2nd: ${sortedOptions[1].label} ($${sortedOptions[1].amount.toFixed(2)})`
-                        if (sortedOptions.length > 2) message = `${message}, 3rd: ${sortedOptions[2].label} ($${sortedOptions[2].amount.toFixed(2)})`
-                        if (sortedOptions.length > 3) message = `${message}, 4th: ${sortedOptions[3].label} ($${sortedOptions[3].amount.toFixed(2)})`
+                        if (sortedOptions.length > 0) message = `${sortedOptions[0].label} $${sortedOptions[0].amount.toFixed(2)}`
+                        if (sortedOptions.length > 1) message = `${message} <strong>〉</strong>${sortedOptions[1].label} $${sortedOptions[1].amount.toFixed(2)}`
+                        if (sortedOptions.length > 2) message = `${message} <strong>〉</strong>${sortedOptions[2].label} $${sortedOptions[2].amount.toFixed(2)}`
+                        if (sortedOptions.length > 3) message = `${message} <strong>〉</strong>${sortedOptions[3].label} $${sortedOptions[3].amount.toFixed(2)}`
                         return message;
                     }
                 }

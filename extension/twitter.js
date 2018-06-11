@@ -13,6 +13,10 @@ module.exports = function (nodecg) {
             tweets: []
         }
     });
+
+    const queue = nodecg.Replicant("queue", {
+        defaultValue: []
+    });
     
     const streams = {};
 
@@ -46,7 +50,14 @@ module.exports = function (nodecg) {
     });
 
     nodecg.listenFor("twitter:accept", tweetId => {
-        nodecg.sendMessage("twitter:tweet", removeTweetById(tweetId));
+        const tweet = removeTweetById(tweetId);
+        queue.value.unshift({
+            type: "tweet",
+            id: tweet.id,
+            name: tweet.user.screen_name, // tweet.user.name
+            text: tweet.text
+        });
+        if (queue.value.length > 10) queue.value.splice(10, queue.value.length);
     });
 
     nodecg.listenFor("twitter:reject", removeTweetById);

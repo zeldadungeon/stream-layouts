@@ -1,6 +1,8 @@
 (function () {
 	"use strict";
 
+	const MOD = 6;
+
 	Vue.component("zd-player", {
 		template: `<div class="zd-player">
 			<div class="zd-player__result" :class="resultClass">{{ result }}</div>
@@ -17,21 +19,22 @@
 				return this.players && this.stopwatch && this.stopwatch.results && this.players[this.stopwatch.results[this.num]] || {};
 			},
 			nameClass: function() {
-				const show = this.ticker.tick % 3 == 0 || !this.player.twitch && this.ticker.tick % 3 == 1 || !this.player.twitter && this.ticker.tick % 3 == 2;
+				const mod = this.ticker.tick % MOD;
+				const show = mod != 1 && mod != 3 || !this.player.twitch && mod == 1 || !this.player.twitter && mod == 3;
 				return {
 					"zd-spinner__item--show": show,
 					"zd-spinner__item--hide": !show
 				};
 			},
 			twitchClass: function() {
-				const show = this.player.twitch && this.ticker.tick % 3 == 1;
+				const show = this.player.twitch && this.ticker.tick % MOD == 1;
 				return {
 					"zd-spinner__item--show": show,
 					"zd-spinner__item--hide": !show
 				};
 			},
 			twitterClass: function() {
-				const show = this.player.twitter && this.ticker.tick % 3 == 2;
+				const show = this.player.twitter && this.ticker.tick % MOD == 3;
 				return {
 					"zd-spinner__item--show": show,
 					"zd-spinner__item--hide": !show
