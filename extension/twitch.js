@@ -44,7 +44,7 @@ module.exports = function (nodecg) {
         debug: false
     });
 
-    /*
+    
     twitch.on("change", (newVal, oldVal) => {
         const gameChanged = newVal.game && (
             !oldVal ||
@@ -53,15 +53,14 @@ module.exports = function (nodecg) {
             newVal.game.subtitle !== oldVal.game.subtitle ||
             newVal.game.initials !== oldVal.game.initials);
 
-        if (!oldVal || newVal.title !== oldVal.title || gameChanged) {
-            putStreamInfo(newVal.title
+        if (gameChanged) {
+            putStreamInfo(config.template
                 .replace("${fullTitle}", newVal.game && newVal.game.fullTitle || "")
                 .replace("${subtitle}", newVal.game && newVal.game.subtitle || "")
                 .replace("${initials}", newVal.game && newVal.game.initials || ""),
-                newVal.fullTitle);
+                newVal.game.fullTitle);
         }
     });
-    */
 
     pubsub.on("connected", () => {
         log.info("Connected to Twitch PubSub.");
@@ -109,7 +108,7 @@ module.exports = function (nodecg) {
         */
        queue.value.unshift({
            type: "cheer",
-           id: time,
+           id: cheer.time,
            name: cheer.user_name,
            bits: cheer.bits_used
        });
@@ -134,7 +133,7 @@ module.exports = function (nodecg) {
         */
        queue.value.unshift({
            type: "sub",
-           id: time,
+           id: sub.time,
            name: sub.display_name
        });
        if (queue.value.length > 10) queue.value.splice(10, queue.value.length);

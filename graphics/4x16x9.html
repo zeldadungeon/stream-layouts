@@ -10,6 +10,7 @@
     <script defer src="../shared/scripts/vuecg.js"></script>
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
+    <script defer src="../shared/components/social.js"></script>
     <script defer src="../shared/scripts/app.js"></script>
     <style>
         #app {
@@ -18,11 +19,11 @@
             position: relative;
         }
         
-        .zd-player {
+        #app > * {
             position: absolute;
         }
 
-        #p1, #p2 {
+        #p1, #p2, .zd-timer {
             top: 432px;
         }
 
@@ -39,9 +40,14 @@
         }
 
         .zd-timer {
-            position: absolute;
-            top: 470px;
             left: 860px;
+        }
+
+        .zd-social {
+            bottom: 83px;
+            left: 768px;
+            width: 384px;
+            height: 492px;
         }
     </style>
 </head>
@@ -52,6 +58,7 @@
         <zd-player id="p2" :num="1"></zd-player>
         <zd-player id="p3" :num="2"></zd-player>
         <zd-player id="p4" :num="3"></zd-player>
+        <zd-social></zd-social>
     </div>
 </body>
 </html>

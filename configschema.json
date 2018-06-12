@@ -39,6 +39,10 @@
             "type": ["object", "null"],
             "additionalProperties": false,
             "properties": {
+                "template": {
+                    "type": "string",
+                    "description": "Template for the stream title. ${subtitle} is replaced with the current game's subtitle."
+                },
                 "channelName": {
                     "type": "string",
                     "description": "The name of the Twitch channel to operate on."

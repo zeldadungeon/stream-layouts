@@ -11,6 +11,14 @@
 				switch(this.event.type) {
 					case "tweet":
 						return `<strong>@${this.event.name}</strong><br>${this.event.text}`;
+					case "donation":
+						return `${this.event.name ? `<strong>${this.event.name}</strong>` : `Someone`} donated <strong>$${this.event.amount}</strong>!`;
+					case "cheer":
+						return `<strong>${this.event.name}</strong> cheered with <strong>${this.event.bits} bit${this.event.bits > 1 ? "s" : ""}</strong>!`;
+					case "follow":
+						return `<strong>${this.event.name}</strong> followed!`;
+					case "sub":
+						return `<strong>${this.event.name}</strong> subscribed!`;
 				}
 			},
 			typeClass: function() {

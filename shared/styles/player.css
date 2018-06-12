@@ -6,11 +6,6 @@
     background-color: rgba(0,0,0,.5);
 }
 
-.zd-social .zd-player {
-    width: 420px;
-    margin: auto;
-}
-
 .zd-player__twitch {
     background: url("../images/Glitch_Purple_RGB.svg") no-repeat;
     padding-left: 1.25em;
@@ -78,10 +73,18 @@
     height: 100%;
 }
 
+.zd-social .zd-player {
+    width: 440px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .zd-social__queue {
     list-style: none;
     margin: 0;
     padding: 0;
+    padding-top: 60px;
     height: calc(100% - 60px);
     overflow: hidden;
     font-size: 24px;
@@ -92,12 +95,31 @@
 .zd-social__event--wrapper {
     background-color: #253125;
     margin: 3px 0;
-    padding: 10px;
+}
+
+.zd-social__event {
+    padding: 10px 50px 10px;
+    image-rendering: pixelated;
 }
 
 .zd-social__event--tweet {
-    background: url("../images/LA_Weathervane.gif") no-repeat left;
-    padding-left: 42px;
+    background: url("../images/LA_Weathervane.gif") no-repeat 10px center;
+}
+
+.zd-social__event--donation {
+    background: url("../images/rupee_anim.gif") no-repeat 5px center / 40px;
+}
+
+.zd-social__event--cheer {
+    background: url("../images/force_gem.gif") no-repeat 5px center / 40px;
+}
+
+.zd-social__event--follow {
+    background: url("../images/BowWow.gif") no-repeat 5px center / 40px;
+}
+
+.zd-social__event--sub {
+    background: url("../images/phone.gif") no-repeat left center;
 }
 
 .zd-social__queue-enter-active {

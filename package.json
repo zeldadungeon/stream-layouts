@@ -52,7 +52,7 @@
             {
                 "name": "twitch",
                 "title": "Twitch",
-                "file": "twitch.html",
+                "file": "twitch/twitch.html",
                 "workspace": "Manage",
                 "width": 2,
                 "headerColor": "#9f9bbd"
@@ -61,6 +61,14 @@
                 "name": "players",
                 "title": "Players",
                 "file": "players/players.html",
+                "workspace": "Manage",
+                "width": 2,
+                "headerColor": "#9f9bbd"
+            },
+            {
+                "name": "debug",
+                "title": "Debug",
+                "file": "debug/debug.html",
                 "workspace": "Manage",
                 "width": 2,
                 "headerColor": "#9f9bbd"
@@ -86,11 +94,6 @@
                 "file": "social.html",
                 "width": 400,
                 "height": 400
-            },
-            {
-                "file": "2x4x3.html",
-                "width": 1920,
-                "height": 1080
             },
             {
                 "file": "2x8x7.html",
