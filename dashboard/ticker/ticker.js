@@ -13,8 +13,6 @@
     const app = new Vue({
         el: "#app",
         template: `<div class="zd-ticker">
-            <label>Enabled <input type="checkbox" v-model="ticker.enabled" /></label>
-            <label>Duration <input type="number" v-model.number.lazy="ticker.duration" /></label>
             <table>
                 <tr><th style="width: 30%">Label</th><th style="width: 60%">Message</th><th style="width: 10%"></th></tr>
                 <zd-ticker-line v-for="(line, index) in ticker.lines" :line="line" @remove="remove(index)"></zd-ticker-line>

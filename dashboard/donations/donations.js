@@ -40,8 +40,6 @@
         template: `<div class="zd-donations">
             <input type="checkbox" id="enable-donations" v-model="donations.enabled">
             <label for="enable-donations">Enable Donations Link</label>
-            <div>Total: {{ donations.total }}</div>
-            <input type="number" v-model.number.lazy="donations.total">
             <ul><zd-donation v-for="donation in donations.donations" :donation="donation"></zd-donation></ul>
         </div>`,
         replicants: {
