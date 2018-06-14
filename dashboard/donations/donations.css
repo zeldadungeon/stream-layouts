@@ -2,7 +2,7 @@
     list-style-type: none;
     padding: 0;
     max-height: 400px;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .zd-donations__donation {
@@ -27,12 +27,4 @@
     width: 50%;
     text-align: center;
     text-decoration: none;
-}
-
-.zd-donations__donation--read .zd-donations__button--read {
-    background-color: green;
-}
-
-.zd-donations__donation--processed .zd-donations__button--processed {
-    background-color: green;
 }

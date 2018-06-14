@@ -6,9 +6,21 @@
         template: `<div class="zd-debug">
             <label><input type="checkbox" v-model="ticker.enabled" /> Ticker Enabled</label>
             <br />
-            <label><input type="number" v-model.number.lazy="ticker.duration" style="width: 5em" /> ms</label>
+            <label><input type="number" v-model.number.lazy="ticker.duration" style="width: 6em" /> ms</label>
             <hr />
-            <label>Donation Total <input type="number" v-model.number.lazy="donations.total" style="width: 5em"></label>
+            <label><input type="checkbox" v-model="donations.enabled" /> Donations Link Enabled</label>
+            <br />
+            <label>Donation Total <input type="number" v-model.number.lazy="donations.total" style="width: 6em"></label>
+            <br />
+            <label>Last donation <input type="number" v-model.number.lazy="donations.lastDonation" style="width: 6em"></label>
+            <br />
+            <button @click="clearDonations">Clear Donations</button>
+            <hr />
+            <label><input type="checkbox" v-model="twitter.enabled" /> Twitter Link Enabled</label>
+            <br />
+            <button @click="clearTweets">Clear Tweets</button>
+            <hr />
+            <label><input type="checkbox" v-model="twitch.enabled" /> Twitch Link Enabled</label>
             <hr />
             <button @click="addTweet">Add Tweet to Queue</button>
             <button @click="addDonation">Add Donation to Queue</button>
@@ -18,7 +30,7 @@
             <button @click="addSub">Add Sub to Queue</button>
             <button @click="clearQueue">Clear Social Queue</button>
         </div>`,
-        replicants: ["donations", "queue", "ticker"],
+        replicants: ["donations", "queue", "ticker", "twitter", "twitch"],
         methods: {
             addItem: function(item) {
                 this.queue.unshift(item);
@@ -72,7 +84,13 @@
             },
             clearQueue: function() {
                 this.queue.splice(0, this.queue.length);
-            }
+            },
+            clearTweets: function() {
+                this.twitter.tweets.splice(0, this.twitter.tweets.length);
+            },
+            clearDonations: function() {
+                this.donations.donations.splice(0, this.donations.donations.length);
+            },
         }
 	});
 })();

@@ -1,6 +1,8 @@
 .zd-twitter ul {
     list-style-type: none;
     padding: 0;
+    max-height: 400px;
+    overflow: auto;
 }
 
 .zd-twitter__tweet {

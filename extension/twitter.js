@@ -124,35 +124,35 @@ module.exports = function (nodecg) {
         });
 
         streams[type].on("error", error => {
-            nodecg.log.error("[twitter]", error.stack);
+            nodecg.log.error(`[twitter] [${type}]`, error.stack);
         });
 
         streams[type].on("connection success", () => {
-            nodecg.log.info("[twitter] Connection success.");
+            nodecg.log.info(`[twitter] [${type}] Connection success.`);
         });
 
         streams[type].on("connection aborted", () => {
-            nodecg.log.warn("[twitter] Connection aborted!");
+            nodecg.log.warn(`[twitter] [${type}] Connection aborted!`);
         });
 
         streams[type].on("connection error network", error => {
-            nodecg.log.error("[twitter] Connection error network:", error.stack);
+            nodecg.log.error(`[twitter] [${type}] Connection error network:`, error.stack);
         });
 
         streams[type].on("connection error stall", () => {
-            nodecg.log.error("[twitter] Connection error stall!");
+            nodecg.log.error(`[twitter] [${type}] Connection error stall!`);
         });
 
         streams[type].on("connection error http", httpStatusCode => {
-            nodecg.log.error("[twitter] Connection error HTTP:", httpStatusCode);
+            nodecg.log.error(`[twitter] [${type}] Connection error HTTP:`, httpStatusCode);
         });
 
         streams[type].on("connection rate limit", httpStatusCode => {
-            nodecg.log.error("[twitter] Connection rate limit:", httpStatusCode);
+            nodecg.log.error(`[twitter] [${type}] Connection rate limit:`, httpStatusCode);
         });
 
         streams[type].on("connection error unknown", error => {
-            nodecg.log.error("[twitter] Connection error unknown:", error.stack);
+            nodecg.log.error(`[twitter] [${type}] Connection error unknown:`, error.stack);
             streams[type].close();
             streams[type] = new TwitterStream({
                 consumer_key: config.consumerKey,
@@ -170,7 +170,7 @@ module.exports = function (nodecg) {
         setTimeout(() => {
             // make sure twitter's enabled and this is the same connection as before
             if (twitter.value.enabled && streams[type] === thisStream) {
-                nodecg.log.info("[twitter] Restarting Twitter connection (done every 90 minutes).");
+                nodecg.log.info(`[twitter] [${type}] Restarting Twitter connection (done every 90 minutes).`);
                 streams[type].close();
                 initializeStream(type);
             }

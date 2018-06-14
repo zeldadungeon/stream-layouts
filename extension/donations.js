@@ -12,6 +12,7 @@ module.exports = function (nodecg) {
             enabled: false,
             total: 0,
             donations: [],
+            lastDonation: 0,
             wars: []
         }
     });
@@ -53,11 +54,12 @@ module.exports = function (nodecg) {
 		}).then(res => {
             // iterate backwards, add new ones to beginning of our list (don't override read/processed for old ones)
             for (let i = res.length - 1; i >= 0; --i) {
-                if (!donations.value.donations.some(d => d.timestamp === res[i].timestamp)) {
-                    donations.value.donations.unshift(res[i]);
+                if (res[i].timestamp > donations.value.lastDonation) {
+                    donations.value.lastDonation = res[i].timestamp;
+                    donations.value.donations.push(res[i]);
                     queue.value.unshift({
                         type: "donation",
-                        id: timestamp,
+                        id: res[i].timestamp,
                         name: res[i].donorName,
                         amount: res[i].donationAmount
                     });

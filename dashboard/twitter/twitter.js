@@ -23,8 +23,6 @@
     const app = new Vue({
         el: "#app",
         template: `<div class="zd-twitter">
-            <input type="checkbox" id="enable-twitter" v-model="twitter.enabled">
-            <label for="enable-twitter">Enable Twitter Link</label>
             <ul><zd-tweet v-for="tweet in twitter.tweets" :tweet="tweet"></zd-tweet></ul>
         </div>`,
         replicants: ["twitter"]

@@ -4,8 +4,6 @@
     const app = new Vue({
         el: "#app",
         template: `<div>
-            <label><input type="checkbox" v-model="twitch.enabled" /> Enable Twitch Link</input>
-            <br />
             <label>Current Game
                 <select v-model="twitch.game">
                     <option v-for="game in games" :value="game">{{ game.subtitle }}</option>
