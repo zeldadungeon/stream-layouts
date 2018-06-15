@@ -1,10 +1,6 @@
 "use strict";
 
 module.exports = function(nodecg) {
-    nodecg.Replicant("players", {
-        defaultValue: {}
-    });
-
     require("./timer")(nodecg);
     require("./ticker")(nodecg);
     require("./donations")(nodecg);

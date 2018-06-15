@@ -125,16 +125,17 @@
         el: "#app",
         template: `<div>
             <zd-timer></zd-timer>
-            <button onclick="nodecg.sendMessage('timer:start')">Start</button>
-            <button onclick="nodecg.sendMessage('timer:stop')">Stop</button>
-            <button onclick="nodecg.sendMessage('timer:reset')">Reset</button>
+            <button v-if="stopwatch.state === 'stopped' && stopwatch.time === 0" onclick="nodecg.sendMessage('timer:reset');nodecg.sendMessage('timer:start');">Start</button>
+            <button v-if="stopwatch.state === 'stopped' && stopwatch.time > 0" onclick="nodecg.sendMessage('timer:start');">Resume</button>
+            <button v-if="stopwatch.state === 'running'" onclick="nodecg.sendMessage('timer:stop');">Stop</button>
+            <button onclick="if (window.confirm('sure?')) {nodecg.sendMessage('timer:stop');nodecg.sendMessage('timer:reset');}">Reset</button>
             <table>
                 <zd-runner v-for="n in show" v-if="n < show" :position="n - 1"></zd-runner>
             </table>
             <button @click="showMore">+</button>
             <button @click="showLess">-</button>
         </div>`,
-        replicants: ["players"],
+        replicants: ["players", "stopwatch"],
         data: {
             show: 4
         },
