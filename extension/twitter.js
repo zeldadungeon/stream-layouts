@@ -111,7 +111,7 @@ module.exports = function (nodecg) {
                 addTweet(retweetedStatus);
             } else if (data.text) {
                 if (data.user.id_str !== TARGET_USER_ID) {
-                //	return;
+                	return;
                 }
 
                 // Filter out @ replies
