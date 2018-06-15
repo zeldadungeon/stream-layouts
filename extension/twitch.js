@@ -46,9 +46,7 @@ module.exports = function (nodecg) {
 
     
     twitch.on("change", (newVal, oldVal) => {
-        const gameChanged = newVal.game && (
-            !oldVal ||
-            !oldVal.game ||
+        const gameChanged = newVal.game && oldVal && oldVal.game && (
             newVal.game.fullTitle !== oldVal.game.fullTitle ||
             newVal.game.subtitle !== oldVal.game.subtitle ||
             newVal.game.initials !== oldVal.game.initials);
