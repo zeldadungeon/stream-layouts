@@ -2,7 +2,7 @@
     "use strict";
 
     Vue.component("time-input", {
-        template: `<input @focus="onFocus" @blur="onBlur" @input="onInput" @change="setDisplayValue">`,
+        template: `<input class="mdl-textfield__input" @focus="onFocus" @blur="onBlur" @input="onInput" @change="setDisplayValue">`,
         props: ["value"],
         data: function() {
             return {
@@ -82,8 +82,8 @@
                     <option v-for="p in playerNames" :value="p">{{ p }}</option>
                 </select>
             </td>
-            <td v-if="player"><button v-if="!player.finish" @click="finish">Finish</button><time-input v-else v-model.lazy="player.finish" style="width: 52px;"></time-input></td>
-            <td v-if="player"><button @click="clear">Clear</button></td>
+            <td v-if="player"><button v-if="!player.finish" class="mdl-button mdl-button--raised" @click="finish">Finish</button><time-input v-else v-model.lazy="player.finish"></time-input></td>
+            <td v-if="player"><button class="mdl-button mdl-button--raised" @click="clear">Clear</button></td>
         </tr>`,
         props: ["position"],
         replicants: ["players", "stopwatch"],
@@ -124,18 +124,31 @@
     const app = new Vue({
         el: "#app",
         template: `<div>
-            <zd-timer></zd-timer>
-            <button v-if="stopwatch.state === 'stopped' && stopwatch.time === 0" onclick="nodecg.sendMessage('timer:reset');nodecg.sendMessage('timer:start');">Start</button>
-            <button v-if="stopwatch.state === 'stopped' && stopwatch.time > 0" onclick="nodecg.sendMessage('timer:start');">Resume</button>
-            <button v-if="stopwatch.state === 'running'" onclick="nodecg.sendMessage('timer:stop');">Stop</button>
-            <button onclick="if (window.confirm('sure?')) {nodecg.sendMessage('timer:stop');nodecg.sendMessage('timer:reset');}">Reset</button>
+            <zd-timer style="text-align: center; font-size: 2em;"></zd-timer>
+            <div class="mdl-grid">
+            <button
+                class="mdl-button mdl-button--raised mdl-cell mdl-cell--2-col"
+                v-if="stopwatch.state === 'stopped' && stopwatch.time === 0"
+                onclick="nodecg.sendMessage('timer:reset');nodecg.sendMessage('timer:start');">Start</button>
+            <button
+                class="mdl-button mdl-button--raised mdl-cell mdl-cell--2-col"
+                v-if="stopwatch.state === 'stopped' && stopwatch.time > 0"
+                onclick="nodecg.sendMessage('timer:start');">Resume</button>
+            <button
+                class="mdl-button mdl-button--raised mdl-cell mdl-cell--2-col"
+                v-if="stopwatch.state === 'running'"
+                onclick="nodecg.sendMessage('timer:stop');">Stop</button>
+            <button
+                class="mdl-button mdl-button--raised mdl-cell mdl-cell--2-col"
+                onclick="if (window.confirm('sure?')) {nodecg.sendMessage('timer:stop');nodecg.sendMessage('timer:reset');}">Reset</button>
+            </div>
             <table>
-                <zd-runner v-for="n in show" v-if="n < show" :position="n - 1"></zd-runner>
+                <zd-runner v-for="n in show" :position="n - 1"></zd-runner>
             </table>
-            <button @click="showMore">+</button>
-            <button @click="showLess">-</button>
+            <button class="mdl-button mdl-button--fab" @click="showMore"><i class="material-icons">add</i></button>
+            <button class="mdl-button mdl-button--fab" @click="showLess"><i class="material-icons">remove</i></button>
         </div>`,
-        replicants: ["players", "stopwatch"],
+        replicants: ["stopwatch"],
         data: {
             show: 4
         },

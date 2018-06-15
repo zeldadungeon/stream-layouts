@@ -23,7 +23,6 @@ module.exports = function (nodecg) {
             running = true;
             const now = Date.now();
             stopwatch.value.time = Math.floor((now - stopwatch.value.started) / INTERVAL);
-            nodecg.log.info(stopwatch.value.time);
             setTimeout(step, INTERVAL - (now - stopwatch.value.started) % INTERVAL);
         } else {
             running = false;
