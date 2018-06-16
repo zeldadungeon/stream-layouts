@@ -57,7 +57,7 @@ module.exports = function (nodecg) {
             name: tweet.user.screen_name, // tweet.user.name
             text: tweet.text
         });
-        if (queue.value.length > 10) queue.value.splice(10, queue.value.length);
+        if (queue.value.length > 20) queue.value.splice(20, queue.value.length);
     });
 
     nodecg.listenFor("twitter:reject", removeTweetById);

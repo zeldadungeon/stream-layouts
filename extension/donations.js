@@ -63,7 +63,7 @@ module.exports = function (nodecg) {
                         name: res[i].donorName,
                         amount: res[i].donationAmount
                     });
-                    if (queue.value.length > 10) queue.value.splice(10, queue.value.length);
+                    if (queue.value.length > 20) queue.value.splice(20, queue.value.length);
                 }
             }
 		}).catch(err => {

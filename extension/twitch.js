@@ -110,7 +110,7 @@ module.exports = function (nodecg) {
            name: cheer.user_name,
            bits: cheer.bits_used
        });
-       if (queue.value.length > 10) queue.value.splice(10, queue.value.length);
+       if (queue.value.length > 20) queue.value.splice(20, queue.value.length);
     });
 
     pubsub.on("subscribe", sub => {
@@ -134,7 +134,7 @@ module.exports = function (nodecg) {
            id: sub.time,
            name: sub.display_name
        });
-       if (queue.value.length > 10) queue.value.splice(10, queue.value.length);
+       if (queue.value.length > 20) queue.value.splice(20, queue.value.length);
     });
 
     function getChannelStatus() {
@@ -209,7 +209,7 @@ module.exports = function (nodecg) {
                         id: res.follows[i].created_at,
                         name: res.follows[i].user.display_name // .user.name
                     });
-                    if (queue.value.length > 10) queue.value.splice(10, queue.value.length);
+                    if (queue.value.length > 20) queue.value.splice(20, queue.value.length);
                 }
             }
         }).catch(err => {

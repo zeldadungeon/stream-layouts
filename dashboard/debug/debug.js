@@ -34,7 +34,7 @@
         methods: {
             addItem: function(item) {
                 this.queue.unshift(item);
-                if (this.queue.length > 10) this.queue.splice(10, this.queue.length);
+                if (this.queue.length > 20) this.queue.splice(20, this.queue.length);
             },
             addTweet: function() {
                 this.addItem({
