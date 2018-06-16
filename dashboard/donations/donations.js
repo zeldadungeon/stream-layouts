@@ -2,12 +2,16 @@
     "use strict";
     
     Vue.component("zd-donation", {
-        template: `<li class="zd-donations__donation">
-            <h4>{{ donation.donorName }}</h4>
-            <strong>\${{ donation.donationAmount }}</strong>
-            <p>{{ donation.message }}</p>
-            <a href="#" role="button" class="zd-donations__button" @click.prevent="dismiss">Processed</a>
-        </li>`,
+        template: `<div class="zd-donations__donation mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__title">
+                <h4 class="mdl-card__title-text">{{ donation.donorName }}</h4>
+                <small class="mdl-card__subtitle-text">\${{ donation.donationAmount }}</small>
+            </div>
+            <div class="mdl-card__supporting-text">{{ donation.message }}</div>
+            <div class="mdl-card__actions mdl-card--border">
+                <a href="#" role="button" class="zd-donations__button mdl-button mdl-button--colored" @click.prevent="dismiss">Processed</a>
+            </div>
+        </div>`,
         props: ["donation"],
         methods: {
             dismiss: function() {
@@ -19,7 +23,7 @@
     const app = new Vue({
         el: "#app",
         template: `<div class="zd-donations">
-            <ul><zd-donation v-for="donation in donations.donations" :key="donation.timestamp" :donation="donation" @dismiss="dismiss"></zd-donation></ul>
+            <zd-donation v-for="donation in donations.donations" :key="donation.timestamp" :donation="donation" @dismiss="dismiss"></zd-donation>
         </div>`,
         replicants: ["donations"],
         methods: {

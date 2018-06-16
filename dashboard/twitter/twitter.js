@@ -2,11 +2,14 @@
     "use strict";
     
     Vue.component("zd-tweet", {
-        template: `<li class="zd-twitter__tweet">
-            <h4>{{ tweet.user.name }}</h4>
-            <p v-html="tweet.text"></p>
-            <a href="#" role="button" class="zd-twitter__button zd-twitter__button--reject" @click="reject">Reject</a><a href="#" role="button" class="zd-twitter__button zd-twitter__button--accept" @click="accept">Accept</a>
-        </li>`,
+        template: `<div class="zd-twitter__tweet mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__title"><div class="mdl-card__title-text">{{ tweet.user.name }}</div></div>
+            <div class="mdl-card__supporting-text" v-html="tweet.text"></div>
+            <div class="mdl-card__actions mdl-card--border">
+                <a href="#" role="button" class="zd-twitter__button zd-twitter__button--reject mdl-button mdl-button--colored" @click="reject">Reject</a>
+                <a href="#" role="button" class="zd-twitter__button zd-twitter__button--accept mdl-button mdl-button--colored" @click="accept">Accept</a>
+            </div>
+        </div>`,
         props: ["tweet"],
         methods: {
             reject: function() {
@@ -23,7 +26,7 @@
     const app = new Vue({
         el: "#app",
         template: `<div class="zd-twitter">
-            <ul><zd-tweet v-for="tweet in twitter.tweets" :tweet="tweet"></zd-tweet></ul>
+            <zd-tweet v-for="tweet in twitter.tweets" :tweet="tweet"></zd-tweet>
         </div>`,
         replicants: ["twitter"]
 	});
