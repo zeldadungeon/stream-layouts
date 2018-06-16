@@ -24,8 +24,9 @@
         }
 
         #p1 {
-            top: 470px;
-            left: 760px;
+            top: 480px;
+            left: 800px;
+            width: 320px;
         }
 
         #p2 {
@@ -53,8 +54,8 @@
     <div id="app">
         <zd-timer></zd-timer>
         <zd-player id="p1" :num="0"></zd-player>
-        <zd-player id="p2" :num="1"></zd-player>
-        <zd-player id="p3" :num="2"></zd-player>
+        <zd-player id="p2" :num="1" :pos="'bottomright'"></zd-player>
+        <zd-player id="p3" :num="2" :pos="'bottomleft'"></zd-player>
         <zd-social></zd-social>
     </div>
 </body>

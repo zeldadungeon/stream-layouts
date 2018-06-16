@@ -33,8 +33,8 @@
         }
 
         .zd-timer {
-            top: 900px;
-            left: 640px;
+            top: 480px;
+            left: 1080px;
         }
 
         .zd-social {
@@ -48,9 +48,9 @@
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0"></zd-player>
-        <zd-player id="p2" :num="1"></zd-player>
-        <zd-social></zd-social>
+        <zd-player id="p1" :num="0" :pos="'left'"></zd-player>
+        <zd-player id="p2" :num="1" :pos="'right'"></zd-player>
+        <zd-social :pos="'topleft'"></zd-social>
     </div>
 </body>
 </html>

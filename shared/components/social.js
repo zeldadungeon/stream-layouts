@@ -28,7 +28,7 @@
 	})
 
 	Vue.component("zd-social", {
-		template: `<div class="zd-social">
+		template: `<div class="zd-social" :class="socialClass">
 			<div class="zd-player"><div class="zd-spinner">
 				<div class="zd-spinner__item" :class="chooseClass(0)">ZeldaDungeon.net</div>
 				<div class="zd-spinner__item" :class="chooseClass(1)"><span class="zd-player__twitch">/ZeldaDungeon</span></div>
@@ -41,8 +41,13 @@
 				<zd-social-event v-for="event in queue" :key="event.id" :event="event"></zd-social-event>
 			</transition-group>
 		</div>`,
-		props: ["num"],
+		props: ["pos"],
 		replicants: ["queue", "ticker"],
+		computed: {
+			socialClass: function() {
+				return `zd-social--${this.pos}`;
+			}
+		},
 		methods: {
 			chooseClass: function(index) {
 				const show = this.ticker.tick % MOD == index;

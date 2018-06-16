@@ -25,10 +25,12 @@
 
         #p1, #p2, #p3 {
             top: 360px;
+            width: 384px;
         }
 
         #p4, #p5, #p6 {
             top: 577px;
+            width: 384px;
         }
 
         #p1, #p4 {
@@ -36,7 +38,7 @@
         }
 
         #p2, #p5 {
-            left: 760px;
+            left: 768px;
         }
 
         #p3, #p6 {
@@ -50,21 +52,22 @@
 
         .zd-social {
             top: 360px;
-            right: 400px;
-            width: 360px;
+            right: 384px;
+            width: 384px;
             height: 277px;
+            overflow: hidden;
         }
     </style>
 </head>
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0"></zd-player>
+        <zd-player id="p1" :num="0" :pos="'topright'"></zd-player>
         <zd-player id="p2" :num="1"></zd-player>
         <zd-player id="p3" :num="2"></zd-player>
-        <zd-player id="p4" :num="3"></zd-player>
-        <zd-player id="p5" :num="4"></zd-player>
-        <zd-player id="p6" :num="5"></zd-player>
+        <zd-player id="p4" :num="3" :pos="'bottomright'"></zd-player>
+        <zd-player id="p5" :num="4" :pos="'bottomleft'"></zd-player>
+        <zd-player id="p6" :num="5" :pos="'bottomleft'"></zd-player>
         <zd-social></zd-social>
     </div>
 </body>

@@ -12,7 +12,7 @@
 				<div class="zd-spinner__item" :class="twitterClass"><span class="zd-player__twitter">@{{player.twitter}}</span></div>
 			</div>
 		</div>`,
-		props: ["num"],
+		props: ["num", "pos"],
 		replicants: ["players", "ticker", "stopwatch"],
 		computed: {
 			player: function() {
@@ -49,9 +49,7 @@
 				return `${h}:${m < 10 ? "0" : ""}${m}:${s < 10 ? "0" : ""}${s}`;
 			},
 			resultClass: function() {
-				return {
-					"zd-player__result--show": this.player && this.player.finish
-				};
+				return this.player && this.player.finish ? `zd-player__result--${this.pos || "topleft"}` : "";
 			}
 		}
 	});

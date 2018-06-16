@@ -23,41 +23,54 @@
             position: absolute;
         }
 
-        #p1, #p2, .zd-timer {
-            top: 432px;
+        #pf {
+            top: 600px;
+            left: 600px;
+        }
+
+        #p1, #p3, #p5 {
+            right: 460px;
+        }
+
+        #p2, #p4, #p6 {
+            right: 0px;
+        }
+
+        #p1, #p2 {
+            top: 240px;
         }
 
         #p3, #p4 {
-            bottom: 515px;
+            top: 570px;
         }
 
-        #p1, #p3 {
-            left: 184px;
-        }
-
-        #p2, #p4 {
-            right: 184px;
+        #p5, #p6 {
+            top: 900px;
         }
 
         .zd-timer {
-            left: 860px;
+            top: 600px;
+            left: 400px;
         }
 
         .zd-social {
-            bottom: 83px;
-            left: 768px;
-            width: 384px;
-            height: 492px;
+            top: 600px;
+            width: 400px;
+            height: 397px;
+            overflow: hidden;
         }
     </style>
 </head>
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
+        <zd-player id="pf" :num="0"></zd-player>
         <zd-player id="p1" :num="0"></zd-player>
         <zd-player id="p2" :num="1"></zd-player>
-        <zd-player id="p3" :num="2" :pos="'bottomleft'"></zd-player>
-        <zd-player id="p4" :num="3" :pos="'bottomleft'"></zd-player>
+        <zd-player id="p3" :num="2"></zd-player>
+        <zd-player id="p4" :num="3"></zd-player>
+        <zd-player id="p5" :num="4"></zd-player>
+        <zd-player id="p6" :num="5"></zd-player>
         <zd-social></zd-social>
     </div>
 </body>

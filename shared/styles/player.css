@@ -38,10 +38,33 @@
     background-color: rgba(0,0,0,.5);
 }
 
-.zd-player__result--show {
-    animation-name: slideabove;
-    animation-duration: 1s;
+.zd-player__result--topleft, .zd-player__result--topright {
+    animation: slideabove 1s;
     top: -100%;
+    height: 100%;
+}
+
+.zd-player__result--bottomleft, .zd-player__result--bottomright {
+    animation: slidebelow 1s;
+    bottom: -100%;
+    height: 100%;
+}
+
+.zd-player__result--topright, .zd-player__result--bottomright {
+    right: 0%;
+}
+
+.zd-player__result--left {
+    animation: slideleft 1s;
+    left: -160px;
+    width: 160px;
+    height: 100%;
+}
+
+.zd-player__result--right {
+    animation: slideright 1s;
+    right: -160px;
+    width: 160px;
     height: 100%;
 }
 
@@ -78,6 +101,11 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.zd-social--topleft .zd-player {
+    left: 0;
+    transform: translateX(0);
 }
 
 .zd-social__queue {
@@ -155,9 +183,27 @@
         top: 0%;
         height: 0%;
     }
+}
 
-    to {
-        top: -100%;
+@keyframes slidebelow {
+    from {
+        bottom: 0%;
+        height: 0%;
+    }
+}
+
+@keyframes slideleft {
+    from {
+        left: 0%;
+        width: 0%;
+        height: 100%;
+    }
+}
+
+@keyframes slideright {
+    from {
+        right: 0%;
+        width: 0%;
         height: 100%;
     }
 }
