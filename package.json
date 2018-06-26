@@ -71,6 +71,13 @@
                 "workspace": "Manage",
                 "width": 2,
                 "headerColor": "#9f9bbd"
+            },
+            {
+                "name": "bingo",
+                "title": "Bingo",
+                "file": "bingo/bingo.html",
+                "headerColor": "#9f9bbd",
+                "fullbleed": true
             }
         ],
         "graphics": [

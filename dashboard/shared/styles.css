@@ -27,3 +27,12 @@ body {
 .mdl-card__title-text, .mdl-card__subtitle-text {
     align-self: flex-start;
 }
+
+.zd-bingo .mdl-cell .mdl-button {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.zd-bingo .mdl-button.zd-completed {
+    background-color: lightgreen;
+}
