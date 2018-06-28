@@ -1,0 +1,21 @@
+.zd-bingo-card {
+    overflow: hidden;
+    font-size: 24px;
+    text-align: center;
+}
+
+.zd-bingo-card__task {
+    width: 100%;
+    height: 20%;
+    box-sizing: border-box;
+    background-color: rgba(0,0,0,.5);
+    border: 1px solid #f3ba33;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 1s;
+}
+
+.zd-bingo-card__task--done {
+    background-color: #253125;
+}

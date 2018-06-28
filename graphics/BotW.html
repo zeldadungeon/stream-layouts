@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../shared/styles/common.css" />
+    <link rel="stylesheet" href="../shared/styles/player.css" />
+    <link rel="stylesheet" href="../shared/styles/timer.css" />
+    <link rel="stylesheet" href="../shared/styles/bingo.css" />
+    <script defer src="../shared/scripts/lodash.core.js"></script>
+    <script defer src="../shared/scripts/vue.js"></script>
+    <script defer src="../shared/scripts/vuecg.js"></script>
+    <script defer src="../shared/components/player.js"></script>
+    <script defer src="../shared/components/timer.js"></script>
+    <script defer src="../shared/components/bingo.js"></script>
+    <script defer src="../shared/components/social.js"></script>
+    <script defer src="../shared/scripts/app.js"></script>
+    <style>
+        #app {
+            height: 1080px;
+            width: 1920px;
+            position: relative;
+        }
+        
+        #app > * {
+            position: absolute;
+        }
+
+        #p1, #p2 {
+            top: 432px;
+        }
+
+        #p3 {
+            bottom: 515px;
+        }
+
+        #p1, #p3 {
+            left: 184px;
+        }
+
+        #p2 {
+            left: 1152px;
+        }
+
+        #b3 {
+            top: 565px;
+        }
+
+        #b1, #b3 {
+            left: 768px;
+        }
+
+        #b2 {
+            right: 768px;
+        }
+
+        .zd-bingo-card {
+            width: 192px;
+            height: 432px;
+        }
+
+        .zd-timer {
+            top: 432px;
+            left: 860px;
+        }
+
+        .zd-social {
+            top: 432px;
+            right: 0px;
+            width: 384px;
+            height: 432px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body> 
+    <div id="app">
+        <zd-timer></zd-timer>
+        <zd-player id="p1" :num="0"></zd-player>
+        <zd-player id="p2" :num="1"></zd-player>
+        <zd-player id="p3" :num="2" :pos="'bottomleft'"></zd-player>
+        <zd-bingo-card id="b1" :num="0"></zd-bingo-card>
+        <zd-bingo-card id="b2" :num="1"></zd-bingo-card>
+        <zd-bingo-card id="b3" :num="2"></zd-bingo-card>
+        <zd-social></zd-social>
+    </div>
+</body>
+</html>
