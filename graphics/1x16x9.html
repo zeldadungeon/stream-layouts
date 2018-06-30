@@ -5,12 +5,13 @@
     <link rel="stylesheet" href="../shared/styles/common.css" />
     <link rel="stylesheet" href="../shared/styles/player.css" />
     <link rel="stylesheet" href="../shared/styles/timer.css" />
+    <link rel="stylesheet" href="../shared/styles/social.css" />
     <script defer src="../shared/scripts/lodash.core.js"></script>
     <script defer src="../shared/scripts/vue.js"></script>
     <script defer src="../shared/scripts/vuecg.js"></script>
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
-    <script defer src="../shared/components/social.js"></script>
+    <script defer src="../shared/components/social2.js"></script>
     <script defer src="../shared/scripts/app.js"></script>
     <style>
         #app {
@@ -31,7 +32,7 @@
             left: 620px;
         }
 
-        .zd-social {
+        .zd-social, .zd-social2 {
             position: absolute;
             top: 480px;
             right: 0px;
@@ -44,7 +45,7 @@
     <div id="app">
         <zd-timer></zd-timer>
         <zd-player id="p1" :num="0" :pos="'none'"></zd-player>
-        <zd-social></zd-social>
+        <zd-social2></zd-social2>
     </div>
 </body>
 </html>
