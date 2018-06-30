@@ -4,22 +4,34 @@
     const app = new Vue({
         el: "#app",
         template: `<div class="zd-omnibar">
-            <img class="zd-omnibar__logo" src="../shared/images/ZDMarathon2018.png" />
+            <div class="zd-omnibar__logo">
+                <transition name="zd-omnibar__logo-transition">
+                    <img v-if="expandLogo" src="../shared/images/ZDMarathon2018.png" />
+                </transition>
+                <transition name="zd-omnibar__logo-transition">
+                    <img v-if="!expandLogo" style="left: 0px;" src="../shared/images/ExtraLife_white.png" />
+                </transition>
+                <transition name="zd-omnibar__logo-transition">
+                    <img v-if="!expandLogo" style="right: 0px;" src="../shared/images/ExtraLife_white.png" />
+                </transition>
+            </div>
+            <div class="zd-omnibar__divider" />
             <div ref="boundary" class="zd-omnibar__ticker">
                 <div class="zd-label" :class="frame0LabelClass">{{ frame0Label }}</div>
                 <div ref="frame0Message" :class="frame0MessageClass" v-html="frame0Message"></div>
                 <div class="zd-label" :class="frame1LabelClass">{{ frame1Label }}</div>
                 <div ref="frame1Message" :class="frame1MessageClass" v-html="frame1Message"></div>
             </div>
+            <div class="zd-omnibar__divider" />
             <div class="zd-omnibar__total">
-                <div>{{ totalDisplay }}</div>
+                <div class="zd-bignumber">{{ totalDisplay }}</div>
                 <div class="zd-label">Total Raised</div>
                 <transition name="rupee">
                     <img v-if="total < donations.total" class="zd-omnibar__total__rupee" :src="rupee" />
                 </transition>
             </div>
-            <img class="zd-omnibar__charity" src="../shared/images/ExtraLife_white.png" />
-            <div class="zd-omnibar__time"><div>{{ now }}</div><div class="zd-label">Local Time</div></div>
+            <div class="zd-omnibar__divider" />
+            <div class="zd-omnibar__time"><div class="zd-bignumber">{{ now }}</div><div class="zd-label">Local Time</div></div>
         </div>`,
         replicants: {
             ticker: {
@@ -57,6 +69,9 @@
             },
             messages: function() {
                 return this.ticker && this.ticker.lines || [];
+            },
+            expandLogo: function() {
+                return true; // TODO this.ticker && this.ticker.tick % 6 == 0;
             },
             frame: function() {
                 if (this.ticker.tick % 2 === 1) {

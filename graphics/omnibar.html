@@ -14,43 +14,60 @@
             margin-top: 80px;
             position: relative;
             border-top: 3px solid #f3ba33;
-            background-color: #253125;
+            background: url("../shared/images/background.png"), linear-gradient(#1d4c6c,#0b1d29,#30414d);
         }
 
         .zd-omnibar > * {
-            position: absolute;
-            top: 0;
+            position: relative;
+            display: inline-block;
             height: 100%;
+            vertical-align: top;
+        }
+
+        .zd-omnibar__divider {
+            background-color: #f3ba33;
+            height: calc(100% - 10px);
+            width: 2px;
+            margin: 5px 0;
         }
 
         .zd-omnibar__logo {
-            left: 0;
             width: 400px;
         }
 
-        .zd-omnibar__time {
-            right: 0;
-            width: 175px;
-            margin-right: 15px;
-            text-align: right;
+        .zd-omnibar__logo > img {
+            height: 100%;
+            position: absolute;
         }
-        
-        .zd-omnibar__charity {
-            right: 190px;
-            width: 205px;
+
+        .zd-omnibar__logo-transition-enter-active, .zd-omnibar__logo-transition-leave-active {
+            transition: opacity 1s;
+        }
+
+        .zd-omnibar__logo-transition-enter, .zd-omnibar__logo-transition-leave-to {
+            opacity: 0;
+        }
+
+        .zd-omnibar__time {
+            width: 156px;
+            text-align: center;
+        }
+
+        .zd-bignumber {
+            font-size: 42px;
+            line-height: 48px;
         }
         
         .zd-omnibar__total {
-            right: 395px;
             width: 170px;
-            margin-left: 15px;
+            text-align: center;
         }
 
         .zd-omnibar__total__rupee {
             height: 100%;
             position: absolute;
             top: 0;
-            left: -60px;
+            left: -25px;
         }
 
         .rupee-enter {
@@ -67,8 +84,7 @@
         }
 
         .zd-omnibar__ticker {
-            left: 400px;
-            width: 940px; /* zd-omnibar__ticker__active--scroll must match */
+            width: 1138px; /* zd-omnibar__ticker__active--scroll must match */
             overflow: hidden;
         }
 
@@ -130,7 +146,7 @@
 
         .zd-omnibar__ticker__active--scroll {
             animation: scroll 3s linear;
-            transform: translateX(calc(940px - 100%)); /* 940px = width of ticker */
+            transform: translateX(calc(1138px - 100%)); /* 1138px = width of ticker */
         }
 
         @keyframes slidedown {
