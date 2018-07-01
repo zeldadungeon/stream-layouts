@@ -14,7 +14,7 @@
 		data: function() {
 			return {
 				cards: [{
-					image: "ZDMarathon2018.png", // TODO just the feather
+					image: "zd_logo.png",
 					text: "ZeldaDungeon.net"
 				}, {
 					image: "Glitch_Purple_RGB.svg",

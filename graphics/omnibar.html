@@ -32,12 +32,15 @@
         }
 
         .zd-omnibar__logo {
-            width: 400px;
+            width: 292px;
+            margin-left: 8px;
         }
 
         .zd-omnibar__logo > img {
-            height: 100%;
             position: absolute;
+            box-sizing: border-box;
+            height: 100%;
+            padding: 5px;
         }
 
         .zd-omnibar__logo-transition-enter-active, .zd-omnibar__logo-transition-leave-active {
@@ -50,6 +53,7 @@
 
         .zd-omnibar__time {
             width: 156px;
+            margin-right: 8px;
             text-align: center;
         }
 
@@ -84,7 +88,7 @@
         }
 
         .zd-omnibar__ticker {
-            width: 1138px; /* zd-omnibar__ticker__active--scroll must match */
+            width: 1230px; /* zd-omnibar__ticker__active--scroll must match */
             overflow: hidden;
         }
 
@@ -146,7 +150,7 @@
 
         .zd-omnibar__ticker__active--scroll {
             animation: scroll 3s linear;
-            transform: translateX(calc(1138px - 100%)); /* 1138px = width of ticker */
+            transform: translateX(calc(1230px - 100%)); /* 1230px = width of ticker */
         }
 
         @keyframes slidedown {
