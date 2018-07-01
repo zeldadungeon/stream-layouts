@@ -1,17 +1,18 @@
-.zd-social2, .zd-social2__card {
+.zd-social, .zd-social__card {
     height: 100%;
 }
 
-.zd-social2__card {
+.zd-social__card {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.zd-social2__logo {
+.zd-social__logo {
     height: 100px;
     margin-bottom: 1em;
+    image-rendering: pixelated;
 }
 
 .fade-enter-active, .fade-leave-active {

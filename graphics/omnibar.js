@@ -33,16 +33,7 @@
             <div class="zd-omnibar__divider" />
             <div class="zd-omnibar__time"><div class="zd-bignumber">{{ now }}</div><div class="zd-label">Local Time</div></div>
         </div>`,
-        replicants: {
-            ticker: {
-                tick: 0,
-                lines: []
-            },
-            donations: {
-                total: 0,
-                wars: []
-            }
-        },
+        replicants: ["ticker", "donations"],
         data: {
             now: new Date().toLocaleString("en-US", { hour: "numeric", minute: "numeric", hour12: true }),
             total: 0,
@@ -108,19 +99,16 @@
             },
             frame0MessageClass: function() {
                 let scrollClass = "";
-                if (this.$refs.frame0Message && this.$refs.boundary) console.log("f0", this.scroll0, this.frame0Label, this.$refs.frame0Message.getBoundingClientRect().width);
                 if (this.scroll0 && //this.frame !== 0 &&
                     this.frame0Label !== "" &&
                     this.$refs.frame0Message && this.$refs.boundary &&
                     this.$refs.frame0Message.getBoundingClientRect().width > this.$refs.boundary.getBoundingClientRect().width) {
-                        console.log("scroll");
                     scrollClass = " zd-omnibar__ticker__active--scroll";
                 }
                 return `zd-omnibar__ticker__${this.frame === 0 ? "staging" : "active"}--${this.frame0Label === "" ? "full" : "message"}${scrollClass}`
             },
             frame1MessageClass: function() {
                 let scrollClass = "";
-                if (this.$refs.frame1Message && this.$refs.boundary) console.log("f1", this.scroll1, this.frame1Label, this.$refs.frame1Message.getBoundingClientRect().width);
                 if (this.scroll1 && //this.frame !== 1 &&
                     this.frame1Label !== "" &&
                     this.$refs.frame1Message && this.$refs.boundary &&

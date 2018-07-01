@@ -1,60 +1,93 @@
 (function () {
 	"use strict";
 
-	const MOD = 6;
-
-	Vue.component("zd-social-event", {
-		template: `<li class="zd-social__event--wrapper"><div class="zd-social__event" :class="typeClass" v-html="html"></div></li>`,
-		props: ["event"],
-		computed: {
-			html: function() {
-				switch(this.event.type) {
-					case "tweet":
-						return `<strong>@${this.event.name}</strong><br>${this.event.text}`;
-					case "donation":
-						return `${this.event.name ? `<strong>${this.event.name}</strong>` : `Someone`} donated <strong>$${this.event.amount}</strong>!`;
-					case "cheer":
-						return `<strong>${this.event.name}</strong> cheered with <strong>${this.event.bits} bit${this.event.bits > 1 ? "s" : ""}</strong>!`;
-					case "follow":
-						return `<strong>${this.event.name}</strong> followed!`;
-					case "sub":
-						return `<strong>${this.event.name}</strong> subscribed!`;
-				}
-			},
-			typeClass: function() {
-				return `zd-social__event--${this.event.type}`;
-			}
-		}
-	})
-
 	Vue.component("zd-social", {
-		template: `<div class="zd-social" :class="socialClass">
-			<div class="zd-player"><div class="zd-spinner">
-				<div class="zd-spinner__item" :class="chooseClass(0)">ZeldaDungeon.net</div>
-				<div class="zd-spinner__item" :class="chooseClass(1)"><span class="zd-player__twitch">/ZeldaDungeon</span></div>
-				<div class="zd-spinner__item" :class="chooseClass(2)"><span class="zd-player__youtube">/TheZeldaDungeon</span></div>
-				<div class="zd-spinner__item" :class="chooseClass(3)"><span class="zd-player__twitter">@ZeldaDungeon</span></div>
-				<div class="zd-spinner__item" :class="chooseClass(4)"><span class="zd-player__facebook">ZeldaDungeon</span></div>
-				<div class="zd-spinner__item" :class="chooseClass(5)"><span class="zd-player__discord">discord.io/zelda</span></div>
-			</div></div>
-			<transition-group name="zd-social__queue" class="zd-social__queue" tag="ul">
-				<zd-social-event v-for="event in queue" :key="event.id" :event="event"></zd-social-event>
-			</transition-group>
+		template: `<div class="zd-social">
+			<transition name="fade" mode="out-in">
+				<div class="zd-social__card" :key="display.id">
+					<img class="zd-social__logo" :src="'../shared/images/' + display.image" />
+					<div class="zd-social__text" v-html="display.text"></div>
+				</div>
+			</transition>
 		</div>`,
-		props: ["pos"],
-		replicants: ["queue", "ticker"],
-		computed: {
-			socialClass: function() {
-				return `zd-social--${this.pos}`;
+		replicants: ["ticker", "social_event"],
+		data: function() {
+			return {
+				event: undefined,
+				cards: [{
+					id: 0,
+					image: "feather.svg",
+					text: "ZeldaDungeon.net"
+				}, {
+					id: 1,
+					image: "Glitch_Purple_RGB.svg",
+					text: "/ZeldaDungeon"
+				}, {
+					id: 2,
+					image: "youtube_social_icon_red.png",
+					text: "/TheZeldaDungeon"
+				}, {
+					id: 3,
+					image: "Twitter_Logo_Blue.svg",
+					text: "@ZeldaDungeon"
+				}, {
+					id: 4,
+					image: "flogo_RGB_HEX-72.svg",
+					text: "ZeldaDungeon"
+				}, {
+					id: 5,
+					image: "Discord-Logo-Color.svg",
+					text: "discord.io/zelda"
+				}, {
+					id: 6,
+					image: "Teespring.svg",
+					text: "tinyurl.com/zdm-shirts"
+				}, {
+					id: 7,
+					image: "ExtraLife_white.png",
+					text: "tinyurl.com/zdm-donate"
+				}]
 			}
 		},
-		methods: {
-			chooseClass: function(index) {
-				const show = this.ticker.tick % MOD == index;
-				return {
-					"zd-spinner__item--show": show,
-					"zd-spinner__item--hide": !show
-				};
+		computed: {
+			display: function() {
+				const event = this.social_event;
+				if (event) {
+					switch(event.type) {
+						case "tweet":
+							return {
+								id: event.id,
+								image: "LA_Weathervane.gif",
+								text: `<strong>@${event.name}</strong><br>${event.text}`
+							};
+						case "donation":
+							return {
+								id: event.id,
+								image: "rupee_anim.gif",
+								text: `${event.name ? `<strong>${event.name}</strong>` : `Someone`} donated <strong>$${event.amount}</strong>!`
+							};
+						case "cheer":
+							return {
+								id: event.id,
+								image: "force_gem.gif",
+								text: `<strong>${event.name}</strong> cheered with <strong>${event.bits} bit${event.bits > 1 ? "s" : ""}</strong>!`
+							};
+						case "follow":
+							return {
+								id: event.id,
+								image: "BowWow.gif",
+								text: `<strong>${event.name}</strong> followed!`
+							};
+						case "sub":
+							return {
+								id: event.id,
+								image: "phone.gif",
+								text: `<strong>${event.name}</strong> subscribed!`
+							};
+					}
+				}
+
+				return this.cards[Math.floor(this.ticker.tick / 2) % this.cards.length || 0];
 			}
 		}
 	});

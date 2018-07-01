@@ -17,10 +17,6 @@ module.exports = function (nodecg) {
         }
     });
 
-    const queue = nodecg.Replicant("queue", {
-        defaultValue: []
-    });
-
     donations.on("change", (newValue, oldValue) => {
         if (newValue.enabled && (!oldValue || !oldValue.enabled)) {
             poll();
@@ -57,13 +53,12 @@ module.exports = function (nodecg) {
                 if (res[i].timestamp > donations.value.lastDonation) {
                     donations.value.lastDonation = res[i].timestamp;
                     donations.value.donations.push(res[i]);
-                    queue.value.unshift({
+                    nodecg.sendMessage("events:queue", {
                         type: "donation",
                         id: res[i].timestamp,
                         name: res[i].donorName,
                         amount: res[i].donationAmount
                     });
-                    if (queue.value.length > 20) queue.value.splice(20, queue.value.length);
                 }
             }
 		}).catch(err => {

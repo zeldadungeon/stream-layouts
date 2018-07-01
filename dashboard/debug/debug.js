@@ -28,13 +28,11 @@
             <button @click="addCheer">Add Cheer to Queue</button>
             <button @click="addFollow">Add Follow to Queue</button>
             <button @click="addSub">Add Sub to Queue</button>
-            <button @click="clearQueue">Clear Social Queue</button>
         </div>`,
-        replicants: ["donations", "queue", "ticker", "twitter", "twitch"],
+        replicants: ["donations", "ticker", "twitter", "twitch"],
         methods: {
             addItem: function(item) {
-                this.queue.unshift(item);
-                if (this.queue.length > 20) this.queue.splice(20, this.queue.length);
+                nodecg.sendMessage("events:queue", item);
             },
             addTweet: function() {
                 this.addItem({
@@ -81,9 +79,6 @@
                     id: Date.now(),
                     name: "dinspower"
                 });
-            },
-            clearQueue: function() {
-                this.queue.splice(0, this.queue.length);
             },
             clearTweets: function() {
                 this.twitter.tweets.splice(0, this.twitter.tweets.length);

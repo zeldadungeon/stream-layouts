@@ -4,6 +4,7 @@ module.exports = function(nodecg) {
     require("./timer")(nodecg);
     require("./ticker")(nodecg);
     require("./donations")(nodecg);
+    require("./events")(nodecg);
     require("./bingo")(nodecg);
 
     if (nodecg.bundleConfig.twitch) {
