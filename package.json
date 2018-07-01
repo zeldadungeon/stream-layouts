@@ -162,6 +162,11 @@
                 "height": 1080
             },
             {
+                "file": "2x16x9.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
                 "file": "3x16x9.html",
                 "width": 1920,
                 "height": 1080
