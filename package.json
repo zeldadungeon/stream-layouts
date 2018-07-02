@@ -78,6 +78,13 @@
                 "file": "bingo/bingo.html",
                 "headerColor": "#9f9bbd",
                 "fullbleed": true
+            },
+            {
+                "name": "elimination",
+                "title": "Elimination",
+                "file": "elimination/elimination.html",
+                "headerColor": "#9f9bbd",
+                "fullbleed": true
             }
         ],
         "graphics": [
