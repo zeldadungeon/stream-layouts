@@ -99,11 +99,13 @@
                 selected: undefined,
                 checkpoints: [
                     "Enter Deepwood Shrine",
+                    "Get Gust Jar",
                     "Finish Deepwood Shrine",
                     "Enter Cave of Flames",
+                    "Get Cane of Pacci",
                     "Finish Cave of Flames",
-                    "Enter Fortress of Winds",
-                    "Finish Fortress of Winds"
+                    "Get Pegasus Boots",
+                    "Enter Fortress of Winds"
                 ]
             };
         },
@@ -124,8 +126,7 @@
                     }
 
                     // there are enough other players who have completed it
-                    const count = this.playerNames.reduce((acc, cur) =>
-                        acc + (this.players[cur].checkpoints && this.players[cur].checkpoints[checkpoint] ? 1 : 0), 0);
+                    const count = this.playerNames.filter(p => this.players[p].checkpoints && this.players[p].checkpoints[checkpoint]).length;
                     if (count > this.checkpoints.length - index) {
                         this.$set(this.player, "finish", this.checkpoints.length - index + 2); // side-effect: set place
 
@@ -151,7 +152,10 @@
                 }
             },
             clear: function() {
-                if (window.confirm("sure?")) this.player.finish = 0;
+                if (window.confirm("sure?")) {
+                    this.player.finish = 0;
+                    this.$set(this.player, "checkpoints", {});
+                }
             },
             toggle: function(checkpoint) {
                 console.log("toggle", checkpoint);
