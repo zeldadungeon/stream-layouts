@@ -1,21 +1,71 @@
 .zd-bingo-card {
-    overflow: hidden;
+    display: flex;
     font-size: 24px;
     text-align: center;
 }
 
+.zd-bingo-card--vertical {
+    flex-direction: column;
+}
+
 .zd-bingo-card__task {
-    width: 100%;
-    height: 20%;
-    box-sizing: border-box;
-    background-color: rgba(0,0,0,.5);
-    border: 1px solid #f3ba33;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex: 1;
+    box-sizing: border-box;
+    border: 2px solid #f3ba33;
+    background-color: rgba(0,0,0,.5);
     transition: background-color 1s;
+    overflow: hidden;
 }
 
-.zd-bingo-card__task--done {
-    background-color: #253125;
+.zd-bingo-card--horizontal .zd-bingo-card__task + .zd-bingo-card__task {
+    border-left-width: 0px;
+}
+
+.zd-bingo-card--vertical .zd-bingo-card__task + .zd-bingo-card__task {
+    border-top-width: 0px;
+}
+/*
+.zd-bingo-card--team1 .zd-bingo-card__task {
+    border-color: #0d3018;
+}
+
+.zd-bingo-card--team2 .zd-bingo-card__task {
+    border-color: #65010b
+}
+
+.zd-bingo-card--team3 .zd-bingo-card__task {
+    border-color: #232e5c
+}
+*/
+.zd-bingo-card__done1 {
+    background-color: #134522;
+}
+
+.zd-bingo-card__done2 {
+    background-color: #9f0110;
+}
+
+.zd-bingo-card__done3 {
+    background-color: #3a4b98; /* #4b256e */
+}
+
+.zd-bingo-card__progress, .zd-bingo-card__teams {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+}
+
+.zd-bingo-card__team {
+    flex: 1;
+}
+
+.zd-bingo-card__taskname {
+    z-index: 10;
 }

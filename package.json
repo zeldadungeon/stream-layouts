@@ -16,7 +16,7 @@
                 "name": "timer",
                 "title": "Timer",
                 "file": "timer/timer.html",
-                "width": 2,
+                "width": 3,
                 "headerColor": "#9f9bbd"
             },
             {
@@ -36,7 +36,7 @@
             {
                 "name": "wars",
                 "title": "Donation Wars",
-                "width": 2,
+                "width": 3,
                 "file": "wars/wars.html",
                 "headerColor": "#9f9bbd"
             },
@@ -108,6 +108,11 @@
             },
             {
                 "file": "bingocard.html",
+                "width": 192,
+                "height": 432
+            },
+            {
+                "file": "bingoshared.html",
                 "width": 192,
                 "height": 432
             },

@@ -3,10 +3,9 @@
 module.exports = function (nodecg) {
     const bingo = nodecg.Replicant("bingo", {
         defaultValue: {
-            enabled: false,
-            board: [],
             teams: [[], [], []],
             bonus: [],
+            required: [],
             totalAtStart: 0,
             raised: 0
         }
@@ -14,31 +13,52 @@ module.exports = function (nodecg) {
 
     const donations = nodecg.Replicant("donations");
     donations.on("change", (newValue, oldValue) => {
-        if (bingo.value.enabled) {
-            bingo.value.raised = newValue.total - bingo.value.totalAtStart;
-        }
+        bingo.value.raised = newValue.total - bingo.value.totalAtStart;
     });
 
     nodecg.listenFor("bingo:shuffle", () => {
-        const board = generateBoard();
-        bingo.value.board = board;
+        let board;
+        let bonus;
 
-        const bonus = [board[16], board[17], board[18], board[19], board[20]].sort((a, b) => a.difficulty - b.difficulty);
-        bonus.shift();
-        bonus.push({ difficulty: 25, "types": ["DLC"], "name": "Obliterator", "synergy": 0 });
+        do { // this block rarely executes more than once
+            board = generateBoard();
+
+            bonus = board.slice(16).filter(task => {
+                // throw out 'dupes' (e.g. team must activate 10 towers, everyone must activate 7 towers)
+                for (let t = 1; t <= 15; ++t) {
+                    // if (board[t].types.some(type => task.types.indexOf(type) > -1)) {
+                    if (JSON.stringify(board[t].types.sort()) === JSON.stringify(task.types.sort())) {
+                        console.log("threw out", task, board[t]);
+                        return false;
+                    }
+                }
+                return true;
+            }).slice(-4); // take the 4 hardest ones
+        } while(bonus.length < 4);
+
+        bonus.push({ difficulty: 25, types: ["DLC"], name: "Obliterator", synergy: 0 });
         for (let i = 0; i < 5; ++i) {
             bonus[i].requires = [100, 250, 450, 700, 1000][i];
+            bonus[i].done = [];
         }
-        bingo.value.bonus = bonus;
 
-        bingo.value.teams[0] = [board[1], board[2], board[3], board[4], board[5]].sort((a, b) => a.difficulty - b.difficulty).concat(bonus);
-        bingo.value.teams[1] = [board[6], board[7], board[8], board[9], board[10]].sort((a, b) => a.difficulty - b.difficulty).concat(bonus);
-        bingo.value.teams[2] = [board[11], board[12], board[13], board[14], board[15]].sort((a, b) => a.difficulty - b.difficulty).concat(bonus);
-    });
-
-    nodecg.listenFor("bingo:start", () => {
-        bingo.value.totalAtStart = donations.value.total;
-        bingo.value.enabled = true;
+        bingo.value = {
+            teams: [
+                board.slice(1,6).sort((a, b) => a.difficulty - b.difficulty),
+                board.slice(6,11).sort((a, b) => a.difficulty - b.difficulty),
+                board.slice(11,16).sort((a, b) => a.difficulty - b.difficulty)
+            ],
+            bonus: bonus,
+            required: ["Vah Ruta", "Vah Rudania", "Calamity Ganon", "Vah Medoh", "Vah Naboris"].map(t => {
+                return {
+                    name: t,
+                    requires: 0,
+                    done: []
+                }
+            }),
+            totalAtStart: donations.value.total,
+            raised: 0
+        };
     });
 };
 

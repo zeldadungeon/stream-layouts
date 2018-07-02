@@ -26,6 +26,33 @@
             position: absolute;
         }
 
+        .zd-border {
+            width: 768px;
+            height: 432px;
+            box-sizing: border-box;
+            border: 2px solid #f3ba33;
+        }
+
+        #border1 {
+            border-color: #0d3018;
+        }
+
+        #border2 {
+            right: 0px;
+            border-color: #65010b;
+        }
+
+        #border3 {
+            bottom: 83px;
+            border-color: #232e5c;
+        }
+
+        #border4 {
+            bottom: 83px;
+            right: 400px;
+            width: 368px;
+        }
+
         #p1, #p2 {
             top: 432px;
         }
@@ -34,15 +61,11 @@
             bottom: 515px;
         }
 
-        #p1, #p3 {
-            left: 184px;
-        }
-
         #p2 {
-            left: 1152px;
+            right: 0;
         }
 
-        #b3 {
+        #b3, #bb {
             top: 565px;
         }
 
@@ -50,38 +73,50 @@
             left: 768px;
         }
 
-        #b2 {
+        #b2, #bb {
             right: 768px;
         }
 
-        .zd-bingo-card {
-            width: 192px;
+        #br{
+            top: 442px;
+            bottom: 525px;
+            left: 410px;
+            right: 410px;
+        }
+
+        .zd-bingo-card--vertical {
+            width: 187px;
             height: 432px;
         }
 
         .zd-timer {
-            top: 432px;
-            left: 860px;
+            bottom: 515px;
+            right: 100px;
         }
 
         .zd-social {
-            top: 432px;
+            bottom: 83px;
             right: 0px;
-            width: 384px;
+            width: 400px;
             height: 432px;
-            overflow: hidden;
         }
     </style>
 </head>
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0"></zd-player>
+        <!--<div class="zd-border" id="border1"></div>
+        <div class="zd-border" id="border2"></div>
+        <div class="zd-border" id="border3"></div>
+        <div class="zd-border" id="border4"></div>-->
+        <zd-player id="p1" :num="0" :pos="'topright'"></zd-player>
         <zd-player id="p2" :num="1"></zd-player>
-        <zd-player id="p3" :num="2" :pos="'bottomleft'"></zd-player>
-        <zd-bingo-card id="b1" :num="0"></zd-bingo-card>
-        <zd-bingo-card id="b2" :num="1"></zd-bingo-card>
-        <zd-bingo-card id="b3" :num="2"></zd-bingo-card>
+        <zd-player id="p3" :num="2" :pos="'bottomright'"></zd-player>
+        <zd-bingo-card id="b1" :num="1" :orientation="'vertical'"></zd-bingo-card>
+        <zd-bingo-card id="b2" :num="2" :orientation="'vertical'"></zd-bingo-card>
+        <zd-bingo-card id="b3" :num="3" :orientation="'vertical'"></zd-bingo-card>
+        <zd-bingo-shared id="br" :type="'required'"></zd-bingo-shared>
+        <zd-bingo-shared id="bb" :type="'bonus'" :orientation="'vertical'"></zd-bingo-shared>
         <zd-social></zd-social>
     </div>
 </body>

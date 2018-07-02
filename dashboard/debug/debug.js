@@ -28,8 +28,10 @@
             <button @click="addCheer">Add Cheer to Queue</button>
             <button @click="addFollow">Add Follow to Queue</button>
             <button @click="addSub">Add Sub to Queue</button>
+            <hr />
+            <label>Raised during Bingo <input type="number" v-model.number.lazy="bingo.raised" style="width: 6em"></label>
         </div>`,
-        replicants: ["donations", "ticker", "twitter", "twitch"],
+        replicants: ["donations", "ticker", "twitter", "twitch", "bingo"],
         methods: {
             addItem: function(item) {
                 nodecg.sendMessage("events:queue", item);

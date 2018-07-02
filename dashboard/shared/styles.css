@@ -28,11 +28,11 @@ body {
     align-self: flex-start;
 }
 
-.zd-bingo .mdl-cell .mdl-button {
+.zd-bingo__button {
     width: 100%;
     margin: 10px 0;
 }
 
-.zd-bingo .mdl-button.zd-completed {
-    background-color: lightgreen;
+.zd-bingo__button--completed {
+    background-color: lightgreen !important;
 }
