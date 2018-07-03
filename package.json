@@ -217,6 +217,12 @@
         "soundCues": [
             {
                 "name": "Donation"
+            }, {
+                "name": "Donation16"
+            }, {
+                "name": "Donation50+"
+            }, {
+                "name": "Donation100+"
             }
         ]
     }

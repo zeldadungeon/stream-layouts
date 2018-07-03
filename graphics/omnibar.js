@@ -150,7 +150,10 @@
                         diff < 100 ? "Purple" :
                         diff < 300 ? "Silver" : "Gold";
                     this.rupee = `../shared/images/BotW_${color}_Rupee_Icon.png`;
-                    nodecg.playSound("Donation");
+                    nodecg.playSound(
+                        diff === 16 ? "Donation16" :
+                        diff >= 100 ? "Donation100+" :
+                        diff >= 50 ? "Donation50+" : "Donation");
                 }
             });
         }
