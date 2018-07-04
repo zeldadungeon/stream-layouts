@@ -124,6 +124,11 @@
                 "height": 432
             },
             {
+                "file": "checkpoint.html",
+                "width": 400,
+                "height": 400
+            },
+            {
                 "file": "2x8x7.html",
                 "width": 1920,
                 "height": 1080

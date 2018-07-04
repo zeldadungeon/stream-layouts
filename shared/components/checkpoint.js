@@ -27,13 +27,9 @@
         },
         computed: {
             num: function() {
-                let i = 0;
-                let count;
-                do {
-                    count = Object.keys(this.players).filter(p => this.players[p].checkpoints && this.players[p].checkpoints[this.checkpoints[i]]).length;
-                } while(count >= this.checkpoints.length - i + 1 && i++ < this.checkpoints.length);
-
-                return i;
+                const worstPlace = this.checkpoints.length + 3;
+                let bestPlace = Object.keys(this.players).reduce((acc, cur) => Math.min(acc, this.players[cur].place || worstPlace), worstPlace);
+                return this.checkpoints.length + 3 - bestPlace;
             },
             target: function() {
                 return this.checkpoints.length - this.num + 1;
@@ -43,10 +39,10 @@
             },
             finished: function() {
                 return !this.stopwatch.results ? [] : this.stopwatch.results
-                    .filter(p => this.players[p].finish)
-                    .sort((a, b) => this.players[a].finish - this.players[b].finish)
+                    .filter(p => this.players[p].place)
+                    .sort((a, b) => this.players[a].place - this.players[b].place)
                     .map(p => {
-                        const position = this.players[p].finish;
+                        const position = this.players[p].place;
 
                         return `${position}${position === 1 ? "st" : position === 2 ? "nd" : position === 3 ? "rd" : "th"}: ${p}`
                     });

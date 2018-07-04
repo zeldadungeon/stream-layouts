@@ -117,24 +117,8 @@
                 this.selected = this.stopwatch && this.stopwatch.results && this.stopwatch.results[this.position];
                 return this.players && this.stopwatch && this.stopwatch.results && this.players[this.stopwatch.results[this.position]];
             },
-            eliminated: function() { // you're elminated if:
-                // you're a player, and there's some checkpoint for which:
-                return this.player && this.checkpoints.some((checkpoint, index) => {
-                    // you have not completed it, and
-                    if (this.player.checkpoints && this.player.checkpoints[checkpoint]) {
-                        return false; 
-                    }
-
-                    // there are enough other players who have completed it
-                    const count = this.playerNames.filter(p => this.players[p].checkpoints && this.players[p].checkpoints[checkpoint]).length;
-                    if (count > this.checkpoints.length - index) {
-                        this.$set(this.player, "finish", this.checkpoints.length - index + 2); // side-effect: set place
-
-                        return true;
-                    }
-
-                    return false;
-                });
+            eliminated: function() {
+                return this.player && this.player.place;
             }
         },
         methods: {
@@ -155,19 +139,54 @@
                 if (window.confirm("sure?")) {
                     this.player.finish = 0;
                     this.$set(this.player, "checkpoints", {});
+                    this.$set(this.player, "place", undefined);
                 }
             },
             toggle: function(checkpoint) {
-                console.log("toggle", checkpoint);
                 if (!this.player.checkpoints) {
                     this.$set(this.player, "checkpoints", {});
                 }
                 if (this.player.checkpoints[checkpoint]) {
-                    console.log(this.player.checkpoints[checkpoint]);
                     this.player.checkpoints[checkpoint] = undefined;
                 } else {
                     this.$set(this.player.checkpoints, checkpoint, this.stopwatch.time);
                 }
+
+                // (re)calculate everyone's position
+                this.playerNames.forEach(p => {
+                    this.players[p].place = undefined;
+                    this.players[p].danger = false;
+                });
+                for (let i = this.checkpoints.length; i-- > 0;) {
+                    const checkpoint = this.checkpoints[i];
+                    // count players who have passed this checkpoint
+                    const count = this.playerNames.filter(p => this.players[p].checkpoints && this.players[p].checkpoints[checkpoint]).length;
+                    if (count > this.checkpoints.length - i) {
+                        // everyone else gets "n-i+2"th place
+                        this.playerNames.forEach(p => {
+                            if (!this.players[p].checkpoints || !this.players[p].checkpoints[checkpoint]) {
+                                this.$set(this.players[p], "place", this.checkpoints.length - i + 2);
+                            }
+                        });
+                    } else if (count > this.checkpoints.length - i - 1) {
+                        // everyone else is in danger
+                        this.playerNames.forEach(p => {
+                            if (!this.players[p].checkpoints || !this.players[p].checkpoints[checkpoint]) {
+                                this.$set(this.players[p], "danger", true);
+                            }
+                        });
+                    }
+                }
+
+                // adjust placements
+                this.playerNames.forEach(p => {
+                    const player = this.players[p];
+                    if (player.place && player.checkpoints) {
+                        let i = 0;
+                        while(player.checkpoints[this.checkpoints[i]]) { i++ };
+                        player.place += this.playerNames.filter(q => q != p && this.players[q].place && this.players[q].checkpoints && this.players[q].checkpoints[this.checkpoints[i]]).length;
+                    }
+                })
             }
         }
     });
@@ -196,20 +215,18 @@
             <table>
                 <zd-runner v-for="n in show" :position="n - 1"></zd-runner>
             </table>
-            <button class="mdl-button mdl-button--fab" @click="showMore"><i class="material-icons">add</i></button>
             <button class="mdl-button mdl-button--fab" @click="showLess"><i class="material-icons">remove</i></button>
         </div>`,
         replicants: ["stopwatch"],
-        data: {
-            show: 10
+        computed: {
+            show: function() {
+                return this.stopwatch && this.stopwatch.results.length + 1 || 0;
+            }
         },
         methods: {
-            showMore: function() {
-                ++this.show;
-            },
             showLess: function() {
-                if (this.show > 0) {
-                    --this.show;
+                if (this.stopwatch && this.stopwatch.results.length > 0) {
+                    this.stopwatch.results.pop();
                 }
             }
         }

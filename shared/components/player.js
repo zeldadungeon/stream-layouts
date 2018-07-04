@@ -14,20 +14,6 @@
 		</div>`,
 		props: ["num", "pos", "type"],
 		replicants: ["players", "ticker", "stopwatch"],
-        data: function() {
-            return {
-                checkpoints: [
-                    "Enter Deepwood Shrine",
-                    "Get Gust Jar",
-                    "Finish Deepwood Shrine",
-                    "Enter Cave of Flames",
-                    "Get Cane of Pacci",
-                    "Finish Cave of Flames",
-                    "Get Pegasus Boots",
-                    "Enter Fortress of Winds"
-                ]
-            };
-        },
 		computed: {
 			player: function() {
 				return this.players && this.stopwatch && this.stopwatch.results && this.players[this.stopwatch.results[this.num]] || {};
@@ -55,10 +41,12 @@
 				};
 			},
             result: function() {
-				const time = this.player && this.player.finish || 0;
-				if (this.type === "elimination" && time < 16) {
-					return `DELETED - ${time}${time === 1 ? "st" : time === 2 ? "nd" : time === 3 ? "rd" : "th"} place`
+				const place = this.player && this.player.place;
+				if (this.type === "elimination" && place) {
+					return `DELETED - ${place}${place === 1 ? "st" : place === 2 ? "nd" : place === 3 ? "rd" : "th"} place`
 				}
+
+				const time = this.player && this.player.finish || 0;
 				const h = Math.floor(time / 3600);
 				const m = Math.floor(time % 3600 / 60);
 				const s = Math.floor(time % 3600 % 60);
@@ -66,40 +54,12 @@
 				return `${h}:${m < 10 ? "0" : ""}${m}:${s < 10 ? "0" : ""}${s}`;
 			},
 			resultClass: function() {
-				return this.player && this.player.finish ? `zd-player__result--${this.pos || "topleft"}` : "";
+				return this.player && (this.player.finish || this.type === "elimination" && this.player.place) ? `zd-player__result--${this.pos || "topleft"}` : "";
 			},
             specialClass: function() {
-				if (this.type !== "elimination") return ""; // only applies to elimination
-                // if you're a player, and there's some checkpoint for which:
-                return this.player && this.checkpoints.some((checkpoint, index) => {
-                    // you have not completed it, and
-                    if (this.player.checkpoints && this.player.checkpoints[checkpoint]) {
-                        return false; 
-                    }
-
-                    // there are enough other players who have completed it
-                    const count = Object.keys(this.players).filter(p => this.players[p].checkpoints && this.players[p].checkpoints[checkpoint]).length;
-                    if (count > this.checkpoints.length - index) {
-                        return true;
-                    }
-
-                    return false;
-				}) ? "zd-player--eliminated" : // then you're eliminated
-                // if you're a player, and there's some checkpoint for which:
-				this.player && this.checkpoints.some((checkpoint, index) => {
-                    // you have not completed it, and
-                    if (this.player.checkpoints && this.player.checkpoints[checkpoint]) {
-                        return false; 
-                    }
-
-                    // there are almost enough other players who have completed it
-                    const count = Object.keys(this.players).filter(p => this.players[p].checkpoints && this.players[p].checkpoints[checkpoint]).length;
-                    if (count > this.checkpoints.length - index -1 ) {
-                        return true;
-                    }
-
-                    return false;
-				}) ? "zd-player--warning" : ""; // then you're close to being eliminated
+				if (this.type !== "elimination") return "";
+                return this.player && this.player.place ? "zd-player--eliminated" :
+                	this.player && this.player.danger ? "zd-player--warning" : ""; // then you're close to being eliminated
             }
 		}
 	});

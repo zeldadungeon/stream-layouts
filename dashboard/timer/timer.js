@@ -145,20 +145,18 @@
             <table>
                 <zd-runner v-for="n in show" :position="n - 1"></zd-runner>
             </table>
-            <button class="mdl-button mdl-button--fab" @click="showMore"><i class="material-icons">add</i></button>
             <button class="mdl-button mdl-button--fab" @click="showLess"><i class="material-icons">remove</i></button>
         </div>`,
         replicants: ["stopwatch"],
-        data: {
-            show: 4
+        computed: {
+            show: function() {
+                return this.stopwatch && this.stopwatch.results.length + 1 || 0;
+            }
         },
         methods: {
-            showMore: function() {
-                ++this.show;
-            },
             showLess: function() {
-                if (this.show > 0) {
-                    --this.show;
+                if (this.stopwatch && this.stopwatch.results.length > 0) {
+                    this.stopwatch.results.pop();
                 }
             }
         }
