@@ -6,6 +6,13 @@
     background-color: rgba(0,0,0,.5);
 }
 
+.zd-player--warning {
+    animation-name: warning;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
 .zd-player__twitch {
     background: url("../images/Glitch_Purple_RGB.svg") no-repeat;
     padding-left: 1.25em;
@@ -38,7 +45,7 @@
     background-color: rgba(0,0,0,.5);
 }
 
-.zd-player__result--topleft, .zd-player__result--topright {
+.zd-player__result--topleft, .zd-player__result--topright, .zd-player__result--elimination {
     animation: slideabove 1s;
     top: -100%;
     height: 100%;
@@ -145,5 +152,16 @@
 @keyframes expand {
     from {
         transform: scale(1,0);
+    }
+}
+
+@keyframes warning {
+    from {
+        text-shadow: 0 0 5px rgba(255,0,0,1), 0 0 5px rgba(255,0,0,1);
+        /*background-color: rgba(0,0,0,.5);*/
+    }
+    to {
+        text-shadow: -20px 0 300px rgba(255,0,0,0), 20px 0 300px rgba(255,0,0,0);
+        /*background-color: rgba(255,0,0,.5);*/
     }
 }

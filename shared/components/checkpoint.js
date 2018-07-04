@@ -42,7 +42,7 @@
                 return Object.keys(this.players).filter(p => this.players[p].checkpoints && this.players[p].checkpoints[this.checkpoints[this.num]]).length;
             },
             finished: function() {
-                return this.stopwatch.results
+                return !this.stopwatch.results ? [] : this.stopwatch.results
                     .filter(p => this.players[p].finish)
                     .sort((a, b) => this.players[a].finish - this.players[b].finish)
                     .map(p => {
