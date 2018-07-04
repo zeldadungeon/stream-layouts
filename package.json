@@ -204,7 +204,17 @@
                 "height": 1080
             },
             {
-                "file": "10x3x2.html",
+                "file": "e2x3x2.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "e6x3x2.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "e10x3x2.html",
                 "width": 1920,
                 "height": 1080
             },

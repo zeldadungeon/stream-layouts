@@ -2,7 +2,7 @@
     "use strict";
     
     Vue.component("zd-checkpoint", {
-        template: `<div class="zd-checkpoint" style="text-align: center;">
+        template: `<div class="zd-checkpoint" style="text-align: center; padding: 10px 15px; box-sizing: border-box;">
             <div style="display: inline-block; text-align: left;">
                 <div v-if="num < checkpoints.length">Checkpoint {{ num + 1 }}: {{ count }} / {{ target }}<br />{{ checkpoints[num] }}<br /></div>
                 <div style="display: flex; flex-wrap: wrap;">

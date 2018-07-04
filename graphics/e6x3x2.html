@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../shared/styles/common.css" />
+    <link rel="stylesheet" href="../shared/styles/player.css" />
+    <link rel="stylesheet" href="../shared/styles/timer.css" />
+    <link rel="stylesheet" href="../shared/styles/social.css" />
+    <script defer src="../shared/scripts/lodash.core.js"></script>
+    <script defer src="../shared/scripts/vue.js"></script>
+    <script defer src="../shared/scripts/vuecg.js"></script>
+    <script defer src="../shared/components/player.js"></script>
+    <script defer src="../shared/components/timer.js"></script>
+    <script defer src="../shared/components/social.js"></script>
+    <script defer src="../shared/components/checkpoint.js"></script>
+    <script defer src="../shared/scripts/app.js"></script>
+    <style>
+        #app {
+            height: 1080px;
+            width: 1920px;
+            position: relative;
+        }
+        
+        #app > * {
+            position: absolute;
+        }
+
+        #p1, #p2, #p3, #p4 {
+            top: 320px;
+        }
+
+        #p5, #p6 {
+            top: 700px;
+        }
+
+        #p1, #p5 {
+            left: 40px;
+        }
+
+        #p2 {
+            left: 520px;
+        }
+
+        #p3 {
+            right: 520px;
+        }
+
+        #p4, #p6 {
+            right: 40px;
+        }
+
+        .zd-timer {
+            bottom: 83px;
+            left: 860px;
+        }
+
+        .zd-social {
+            bottom: 83px;
+            right: 0px;
+            width: 480px;
+            height: 237px;
+        }
+
+        .zd-checkpoint {
+            bottom: 83px;
+            width: 480px;
+            height: 237px;
+        }
+    </style>
+</head>
+<body> 
+    <div id="app">
+        <zd-timer></zd-timer>
+        <zd-player id="p1" :num="0" :type="'elimination'"></zd-player>
+        <zd-player id="p2" :num="1" :type="'elimination'"></zd-player>
+        <zd-player id="p3" :num="2" :type="'elimination'"></zd-player>
+        <zd-player id="p4" :num="3" :type="'elimination'"></zd-player>
+        <zd-player id="p5" :num="4" :type="'elimination'"></zd-player>
+        <zd-player id="p6" :num="5" :type="'elimination'"></zd-player>
+        <zd-social></zd-social>
+        <zd-checkpoint></zd-checkpoint>
+    </div>
+</body>
+</html>
