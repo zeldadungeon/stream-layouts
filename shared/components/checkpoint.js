@@ -50,5 +50,3 @@
         }
     });
 })();
-
-// TODO list 10-3rd place above

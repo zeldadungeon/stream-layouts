@@ -156,6 +156,7 @@
                 this.playerNames.forEach(p => {
                     this.players[p].place = undefined;
                     this.players[p].danger = false;
+                    this.players[p].eliminated = false;
                 });
                 for (let i = this.checkpoints.length; i-- > 0;) {
                     const checkpoint = this.checkpoints[i];
@@ -165,7 +166,7 @@
                         // everyone else gets "n-i+2"th place
                         this.playerNames.forEach(p => {
                             if (!this.players[p].checkpoints || !this.players[p].checkpoints[checkpoint]) {
-                                this.$set(this.players[p], "place", this.checkpoints.length - i + 2);
+                                this.$set(this.players[p], "eliminated", this.checkpoints.length - i + 2);
                             }
                         });
                     } else if (count > this.checkpoints.length - i - 1) {
@@ -179,12 +180,12 @@
                 }
 
                 // adjust placements
-                this.playerNames.forEach(p => {
+                this.stopwatch.results.forEach(p => {
                     const player = this.players[p];
-                    if (player.place && player.checkpoints) {
+                    if (player.eliminated) {
                         let i = 0;
-                        while(player.checkpoints[this.checkpoints[i]]) { i++ };
-                        player.place += this.playerNames.filter(q => q != p && this.players[q].place && this.players[q].checkpoints && this.players[q].checkpoints[this.checkpoints[i]]).length;
+                        while( player.checkpoints && player.checkpoints[this.checkpoints[i]]) { i++ };
+                        this.$set(player, "place", this.stopwatch.results.filter(q => q != p && this.players[q].checkpoints && this.players[q].checkpoints[this.checkpoints[i]]).length + 1);
                     }
                 })
             }

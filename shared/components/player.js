@@ -54,11 +54,11 @@
 				return `${h}:${m < 10 ? "0" : ""}${m}:${s < 10 ? "0" : ""}${s}`;
 			},
 			resultClass: function() {
-				return this.player && (this.player.finish || this.type === "elimination" && this.player.place) ? `zd-player__result--${this.pos || "topleft"}` : "";
+				return this.player && (this.player.finish || this.type === "elimination" && this.player.eliminated) ? `zd-player__result--${this.pos || "topleft"}` : "";
 			},
             specialClass: function() {
 				if (this.type !== "elimination") return "";
-                return this.player && this.player.place ? "zd-player--eliminated" :
+                return this.player && this.player.eliminated ? "zd-player--eliminated" :
                 	this.player && this.player.danger ? "zd-player--warning" : ""; // then you're close to being eliminated
             }
 		}
