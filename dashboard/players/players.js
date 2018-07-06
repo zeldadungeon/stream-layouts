@@ -13,7 +13,7 @@
                 <tr><th>Twitter</th><td><input v-model.lazy="player.twitter" /></td></tr>
                 <tr><th>Twitch</th><td><input v-model.lazy="player.twitch" /></td></tr>
                 <tr><th>Filename</th><td><input v-model.lazy="player.filename" /></td></tr>
-                <tr><th>TP Handicap (minutes)</th><td><input type="number" v-model.number.lazy="player.tpHandicap" /></td></tr>
+                <tr><th>TP Handicap (minutes)</th><td><input type="number" v-model.number.lazy="player.offset" /></td></tr>
             </table>
             <button v-if="player" @click="remove">Remove</button>
         </div>`,

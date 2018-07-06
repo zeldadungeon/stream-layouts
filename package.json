@@ -85,6 +85,13 @@
                 "file": "elimination/elimination.html",
                 "headerColor": "#9f9bbd",
                 "fullbleed": true
+            },
+            {
+                "name": "rumble",
+                "title": "Royal Rumble",
+                "file": "rumble/rumble.html",
+                "headerColor": "#9f9bbd",
+                "fullbleed": true
             }
         ],
         "graphics": [

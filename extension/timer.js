@@ -50,6 +50,12 @@ module.exports = function (nodecg) {
     nodecg.listenFor("timer:reset", () => {
         stopwatch.value.time = 0;
         stopwatch.value.started = Date.now();
-        Object.keys(players.value).forEach(p => players.value[p].finish = undefined);
+        Object.keys(players.value).forEach(p => {
+            players.value[p].finish = undefined;
+            players.value[p].checkpoints = {};
+            players.value[p].eliminated = false;
+            players.value[p].danger = false;
+            players.value[p].place = undefined;
+        });
     });
 };

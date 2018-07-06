@@ -150,12 +150,12 @@
         replicants: ["stopwatch"],
         computed: {
             show: function() {
-                return this.stopwatch && this.stopwatch.results.length + 1 || 0;
+                return this.stopwatch && this.stopwatch.results && this.stopwatch.results.length + 1 || 0;
             }
         },
         methods: {
             showLess: function() {
-                if (this.stopwatch && this.stopwatch.results.length > 0) {
+                if (this.stopwatch && this.stopwatch.results && this.stopwatch.results.length > 0) {
                     this.stopwatch.results.pop();
                 }
             }

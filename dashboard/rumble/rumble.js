@@ -74,23 +74,36 @@
             }
         }
     });
-    
+
     Vue.component("zd-runner", {
-        template: `<tr :class="{ 'zd-runner--eliminated': eliminated }">
-            <td>
+        template: `<tr style="position: relative;">
+            <td style="position: absolute; width: 160px; left: 15px; padding-top: 12px;">
                 <select v-model="selected" @change="setPlayer">
                     <option v-for="p in playerNames" :value="p">{{ p }}</option>
                 </select>
             </td>
-            <td v-if="player"><button v-if="!player.finish" class="mdl-button mdl-button--raised" @click="finish">Finish</button><time-input v-else v-model.lazy="player.finish"></time-input></td>
-            <td v-if="player"><button class="mdl-button mdl-button--raised" @click="clear">Clear</button></td>
-            <td v-if="player" v-for="n in checkpoints.length">
+            <td v-if="player && stopwatch.time >= offset" v-for="n in checkpoints.length">
                 <button
-                    class="mdl-button mdl-button--raised"
+                    v-if="!player.checkpoints[checkpoints[n - 1]]"
+                    class="zd-checkpoint-button mdl-button mdl-button--raised"
                     :class="{ 'zd-bingo__button--completed': player.checkpoints && player.checkpoints[checkpoints[n - 1]] }"
-                    :disabled="eliminated || n > 1 && (!player.checkpoints || !player.checkpoints[checkpoints[n - 2]])"
+                    :disabled="stopwatch.time < offset || n > 1 && (!player.checkpoints || !player.checkpoints[checkpoints[n - 2]])"
                     @click="toggle(checkpoints[n - 1])">{{ checkpoints[n - 1] }}</button>
+                <div v-else>
+                    <time-input v-model.lazy="player.checkpoints[checkpoints[n - 1]]" style="width: 200px;"></time-input>
+                    <div>Normal: {{ format(getNormalizedTime(checkpoints[n - 1])) }} | Split: {{ format(player.checkpoints[checkpoints[n - 1]] - (player.checkpoints[checkpoints[n - 2]] || 0)) }}</div>
+                    <div>Behind: {{ format(getDiffFromFirst(checkpoints[n - 1])) }} ({{ format(getDiffFromFirst(checkpoints[n - 1]) - (getDiffFromFirst(checkpoints[n - 2]) || 0), true) }})</div>
+                </div>
             </td>
+            <td v-if="player && stopwatch.time >= offset">
+                <button
+                    v-if="!player.finish"
+                    class="mdl-button mdl-button--raised"
+                    :disabled="!player.checkpoints[checkpoints[checkpoints.length - 1]]"
+                    @click="finish">Finish</button>
+                <time-input v-else v-model.lazy="player.finish"></time-input></td>
+            <td v-if="player && stopwatch.time >= offset"><button class="mdl-button mdl-button--raised" @click="clear">Clear</button></td>
+            <td v-if="player && stopwatch.time < offset">Starts in {{ format(offset - stopwatch.time) }}</td>
         </tr>`,
         props: ["position"],
         replicants: ["players", "stopwatch"],
@@ -98,14 +111,25 @@
             return {
                 selected: undefined,
                 checkpoints: [
-                    "Enter Deepwood Shrine",
-                    "Get Gust Jar",
-                    "Finish Deepwood Shrine",
-                    "Enter Cave of Flames",
-                    "Get Cane of Pacci",
-                    "Finish Cave of Flames",
-                    "Get Pegasus Boots",
-                    "Enter Fortress of Winds"
+                    "Enter Forest Temple",
+                    "Finish Forest Temple",
+                    "Enter Goron Mines",
+                    "Finish Goron Mines",
+                    "Enter Lakebed",
+                    "Finish Lakebed",
+                    "Master Sword",
+                    "Enter Arbiter's Grounds",
+                    "Finish Arbiter's Grounds",
+                    "Enter Snowpeak",
+                    "Finish Snowpeak",
+                    "Enter Temple of Time",
+                    "Finish Temple of Time",
+                    "Hidden Village",
+                    "Enter City in the Sky",
+                    "Finish City in the Sky",
+                    "Enter Palace of Twilight",
+                    "Finish Palace of Twilight",
+                    "Enter Hyrule Castle"
                 ]
             };
         },
@@ -117,11 +141,20 @@
                 this.selected = this.stopwatch && this.stopwatch.results && this.stopwatch.results[this.position];
                 return this.players && this.stopwatch && this.stopwatch.results && this.players[this.stopwatch.results[this.position]];
             },
-            eliminated: function() {
-                return this.player && this.player.eliminated;
+            offset: function() {
+                return this.player && this.player.offset || 0; // TODO * 60
             }
         },
         methods: {
+            getNormalizedTime(checkpoint) {
+                return this.player.checkpoints[checkpoint] - this.offset
+            },
+            getFirstFinish(checkpoint) {
+                return this.playerNames.reduce((best, p) => Math.min(best, this.players[p].checkpoints[checkpoint] || Number.MAX_VALUE), Number.MAX_VALUE);
+            },
+            getDiffFromFirst(checkpoint) {
+                return this.player.checkpoints[checkpoint] - this.getFirstFinish(checkpoint);
+            },
             setPlayer: function() {
                 console.log("setting to ", this.selected);
                 this.$set(this.stopwatch.results, this.position, this.selected);
@@ -151,72 +184,49 @@
                 } else {
                     this.$set(this.player.checkpoints, checkpoint, this.stopwatch.time);
                 }
-
-                // (re)calculate everyone's position
-                this.playerNames.forEach(p => {
-                    this.players[p].place = undefined;
-                    this.players[p].danger = false;
-                    this.players[p].eliminated = false;
-                });
-                for (let i = this.checkpoints.length; i-- > 0;) {
-                    const checkpoint = this.checkpoints[i];
-                    // count players who have passed this checkpoint
-                    const count = this.playerNames.filter(p => this.players[p].checkpoints && this.players[p].checkpoints[checkpoint]).length;
-                    if (count > this.checkpoints.length - i) {
-                        // everyone else gets "n-i+2"th place
-                        this.playerNames.forEach(p => {
-                            if (!this.players[p].checkpoints || !this.players[p].checkpoints[checkpoint]) {
-                                this.$set(this.players[p], "eliminated", this.checkpoints.length - i + 2);
-                            }
-                        });
-                    } else if (count > this.checkpoints.length - i - 1) {
-                        // everyone else is in danger
-                        this.playerNames.forEach(p => {
-                            if (!this.players[p].checkpoints || !this.players[p].checkpoints[checkpoint]) {
-                                this.$set(this.players[p], "danger", true);
-                            }
-                        });
-                    }
+            },
+            format: function (time, diff = false) {
+                let negative = false;
+                if (time < 0) {
+                    negative = true;
+                    time = -time;
                 }
+				const h = Math.floor(time / 3600);
+				const m = Math.floor(time % 3600 / 60);
+				const s = Math.floor(time % 3600 % 60);
 
-                // adjust placements
-                this.stopwatch.results.forEach(p => {
-                    const player = this.players[p];
-                    if (player.eliminated) {
-                        let i = 0;
-                        while (player.checkpoints && player.checkpoints[this.checkpoints[i]]) { i++ };
-                        this.$set(player, "place", this.stopwatch.results.filter(q => q != p && this.players[q].checkpoints && this.players[q].checkpoints[this.checkpoints[i]]).length + 1);
-                    }
-                })
+				return `${negative ? "-" : diff ? "+" : ""}${h}:${m < 10 ? "0" : ""}${m}:${s < 10 ? "0" : ""}${s}`;
             }
         }
     });
     
     const app = new Vue({
         el: "#app",
-        template: `<div>
+        template: `<div style="width: 100%">
             <zd-timer style="text-align: center; font-size: 2em;"></zd-timer>
             <div class="mdl-grid">
-            <button
-                class="mdl-button mdl-button--raised mdl-cell mdl-cell--2-col"
-                v-if="stopwatch.state === 'stopped' && stopwatch.time === 0"
-                onclick="nodecg.sendMessage('timer:reset');nodecg.sendMessage('timer:start');">Start</button>
-            <button
-                class="mdl-button mdl-button--raised mdl-cell mdl-cell--2-col"
-                v-if="stopwatch.state === 'stopped' && stopwatch.time > 0"
-                onclick="nodecg.sendMessage('timer:start');">Resume</button>
-            <button
-                class="mdl-button mdl-button--raised mdl-cell mdl-cell--2-col"
-                v-if="stopwatch.state === 'running'"
-                onclick="nodecg.sendMessage('timer:stop');">Stop</button>
-            <button
-                class="mdl-button mdl-button--raised mdl-cell mdl-cell--2-col"
-                onclick="if (window.confirm('sure?')) {nodecg.sendMessage('timer:stop');nodecg.sendMessage('timer:reset');}">Reset</button>
+                <button
+                    class="mdl-button mdl-button--raised mdl-cell mdl-cell--2-col"
+                    v-if="stopwatch.state === 'stopped' && stopwatch.time === 0"
+                    onclick="nodecg.sendMessage('timer:reset');nodecg.sendMessage('timer:start');">Start</button>
+                <button
+                    class="mdl-button mdl-button--raised mdl-cell mdl-cell--2-col"
+                    v-if="stopwatch.state === 'stopped' && stopwatch.time > 0"
+                    onclick="nodecg.sendMessage('timer:start');">Resume</button>
+                <button
+                    class="mdl-button mdl-button--raised mdl-cell mdl-cell--2-col"
+                    v-if="stopwatch.state === 'running'"
+                    onclick="nodecg.sendMessage('timer:stop');">Stop</button>
+                <button
+                    class="mdl-button mdl-button--raised mdl-cell mdl-cell--2-col"
+                    onclick="if (window.confirm('sure?')) {nodecg.sendMessage('timer:stop');nodecg.sendMessage('timer:reset');}">Reset</button>
             </div>
-            <table>
-                <zd-runner v-for="n in show" :position="n - 1"></zd-runner>
-            </table>
-            <button class="mdl-button mdl-button--fab" @click="showLess"><i class="material-icons">remove</i></button>
+            <div style="width: calc(100% - 160px); margin-left: 160px; overflow-x: auto;">
+                <table>
+                    <zd-runner v-for="n in show" :position="n - 1"></zd-runner>
+                </table>
+            </div>
+            <button class="mdl-button mdl-button--fab" @click="showLess" style="margin-top: 38px;"><i class="material-icons">remove</i></button>
         </div>`,
         replicants: ["stopwatch"],
         computed: {
