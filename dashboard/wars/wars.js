@@ -4,7 +4,7 @@
     Vue.component("zd-war-option", {
         template: `<tr class="zd-wars__option">
             <td><input class="mdl-textfield__input" v-model.lazy="option.label" /></td>
-            <td><input class="mdl-textfield__input" type="number" v-model.number.lazy="option.amount" /></td>
+            <td><input class="mdl-textfield__input" type="number" v-model.number.lazy="option.amount" @change="$emit('change')"/></td>
             <td><button class="mdl-button mdl-button--raised" @click="$emit(option.newOption ? 'add' : 'remove')">{{ option.newOption ? 'Add' : 'Remove' }}</button></td>
         </tr>`,
         props: ["option"]
@@ -23,7 +23,7 @@
             </div>
             <table v-if="selected">
                 <tr><th style="width: 50%">Label</th><th style="width: 40%">Amount</th><th style="width: 10%"></th></tr>
-                <zd-war-option v-for="(option, index) in selected.options" :option="option" @remove="removeOption(index)"></zd-war-option>
+                <zd-war-option v-for="(option, index) in selected.options" :option="option" @change="sort" @remove="removeOption(index)"></zd-war-option>
                 <tr style="height: 2em;" />
                 <zd-war-option :option="newOption" @add="addOption"></zd-war-option>
             </table>
@@ -63,6 +63,11 @@
             },
             removeOption: function(index) {
                 if (window.confirm("sure?")) this.selected.options.splice(index, 1);
+            },
+            sort: function() {
+                console.log(this.selected.options);
+                this.selected.options = this.selected.options.sort((a, b) => b.amount - a.amount);
+                console.log(this.selected.options);
             }
         },
         watch: {
