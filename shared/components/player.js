@@ -1,7 +1,7 @@
 (function () {
 	"use strict";
 
-	const MOD = 6;
+	const MOD = 12;
 
 	Vue.component("zd-player", {
 		template: `<div class="zd-player" :class="specialClass">
@@ -10,6 +10,7 @@
 				<div class="zd-spinner__item" :class="nameClass">{{ player.name }}{{ info }}</div>
 				<div class="zd-spinner__item" :class="twitchClass"><span class="zd-player__twitch">/{{player.twitch}}</span></div>
 				<div class="zd-spinner__item" :class="twitterClass"><span class="zd-player__twitter">@{{player.twitter}}</span></div>
+				<div class="zd-spinner__item" :class="filenameClass">{{ player.filename }}</div>
 			</div>
 		</div>`,
 		props: ["num", "pos", "type"],
@@ -46,21 +47,28 @@
 			},
 			nameClass: function() {
 				const mod = this.ticker.tick % MOD;
-				const show = mod != 1 && mod != 3 || !this.player.twitch && mod == 1 || !this.player.twitter && mod == 3;
+				const show = mod != 0 && mod != 1 || !this.player.twitch && mod == 0 || !this.player.twitter && mod == 1 || !this.player.filename && mod == 5;
 				return {
 					"zd-spinner__item--show": show,
 					"zd-spinner__item--hide": !show
 				};
 			},
 			twitchClass: function() {
-				const show = this.player.twitch && this.ticker.tick % MOD == 1;
+				const show = this.player.twitch && this.ticker.tick % MOD == 0;
 				return {
 					"zd-spinner__item--show": show,
 					"zd-spinner__item--hide": !show
 				};
 			},
 			twitterClass: function() {
-				const show = this.player.twitter && this.ticker.tick % MOD == 3;
+				const show = this.player.twitter && this.ticker.tick % MOD == 1;
+				return {
+					"zd-spinner__item--show": show,
+					"zd-spinner__item--hide": !show
+				};
+			},
+			filenameClass: function() {
+				const show = this.player.filename && this.ticker.tick % MOD == 5;
 				return {
 					"zd-spinner__item--show": show,
 					"zd-spinner__item--hide": !show
