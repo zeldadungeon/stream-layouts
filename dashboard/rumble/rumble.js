@@ -75,6 +75,87 @@
         }
     });
 
+    Vue.component("zd-checkpoint", {
+        template: `<td>
+            <button
+                v-if="!checkpointData || !checkpointData.finish"
+                class="zd-checkpoint-button mdl-button mdl-button--raised"
+                :disabled="prev && !player.checkpoints[prev]"
+                @click="finish()">{{ checkpoint }}</button>
+            <div v-else>
+                <time-input v-model.lazy="checkpointData.finish" style="width: 200px;" @input="updateCheckpointData"></time-input>
+                <div>Normal: {{ format(checkpointData.normalized) }} | Split: {{ format(checkpointData.split) }}</div>
+                <div>Behind: {{ format(checkpointData.behind) }} ({{ format(checkpointData.gained, true) }})</div>
+            </div>
+        </td>`,
+        props: ["position", "checkpoint", "prev"],
+        replicants: ["players", "stopwatch"],
+        computed: {
+            player: function() {
+                return this.players && this.stopwatch && this.stopwatch.results && this.players[this.stopwatch.results[this.position]];
+            },
+            offset: function() {
+                return (this.player.offset || 0) * 60;
+            },
+            checkpointData: function() {
+                return this.player.checkpoints[this.checkpoint];
+            }
+        },
+        methods: {
+            getFirstFinish(checkpoint) {
+                return this.playerNames.reduce((best, p) => Math.min(best, this.players[p].checkpoints[checkpoint] || Number.MAX_VALUE), Number.MAX_VALUE);
+            },
+            getDiffFromFirst(checkpoint) {
+                return this.player.checkpoints[checkpoint] - this.getFirstFinish(checkpoint);
+            },
+            finish: function() {
+                if (!this.player.checkpoints) {
+                    this.$set(this.player, "checkpoints", {});
+                }
+
+                if (!this.player.checkpoints[this.checkpoint]) {
+                    this.$set(this.player.checkpoints, this.checkpoint, {});
+                }
+
+                this.$set(this.checkpointData, "finish", this.stopwatch.time);
+                this.updateCheckpointData();
+            },
+            updateCheckpointData: function() {
+                const finish = this.checkpointData.finish;
+                const prevFinish = this.prev ? this.player.checkpoints[this.prev].finish : 0;
+                const prevBehind = this.prev ? this.player.checkpoints[this.prev].behind : this.offset;
+                this.$set(this.checkpointData, "normalized", finish - this.offset);
+                this.$set(this.checkpointData, "split", finish - prevFinish);
+
+                let firstFinish = Object.keys(this.players).reduce((best, p) => Math.min(best, this.players[p].checkpoints[this.checkpoint] && this.players[p].checkpoints[this.checkpoint].finish || Number.MAX_VALUE), Number.MAX_VALUE);
+                if (firstFinish === Number.MAX_VALUE) { firstFinish = 0; } // this happens when the checkpoint is edited to 0 such that nobody's completed it
+                this.$set(this.checkpointData, "behind", finish - firstFinish);
+                this.$set(this.checkpointData, "gained", this.checkpointData.behind - prevBehind);
+                this.$set(this.player, "behind", finish - firstFinish);
+
+                if (this.checkpoint === "Finish") {
+                    this.$set(this.player, "finish", finish);
+                } else if (this.player.behind) {
+                    this.$set(this.player, "gained", this.checkpointData.behind - prevBehind);
+                    const self = this;
+                    setTimeout(() => self.$set(self.player, "gained", undefined), 10000);
+                }
+            },
+            format: function (time, diff = false) {
+                let negative = false;
+                if (time < 0) {
+                    negative = true;
+                    time = -time;
+                }
+				const h = Math.floor(time / 3600);
+				const m = Math.floor(time % 3600 / 60);
+				const s = Math.floor(time % 3600 % 60);
+
+				return `${negative ? "-" : diff ? "+" : ""}${h}:${m < 10 ? "0" : ""}${m}:${s < 10 ? "0" : ""}${s}`;
+            }
+        }
+    });
+
     Vue.component("zd-runner", {
         template: `<tr style="position: relative;">
             <td style="position: absolute; width: 160px; left: 15px; padding-top: 12px;">
@@ -82,28 +163,15 @@
                     <option v-for="p in playerNames" :value="p">{{ p }}</option>
                 </select>
             </td>
-            <td v-if="player && stopwatch.time >= offset" v-for="n in checkpoints.length">
-                <button
-                    v-if="!player.checkpoints[checkpoints[n - 1]]"
-                    class="zd-checkpoint-button mdl-button mdl-button--raised"
-                    :class="{ 'zd-bingo__button--completed': player.checkpoints && player.checkpoints[checkpoints[n - 1]] }"
-                    :disabled="stopwatch.time < offset || n > 1 && (!player.checkpoints || !player.checkpoints[checkpoints[n - 2]])"
-                    @click="toggle(checkpoints[n - 1])">{{ checkpoints[n - 1] }}</button>
-                <div v-else>
-                    <time-input v-model.lazy="player.checkpoints[checkpoints[n - 1]]" style="width: 200px;"></time-input>
-                    <div>Normal: {{ format(getNormalizedTime(checkpoints[n - 1])) }} | Split: {{ format(player.checkpoints[checkpoints[n - 1]] - (player.checkpoints[checkpoints[n - 2]] || 0)) }}</div>
-                    <div>Behind: {{ format(getDiffFromFirst(checkpoints[n - 1])) }} ({{ format(getDiffFromFirst(checkpoints[n - 1]) - (getDiffFromFirst(checkpoints[n - 2]) || 0), true) }})</div>
-                </div>
-            </td>
-            <td v-if="player && stopwatch.time >= offset">
-                <button
-                    v-if="!player.finish"
-                    class="mdl-button mdl-button--raised"
-                    :disabled="!player.checkpoints[checkpoints[checkpoints.length - 1]]"
-                    @click="finish">Finish</button>
-                <time-input v-else v-model.lazy="player.finish"></time-input></td>
-            <td v-if="player && stopwatch.time >= offset"><button class="mdl-button mdl-button--raised" @click="clear">Clear</button></td>
-            <td v-if="player && stopwatch.time < offset">Starts in {{ format(offset - stopwatch.time) }}</td>
+            <zd-checkpoint
+                v-if="player && stopwatch.time > offset"
+                v-for="n in checkpoints.length"
+                :key="n"
+                :position="position"
+                :checkpoint="checkpoints[n - 1]"
+                :prev="checkpoints[n - 2]"></zd-checkpoint>
+            <td v-if="player && stopwatch.time > offset"><button class="mdl-button mdl-button--raised" @click="clear">Clear</button></td>
+            <td v-if="player && stopwatch.time <= offset" style="height: 38px;">Starts in {{ format(offset - stopwatch.time) }}</td>
         </tr>`,
         props: ["position"],
         replicants: ["players", "stopwatch"],
@@ -129,7 +197,8 @@
                     "Finish City in the Sky",
                     "Enter Palace of Twilight",
                     "Finish Palace of Twilight",
-                    "Enter Hyrule Castle"
+                    "Enter Hyrule Castle",
+                    "Finish"
                 ]
             };
         },
@@ -142,47 +211,20 @@
                 return this.players && this.stopwatch && this.stopwatch.results && this.players[this.stopwatch.results[this.position]];
             },
             offset: function() {
-                return this.player && this.player.offset || 0; // TODO * 60
+                return (this.player && this.player.offset || 0) * 60;
             }
         },
         methods: {
-            getNormalizedTime(checkpoint) {
-                return this.player.checkpoints[checkpoint] - this.offset
-            },
-            getFirstFinish(checkpoint) {
-                return this.playerNames.reduce((best, p) => Math.min(best, this.players[p].checkpoints[checkpoint] || Number.MAX_VALUE), Number.MAX_VALUE);
-            },
-            getDiffFromFirst(checkpoint) {
-                return this.player.checkpoints[checkpoint] - this.getFirstFinish(checkpoint);
-            },
             setPlayer: function() {
                 console.log("setting to ", this.selected);
                 this.$set(this.stopwatch.results, this.position, this.selected);
                 console.log("results", this.stopwatch.results);
-            },
-            finish: function() {
-                console.log("finish", this.player.finish, this.stopwatch.time);
-                if (this.player.finish === undefined) {
-                    this.$set(this.player, "finish", this.stopwatch.time);
-                } else {
-                    this.player.finish = this.stopwatch.time;
-                }
             },
             clear: function() {
                 if (window.confirm("sure?")) {
                     this.player.finish = 0;
                     this.$set(this.player, "checkpoints", {});
                     this.$set(this.player, "place", undefined);
-                }
-            },
-            toggle: function(checkpoint) {
-                if (!this.player.checkpoints) {
-                    this.$set(this.player, "checkpoints", {});
-                }
-                if (this.player.checkpoints[checkpoint]) {
-                    this.player.checkpoints[checkpoint] = undefined;
-                } else {
-                    this.$set(this.player.checkpoints, checkpoint, this.stopwatch.time);
                 }
             },
             format: function (time, diff = false) {

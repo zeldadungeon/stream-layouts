@@ -112,8 +112,8 @@
             },
             {
                 "file": "nameplate.html",
-                "width": 400,
-                "height": 60
+                "width": 720,
+                "height": 180
             },
             {
                 "file": "social.html",
@@ -222,6 +222,11 @@
             },
             {
                 "file": "e10x3x2.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "rr10x16x9.html",
                 "width": 1920,
                 "height": 1080
             },

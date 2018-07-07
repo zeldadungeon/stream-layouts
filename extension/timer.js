@@ -56,6 +56,8 @@ module.exports = function (nodecg) {
             players.value[p].eliminated = false;
             players.value[p].danger = false;
             players.value[p].place = undefined;
+            players.value[p].behind = players.value[p].offset;
+            players.value[p].gained = undefined;
         });
     });
 };

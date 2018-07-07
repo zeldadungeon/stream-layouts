@@ -17,3 +17,19 @@ strong, .hashtag {
     color: #f3ba33;
     font-weight: bold;
 }
+
+.zd-time--positive {
+    color: lightcoral;
+}
+
+.zd-time--positive:before {
+    content: "+";
+}
+
+.zd-time--negative {
+    color: lightgreen;
+}
+
+.zd-time--negative:before {
+    content: "-";
+}
