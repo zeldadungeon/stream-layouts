@@ -151,7 +151,7 @@
                         diff < 300 ? "Silver" : "Gold";
                     this.rupee = `../shared/images/BotW_${color}_Rupee_Icon.png`;
                     nodecg.playSound(
-                        diff === 16 ? "Donation16" :
+                        diff === 16 || (diff % 1).toFixed(2) === "0.16" ? "Donation16" :
                         diff >= 100 ? "Donation100+" :
                         diff >= 50 ? "Donation50+" : "Donation");
                 }

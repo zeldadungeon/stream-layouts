@@ -19,8 +19,14 @@
             width: 1920px;
             position: relative;
         }
-        
+
         #p1 {
+            position: absolute;
+            top: 35px;
+            left: 520px;
+        }
+        
+        #p2 {
             position: absolute;
             bottom: 115px;
             left: 520px;
@@ -28,8 +34,8 @@
 
         .zd-timer {
             position: absolute;
-            top: 35px;
-            left: 620px;
+            top: 517px;
+            right: 138px;
         }
 
         .zd-social {
@@ -44,7 +50,8 @@
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0" :pos="'none'"></zd-player>
+        <zd-player id="p1" :num="0" :pos="'right'"></zd-player>
+        <zd-player id="p2" :num="1" :pos="'right'"></zd-player>
         <zd-social></zd-social>
     </div>
 </body>

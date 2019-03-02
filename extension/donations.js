@@ -1,9 +1,9 @@
 "use strict";
 
 const request = require("request-promise");
-const POLL_INTERVAL = 60 * 1000;
+const POLL_INTERVAL = 15 * 1000;
 
-module.exports = function (nodecg) {
+module.exports = function (nodecg, enqueue) {
     const config = nodecg.bundleConfig.extralife;
 	const log = new nodecg.Logger(`${nodecg.bundleName}:donations`);
     
@@ -23,15 +23,17 @@ module.exports = function (nodecg) {
         }
     });
 
+    nodecg.listenFor("donations:debug", () => getDonations());
+
     function poll() {
         if (donations.value.enabled) {
             request({
                 method: "get",
-                uri: `https://www.extra-life.org/index.cfm?fuseaction=donorDrive.participant&format=json&participantID=${config.participantId}`,
+                uri: `https://www.extra-life.org/api/participants/${config.participantId}`,
                 json: true
             }).then(res => {
-                if (res.totalRaisedAmount !== donations.value.total) {
-                    donations.value.total = res.totalRaisedAmount;
+                if (res.sumDonations !== donations.value.total) {
+                    donations.value.total = res.sumDonations;
                     getDonations();
                 }
             }).catch(err => {
@@ -45,19 +47,20 @@ module.exports = function (nodecg) {
     function getDonations() {
         request({
 			method: "get",
-			uri: `https://www.extra-life.org/index.cfm?fuseaction=donorDrive.participantDonations&format=json&participantID=${config.participantId}`,
+			uri: `https://www.extra-life.org/api/participants/${config.participantId}/donations`,
 			json: true
 		}).then(res => {
             // iterate backwards, add new ones to beginning of our list (don't override read/processed for old ones)
             for (let i = res.length - 1; i >= 0; --i) {
-                if (res[i].timestamp > donations.value.lastDonation) {
-                    donations.value.lastDonation = res[i].timestamp;
+                const timestamp = Date.parse(res[i].createdDateUTC);
+                if (timestamp > donations.value.lastDonation) {
+                    donations.value.lastDonation = timestamp;
                     donations.value.donations.push(res[i]);
-                    nodecg.sendMessage("events:queue", {
+                    enqueue({
                         type: "donation",
-                        id: res[i].timestamp,
-                        name: res[i].donorName,
-                        amount: res[i].donationAmount
+                        id: timestamp,
+                        name: res[i].displayName,
+                        amount: res[i].amount
                     });
                 }
             }

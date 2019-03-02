@@ -10,7 +10,7 @@
 				<div class="zd-spinner__item" :class="nameClass">{{ player.name }}{{ info }}</div>
 				<div class="zd-spinner__item" :class="twitchClass"><span class="zd-player__twitch">/{{player.twitch}}</span></div>
 				<div class="zd-spinner__item" :class="twitterClass"><span class="zd-player__twitter">@{{player.twitter}}</span></div>
-				<div class="zd-spinner__item" :class="filenameClass">{{ player.filename }}</div>
+				<div class="zd-spinner__item" :class="filenameClass">Filename: {{ player.filename }}</div>
 			</div>
 		</div>`,
 		props: ["num", "pos", "type"],
@@ -47,7 +47,7 @@
 			},
 			nameClass: function() {
 				const mod = this.ticker.tick % MOD;
-				const show = mod != 0 && mod != 1 || !this.player.twitch && mod == 0 || !this.player.twitter && mod == 1 || !this.player.filename && mod == 5;
+				const show = mod != 0 && mod != 1 && mod != 5 || !this.player.twitch && mod == 0 || !this.player.twitter && mod == 1 || !this.player.filename && mod == 5;
 				return {
 					"zd-spinner__item--show": show,
 					"zd-spinner__item--hide": !show

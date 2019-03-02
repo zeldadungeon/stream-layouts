@@ -6,13 +6,16 @@ module.exports = function (nodecg) {
     const displayedEvent = nodecg.Replicant("social_event");
     const ticker = nodecg.Replicant("ticker");
 
+    console.log("listening for queue");
     nodecg.listenFor("events:queue", event => {
+        console.log("queueing ", event);
         queue.push(event);
         if (idle) {
             idle = false;
             showEvent();
         }
     });
+    console.log("listened for queue");
 
     function showEvent() {
         const event = queue.shift();

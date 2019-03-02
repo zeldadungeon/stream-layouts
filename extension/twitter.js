@@ -3,7 +3,7 @@
 const twemoji = require("twemoji");
 const TwitterStream = require("twitter-stream-api");
 
-module.exports = function (nodecg) {
+module.exports = function (nodecg, enqueue) {
     const config = nodecg.bundleConfig.twitter;
     const TARGET_USER_ID = config.userId;
     
@@ -47,15 +47,22 @@ module.exports = function (nodecg) {
 
     nodecg.listenFor("twitter:accept", tweetId => {
         const tweet = removeTweetById(tweetId);
-        nodecg.sendMessage("events:queue", {
+        enqueue({
             type: "tweet",
             id: tweet.id,
-            name: tweet.user.screen_name, // tweet.user.name
+            name: tweet.user.name, // tweet.user.screen_name
             text: tweet.text
         });
     });
 
     nodecg.listenFor("twitter:reject", removeTweetById);
+
+    nodecg.listenFor("twitter:debug", () => addTweet({
+        id: 1234,
+        id_str: "1234",
+        text: "test",
+        user: {screen_name: "test", name: "name"}
+    }));
 
     /**
      * Builds the stream. Called once every 90 minutes because sometimes the stream just dies silently.
@@ -70,6 +77,7 @@ module.exports = function (nodecg) {
         });
 
         streams[type].on("data", data => {
+            // if (type === "filter") console.log(data);
             // We discard quoted statuses because we can't show them.
             if (data.quoted_status) {
                 return;
@@ -105,7 +113,7 @@ module.exports = function (nodecg) {
                 retweetedStatus.retweetId = data.id_str;
                 addTweet(retweetedStatus);
             } else if (data.text) {
-                if (data.user.id_str !== TARGET_USER_ID) {
+                if (data.user.id_str !== TARGET_USER_ID && (!config.hashtag || config.hashtag === "" || data.text.indexOf(config.hashtag) === -1)) {
                 	return;
                 }
 

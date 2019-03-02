@@ -38,7 +38,8 @@
                     twitter: "",
                     twitch: "",
                     filename: "",
-                    tpHandicap: 0
+                    tpHandicap: 0,
+                    checkpoints: {}
                 };
                 this.$set(this.players, "New Player", newPlayer);
                 this.selected = "New Player";

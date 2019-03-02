@@ -35,17 +35,21 @@
 					image: "flogo_RGB_HEX-72.svg",
 					text: "ZeldaDungeon"
 				}, {
+					id: 8,
+					image: "instagram.png",
+					text: "Zelda_Dungeon"
+				}, {
 					id: 5,
 					image: "Discord-Logo-Color.svg",
 					text: "discord.io/zelda"
 				}, {
 					id: 6,
 					image: "Teespring.svg",
-					text: "tinyurl.com/zdm-shirts"
+					text: "tinyurl.com/zdmshirts"
 				}, {
 					id: 7,
 					image: "ExtraLife_white.png",
-					text: "tinyurl.com/zdm-donate"
+					text: "tinyurl.com/zdmdonate"
 				}]
 			}
 		},

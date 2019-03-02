@@ -3,7 +3,7 @@
 const request = require("request-promise");
 const TwitchPubSub = require("twitchps");
 
-module.exports = function (nodecg) {
+module.exports = function (nodecg, enqueue) {
     const BITS_TOTAL_UPDATE_INTERVAL = 10 * 1000;
     const FOLLOWERS_UPDATE_INTERVAL = 10 * 1000;
     const config = nodecg.bundleConfig.twitch;
@@ -100,7 +100,7 @@ module.exports = function (nodecg) {
         user_name - {string}
         version - {string}
         */
-       nodecg.sendMessage("events:queue", {
+       enqueue({
            type: "cheer",
            id: cheer.time,
            name: cheer.user_name,
@@ -124,7 +124,7 @@ module.exports = function (nodecg) {
         sub_message.message - {string}
         sub_message.emotes - {array}
         */
-       nodecg.sendMessage("events:queue", {
+       enqueue({
            type: "sub",
            id: sub.time,
            name: sub.display_name
@@ -198,7 +198,7 @@ module.exports = function (nodecg) {
             for (let i = res.follows.length - 1; i >= 0; --i) {
                 if (followers.indexOf(res.follows[i].user._id) === -1) {
                     followers.push(res.follows[i].user._id);
-                    nodecg.sendMessage("events:queue", {
+                    enqueue({
                         type: "follow",
                         id: res.follows[i].created_at,
                         name: res.follows[i].user.display_name // .user.name

@@ -65,9 +65,11 @@
                 if (window.confirm("sure?")) this.selected.options.splice(index, 1);
             },
             sort: function() {
+                /*
                 console.log(this.selected.options);
                 this.selected.options = this.selected.options.sort((a, b) => b.amount - a.amount);
                 console.log(this.selected.options);
+                */
             }
         },
         watch: {
