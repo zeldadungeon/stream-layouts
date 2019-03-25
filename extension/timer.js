@@ -2,7 +2,6 @@
 
 const INTERVAL = 1000; // ms
 
-
 module.exports = function (nodecg) {
     const stopwatch = nodecg.Replicant("stopwatch", {
         defaultValue: {
@@ -13,9 +12,11 @@ module.exports = function (nodecg) {
         }
     });
     
+    /*
     const players = nodecg.Replicant("players", {
         defaultValue: {}
     });
+    */
 
     let running = false;
     function step() {
@@ -36,6 +37,7 @@ module.exports = function (nodecg) {
     nodecg.listenFor("timer:start", () => {
         if (stopwatch.value.state !== "running") {
             stopwatch.value.state = "running";
+            stopwatch.value.started = Date.now();
             if (!running) {
                 step();
             }
@@ -44,12 +46,12 @@ module.exports = function (nodecg) {
 
     nodecg.listenFor("timer:stop", () => {
         stopwatch.value.state = "stopped";
-        Object.keys(players.value).forEach(p => players.value[p].finish = players.value[p].finish || stopwatch.value.time);
+        // Object.keys(players.value).forEach(p => players.value[p].finish = players.value[p].finish || stopwatch.value.time);
     });
 
     nodecg.listenFor("timer:reset", () => {
         stopwatch.value.time = 0;
-        stopwatch.value.started = Date.now();
+        /*
         Object.keys(players.value).forEach(p => {
             players.value[p].finish = undefined;
             players.value[p].checkpoints = {};
@@ -59,5 +61,6 @@ module.exports = function (nodecg) {
             players.value[p].behind = players.value[p].offset;
             players.value[p].gained = undefined;
         });
+        */
     });
 };

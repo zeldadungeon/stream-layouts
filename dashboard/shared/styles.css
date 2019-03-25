@@ -1,9 +1,20 @@
-html {
-    height: initial;
+body {
+    height: 100%;
+    background-color: initial;
 }
 
-body {
-    width: calc(100% - 30px);
+.md-app {
+    height: 100%;
+}
+
+/* fix dropdown/select menus hiding behind dialog */
+.md-menu-content {
+    z-index: 10;
+}
+
+.zd-boxart {
+    float: left;
+    margin: 0 1em 1em 0;
 }
 
 .zd-checkpoint-button {
