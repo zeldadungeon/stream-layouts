@@ -1,15 +1,26 @@
 body {
     height: 100%;
-    background-color: initial;
 }
 
 .md-app {
     height: 100%;
 }
 
+.md-app.md-theme-default .md-content {
+    background-color: #303030;
+    background-color: var(--md-theme-default-background, #303030);
+}
+
 /* fix dropdown/select menus hiding behind dialog */
 .md-menu-content {
     z-index: 10;
+}
+
+.md-card {
+    width: 320px;
+    margin: 4px;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .zd-boxart {
