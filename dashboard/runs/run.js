@@ -20,6 +20,12 @@
 
             <zd-race-card v-for="(racer, index) in run.racers" :racer="racer" :key="index" :index="index + 1" :run="run" />
 
+            <div class="md-subheading" style="line-height: 40px;">Incentives<md-button class="md-icon-button" @click="newIncentive"><md-icon>add</md-icon></md-button></div>
+
+            <div v-if="run.incentives">
+                <zd-incentive-card v-for="(incentive, index) in run.incentives" :incentive="incentive" :key="index" @delete="deleteIncentive(index)" />
+            </div>
+
             <md-dialog-confirm
                 :md-active.sync="showQueueDialog"
                 md-title="Queue this run?"
@@ -63,6 +69,19 @@
                     <md-button class="md-primary" @click="saveChanges" :disabled="!formValid">Save</md-button>
                 </md-dialog-actions>
             </md-dialog>
+            <md-dialog :md-active.sync="showAddIncentiveDialog">
+                <md-dialog-title>New Donation Incentive</md-dialog-title>
+                <md-dialog-content>
+                    <md-field>
+                        <label>Name</label>
+                        <md-input v-model="edit.incentive.name" required></md-input>
+                    </md-field>
+                </md-dialog-content>
+                <md-dialog-actions>
+                    <md-button class="md-primary" @click="showAddIncentiveDialog = false">Close</md-button>
+                    <md-button class="md-primary" @click="addIncentive" :disabled="!edit.incentive.name">Save</md-button>
+                </md-dialog-actions>
+            </md-dialog>
         </div>`,
         props: ["runName"],
         replicants: ["runs", "stopwatch"],
@@ -71,7 +90,10 @@
                 showEditDialog: false,
                 showQueueDialog: false,
                 showResetDialog: false,
-                edit: {}
+                showAddIncentiveDialog: false,
+                edit: {
+                    incentive: {}
+                }
             }
         },
         computed: {
@@ -179,6 +201,21 @@
                 this.run.racers.forEach(r => {
                     r.finish = null;
                 });
+            },
+            newIncentive() {
+                this.edit.incentive = {
+                    name: "Filename",
+                    options: {}
+                };
+                this.showAddIncentiveDialog = true;
+            },
+            addIncentive() {
+                if (!this.run.incentives) { this.$set(this.run, "incentives", []); }
+                this.run.incentives.push(this.edit.incentive);
+                this.showAddIncentiveDialog = false;
+            },
+            deleteIncentive(index) {
+                this.run.incentives.splice(index, 1);
             }
         }
     });

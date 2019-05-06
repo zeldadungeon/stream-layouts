@@ -7,8 +7,9 @@
         template: `<md-card>
             <md-card-header>
                 <md-card-header-text>
-                    <div class="md-title">Player {{ index }}</div>
+                    <div class="md-title">Racer {{ index }}</div>
                 </md-card-header-text>
+                
                 <md-menu md-direction="bottom-end">
                     <md-button :disabled="!racer.name" class="md-icon-button" md-menu-trigger>
                         <md-icon>more_vert</md-icon>
