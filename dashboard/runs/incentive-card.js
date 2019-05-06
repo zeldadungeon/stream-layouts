@@ -34,7 +34,7 @@
                     <md-list-item v-for="option in options" :key="option">
                         <div class="md-list-item-text md-primary">{{ option }}</div>
                         <div class="md-list-item-text" style="text-align: right;"><span>{{ formatMoney(incentive.options[option]) }}</span></div>
-                        <md-button class="md-icon-button"><md-icon>add</md-icon></md-button>
+                        <md-button class="md-icon-button" @click="editOption(option)"><md-icon>add</md-icon></md-button>
                     </md-list-item>
                 </md-list>
             </md-card-content>
@@ -84,6 +84,24 @@
                     <md-button class="md-primary" @click="addOption" :disabled="!formValid">Save</md-button>
                 </md-dialog-actions>
             </md-dialog>
+
+            <md-dialog :md-active.sync="showEditOptionDialog">
+                <md-dialog-title>Editing {{ edit.option.name }}</md-dialog-title>
+                <md-dialog-content>
+                    <md-radio v-model="edit.option.action" value="add">Add this value to the total</md-radio><br />
+                    <md-radio v-model="edit.option.action" value="subtract">Subtract this value from the total</md-radio><br />
+                    <md-radio v-model="edit.option.action" value="set">Set the total to this value</md-radio>
+                    <md-field :class="{ 'md-invalid': !newOptionValueValid }">
+                        <label>Value</label>
+                        <md-input v-model="edit.option.value" required></md-input>
+                        <span class="md-error">Must be a number.</span>
+                    </md-field>
+                </md-dialog-content>
+                <md-dialog-actions>
+                    <md-button class="md-primary" @click="showEditOptionDialog = false">Close</md-button>
+                    <md-button class="md-primary" @click="saveOptionChanges" :disabled="!newOptionValueValid">Save</md-button>
+                </md-dialog-actions>
+            </md-dialog>
         </md-card>`,
         props: ["incentive"],
         data() {
@@ -91,6 +109,7 @@
                 showEditIncentiveDialog: false,
                 showDeleteIncentiveDialog: false,
                 showAddOptionDialog: false,
+                showEditOptionDialog: false,
                 edit: {
                     incentive: {},
                     option: {}
@@ -143,6 +162,22 @@
                 this.$set(this.incentive.options, this.edit.option.name, Number(this.edit.option.value));
                 this.showAddOptionDialog = false;
             },
+            editOption(option) {
+                this.edit.option = {
+                    name: option,
+                    action: "add",
+                    value: ""
+                };
+                this.showEditOptionDialog = true;
+            },
+            saveOptionChanges() {
+                const name = this.edit.option.name;
+                const action = this.edit.option.action;
+                const valueInput = Number(this.edit.option.value);
+                const valueFinal = action === "add" ? this.incentive.options[name] + valueInput : action === "subtract" ? this.incentive.options[name] - valueInput : valueInput;
+                this.incentive.options[name] = valueFinal;
+                this.showEditOptionDialog = false;
+            }
         }
     });
 })();
