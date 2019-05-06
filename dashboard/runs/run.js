@@ -20,8 +20,6 @@
 
             <zd-race-card v-for="(racer, index) in run.racers" :racer="racer" :key="index" :index="index + 1" :run="run" />
 
-            <div class="clear: both;">{{ run }}</div>
-
             <md-dialog-confirm
                 :md-active.sync="showQueueDialog"
                 md-title="Queue this run?"

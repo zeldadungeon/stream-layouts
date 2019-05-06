@@ -6,7 +6,26 @@
     Vue.component("zd-race-card", {
         template: `<md-card>
             <md-card-header>
-                <div class="md-title">Player {{ index }}</div>
+                <md-card-header-text>
+                    <div class="md-title">Player {{ index }}</div>
+                </md-card-header-text>
+                <md-menu md-direction="bottom-end">
+                    <md-button :disabled="!racer.name" class="md-icon-button" md-menu-trigger>
+                        <md-icon>more_vert</md-icon>
+                    </md-button>
+        
+                    <md-menu-content>
+                        <md-menu-item @click="editPlayer">
+                            <span>Edit selected player</span>
+                            <md-icon>edit</md-icon>
+                        </md-menu-item>
+            
+                        <md-menu-item @click="addPlayer">
+                            <span>Add new player</span>
+                            <md-icon>add</md-icon>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
             </md-card-header>
     
             <md-card-content>
@@ -35,7 +54,48 @@
                 <md-dialog-actions>
                     <md-button class="md-accent" @click="reset">Reset</md-button>
                     <md-button class="md-primary" @click="showFinishDialog = false">Close</md-button>
-                    <md-button class="md-primary" @click="saveChanges">Save</md-button>
+                    <md-button class="md-primary" @click="saveFinishChanges">Save</md-button>
+                </md-dialog-actions>
+            </md-dialog>
+
+            <md-dialog :md-active.sync="showEditDialog">
+                <md-dialog-title>Editing {{ racer.name }}</md-dialog-title>
+                <md-dialog-content>
+                    <md-field>
+                        <label>Twitter</label>
+                        <md-input v-model="edit.player.twitter"></md-input>
+                    </md-field>
+                    <md-field>
+                        <label>Twitch</label>
+                        <md-input v-model="edit.player.twitch"></md-input>
+                    </md-field>
+                </md-dialog-content>
+                <md-dialog-actions>
+                    <md-button class="md-primary" @click="showEditDialog = false">Close</md-button>
+                    <md-button class="md-primary" @click="savePlayerChanges">Save</md-button>
+                </md-dialog-actions>
+            </md-dialog>
+            
+            <md-dialog :md-active.sync="showCreateDialog">
+                <md-dialog-title>New Player</md-dialog-title>
+                <md-dialog-content>
+                    <md-field :class="{ 'md-invalid': !newPlayerNameValid }">
+                        <label>Name</label>
+                        <md-input v-model="edit.player.name" required></md-input>
+                        <span class="md-error">This player already exists.</span>
+                    </md-field>
+                    <md-field>
+                        <label>Twitter</label>
+                        <md-input v-model="edit.player.twitter"></md-input>
+                    </md-field>
+                    <md-field>
+                        <label>Twitch</label>
+                        <md-input v-model="edit.player.twitch"></md-input>
+                    </md-field>
+                </md-dialog-content>
+                <md-dialog-actions>
+                    <md-button class="md-primary" @click="showCreateDialog = false">Close</md-button>
+                    <md-button class="md-primary" @click="doAddPlayer" :disabled="!formValid">Save</md-button>
                 </md-dialog-actions>
             </md-dialog>
         </md-card>`,
@@ -44,14 +104,23 @@
         data() {
             return {
                 showFinishDialog: false,
+                showEditDialog: false,
+                showCreateDialog: false,
                 edit: {
-                    finish: null
+                    finish: null,
+                    player: {}
                 }
             }
         },
         computed: {
             playerNames() {
                 return Object.keys(this.players);
+            },
+            newPlayerNameValid() {
+                return !this.players[this.edit.player.name];
+            },
+            formValid() {
+                return this.edit.player.name && this.edit.player.name != "" && this.newPlayerNameValid;
             }
         },
         methods: {
@@ -73,9 +142,37 @@
                 this.racer.finish = null;
                 this.showFinishDialog = false;
             },
-            saveChanges() {
+            saveFinishChanges() {
                 this.racer.finish = this.edit.finish;
                 this.showFinishDialog = false;
+            },
+            editPlayer() {
+                this.edit.player = {
+                    twitter: this.players[this.racer.name].twitter,
+                    twitch: this.players[this.racer.name].twitch
+                };
+                this.showEditDialog = true;
+            },
+            savePlayerChanges() {
+                this.players[this.racer.name].twitter = this.edit.player.twitter;
+                this.players[this.racer.name].twitch = this.edit.player.twitch;
+                this.showEditDialog = false;
+            },
+            addPlayer() {
+                this.edit.player = {
+                    name: "",
+                    twitter: "",
+                    twitch: ""
+                };
+                this.showCreateDialog = true;
+            },
+            doAddPlayer() {
+                this.$set(this.players, this.edit.player.name, {
+                    name: this.edit.player.name,
+                    twitter: this.edit.player.twitter,
+                    twitch: this.edit.player.twitch
+                });
+                this.showCreateDialog = false;
             }
         }
     });
