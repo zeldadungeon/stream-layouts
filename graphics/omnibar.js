@@ -17,10 +17,10 @@
             </div>
             <div class="zd-omnibar__divider" />
             <div ref="boundary" class="zd-omnibar__ticker">
-                <div class="zd-label" :class="frame0LabelClass">{{ frame0Label }}</div>
-                <div ref="frame0Message" :class="frame0MessageClass" v-html="frame0Message"></div>
-                <div class="zd-label" :class="frame1LabelClass">{{ frame1Label }}</div>
-                <div ref="frame1Message" :class="frame1MessageClass" v-html="frame1Message"></div>
+                <div class="zd-label" :class="slot1.labelClass">{{ slot1.label }}</div>
+                <div ref="frame0Message" :class="slot1.messageClass" v-html="slot1.message"></div>
+                <div class="zd-label" :class="slot2.labelClass">{{ slot2.label }}</div>
+                <div ref="frame1Message" :class="slot2.messageClass" v-html="slot2.message"></div>
             </div>
             <div class="zd-omnibar__divider" />
             <div class="zd-omnibar__total">
@@ -32,13 +32,20 @@
             </div>
             <div class="zd-omnibar__divider" />
             <div class="zd-omnibar__time"><div class="zd-bignumber">{{ now }}</div><div class="zd-label">Local Time</div></div>
+            {{ message }}
         </div>`,
-        replicants: ["ticker", "donations"],
+        replicants: ["ticker", "donations", "message"],
         data: {
             now: new Date().toLocaleString("en-US", { hour: "numeric", minute: "numeric", hour12: true }),
             total: 0,
-            scroll0: false,
-            scroll1: false,
+            slot1: {
+                label: "",
+                message: ""
+            },
+            slot2: {
+                label: "",
+                message: ""
+            },
             rupee: "../shared/images/BotW_Green_Rupee_Icon.png"
         },
         computed: {
@@ -58,85 +65,50 @@
 
                 return `\$${this.total.toFixed(2)}`;
             },
-            messages: function() {
-                return this.ticker && this.ticker.lines || [];
-            },
             expandLogo: function() {
                 const tick = this.ticker && Math.floor(this.ticker.tick / 3) % 6;
                 return tick == 0;
             },
             frame: function() {
-                if (this.ticker.tick % 2 === 1) {
-                    this.scroll0 = false;
-                    setTimeout(() => this.scroll0 = true, Math.max(0, this.ticker.duration/2 - 1500));
-                } else if (this.ticker.tick % 2 === 0) {
-                    this.scroll1 = false;
-                    setTimeout(() => this.scroll1 = true, Math.max(0, this.ticker.duration/2 - 1500));
-                }
                 return this.ticker.tick % 2;
-            },
-            frame0Label: function() {
-                if (this.messages.length === 0) return "";
-                return this.messages[(this.ticker.tick + this.frame) % this.messages.length].label || "";
-            },
-            frame1Label: function() {
-                if (this.messages.length === 0) return "";
-                return this.messages[(this.ticker.tick + 1 - this.frame) % this.messages.length].label || "";
-            },
-            frame0Message: function() {
-                if (this.messages.length === 0) return "";
-                return this.getMessageForIndex((this.ticker.tick + this.frame) % this.messages.length);
-            },
-            frame1Message: function() {
-                if (this.messages.length === 0) return "";
-                return this.getMessageForIndex((this.ticker.tick + 1 - this.frame) % this.messages.length);
-            },
-            frame0LabelClass: function() {
-                return `zd-omnibar__ticker__${this.frame0Label === "" || this.frame === 0 ? "staging" : "active"}--label`
-            },
-            frame1LabelClass: function() {
-                return `zd-omnibar__ticker__${this.frame1Label === "" || this.frame === 1 ? "staging" : "active"}--label`
-            },
-            frame0MessageClass: function() {
-                let scrollClass = "";
-                if (this.scroll0 && //this.frame !== 0 &&
-                    this.frame0Label !== "" &&
-                    this.$refs.frame0Message && this.$refs.boundary &&
-                    this.$refs.frame0Message.getBoundingClientRect().width > this.$refs.boundary.getBoundingClientRect().width) {
-                    scrollClass = " zd-omnibar__ticker__active--scroll";
-                }
-                return `zd-omnibar__ticker__${this.frame === 0 ? "staging" : "active"}--${this.frame0Label === "" ? "full" : "message"}${scrollClass}`
-            },
-            frame1MessageClass: function() {
-                let scrollClass = "";
-                if (this.scroll1 && //this.frame !== 1 &&
-                    this.frame1Label !== "" &&
-                    this.$refs.frame1Message && this.$refs.boundary &&
-                    this.$refs.frame1Message.getBoundingClientRect().width > this.$refs.boundary.getBoundingClientRect().width) {
-                    scrollClass = " zd-omnibar__ticker__active--scroll";
-                }
-                return `zd-omnibar__ticker__${this.frame === 1 ? "staging" : "active"}--${this.frame1Label === "" ? "full" : "message"}${scrollClass}`
             }
         },
         methods: {
-            getMessageForIndex: function(index) {
-                for (let war of this.donations.wars) {
-                    if (war.title === this.messages[index].label) {
-                        const sortedOptions = war.options.sort((a, b) => b.amount - a.amount);
-                        let message = "";
-                        if (sortedOptions.length > 0) message = `${sortedOptions[0].label} $${sortedOptions[0].amount.toFixed(2)}`
-                        if (sortedOptions.length > 1) message = `${message} <strong>〉</strong>${sortedOptions[1].label} $${sortedOptions[1].amount.toFixed(2)}`
-                        if (sortedOptions.length > 2) message = `${message} <strong>〉</strong>${sortedOptions[2].label} $${sortedOptions[2].amount.toFixed(2)}`
-                        if (sortedOptions.length > 3) message = `${message} <strong>〉</strong>${sortedOptions[3].label} $${sortedOptions[3].amount.toFixed(2)}`
-                        return message;
-                    }
-                }
-
-                return this.messages[index].message || "";
-            }
         },
         created: function() {
             setInterval(() => this.now = new Date().toLocaleString("en-US", { hour: "numeric", minute: "numeric", hour12: true }), 1000);
+
+            this._nodecgReplicants["message"].on("change", (newVal, oldVal) => {
+                if (this.frame === 0) {
+                    this.slot1.label = newVal.label;
+                    this.slot1.message = newVal.message;
+                    this.slot1.labelClass = `zd-omnibar__ticker__active--label`;
+                    this.slot2.labelClass = `zd-omnibar__ticker__staging--label`;
+                    setTimeout(() => {
+                        if (this.slot1.label &&
+                            this.$refs.frame0Message && this.$refs.boundary &&
+                            this.$refs.frame0Message.getBoundingClientRect().width > this.$refs.boundary.getBoundingClientRect().width) {
+                            this.slot1.messageClass += " zd-omnibar__ticker__active--scroll";
+                        }
+                    }, Math.max(0, this.ticker.duration/2 - 1500));
+                    this.slot1.messageClass = `zd-omnibar__ticker__active--${!this.slot1.label ? "full" : "message"}`;
+                    this.slot2.messageClass = `zd-omnibar__ticker__staging--${!this.slot2.label ? "full" : "message"}`;
+                } else {
+                    this.slot2.label = newVal.label;
+                    this.slot2.message = newVal.message;
+                    this.slot2.labelClass = `zd-omnibar__ticker__active--label`;
+                    this.slot1.labelClass = `zd-omnibar__ticker__staging--label`;
+                    setTimeout(() => {
+                        if (this.slot2.label &&
+                            this.$refs.frame1Message && this.$refs.boundary &&
+                            this.$refs.frame1Message.getBoundingClientRect().width > this.$refs.boundary.getBoundingClientRect().width) {
+                            this.slot2.messageClass += " zd-omnibar__ticker__active--scroll";
+                        }
+                    }, Math.max(0, this.ticker.duration/2 - 1500));
+                    this.slot2.messageClass = `zd-omnibar__ticker__active--${!this.slot2.label ? "full" : "message"}`;
+                    this.slot1.messageClass = `zd-omnibar__ticker__staging--${!this.slot1.label ? "full" : "message"}`;
+                }
+            });
 
             // Ideally I should watch the vue property but that isn't working.
             // I assume it's because I didn't properly make it reactive, but then why is totalDisplay working??
