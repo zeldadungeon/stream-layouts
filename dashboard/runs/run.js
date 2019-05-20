@@ -18,13 +18,16 @@
             </div>
             <div style="clear: left;" />
 
-            <zd-race-card v-for="(racer, index) in run.racers" :racer="racer" :key="index" :index="index + 1" :run="run" />
+            <div class="md-subheading" style="line-height: 40px;">Racers<md-button class="md-icon-button" @click="showAddRacerDialog = true"><md-icon>add</md-icon></md-button></div>
+            <div v-if="run.rules === 'Elimination'">
+                <zd-elimination-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
+            </div>
+            <div v-else>
+                <zd-race-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
+            </div>
 
             <div class="md-subheading" style="line-height: 40px;">Incentives<md-button class="md-icon-button" @click="newIncentive"><md-icon>add</md-icon></md-button></div>
-
-            <div v-if="run.incentives">
-                <zd-incentive-card v-for="(incentive, index) in run.incentives" :incentive="incentive" :key="index" @delete="deleteIncentive(index)" />
-            </div>
+            <zd-incentive-card v-for="(incentive, index) in run.incentives" :incentive="incentive" :key="'incentive-' + index" @delete="deleteIncentive(index)" />
 
             <md-dialog-confirm
                 :md-active.sync="showQueueDialog"
@@ -33,6 +36,7 @@
                 md-confirm-text="Queue"
                 md-cancel-text="Cancel"
                 @md-confirm="queueRun" />
+
             <md-dialog-confirm
                 :md-active.sync="showResetDialog"
                 md-title="Reset this run?"
@@ -40,6 +44,7 @@
                 md-confirm-text="Reset"
                 md-cancel-text="Cancel"
                 @md-confirm="resetRun" />
+
             <md-dialog :md-active.sync="showEditDialog">
                 <md-dialog-title>Editing Run</md-dialog-title>
                 <md-dialog-content>
@@ -54,8 +59,10 @@
                         <span class="md-error">Couldn't find this game on Twitch.</span>
                     </md-field>
                     <md-field>
-                        <label>Number of Racers/Teams</label>
-                        <md-input type="number" v-model="edit.numRacers" required></md-input>
+                        <label>Rules</label>
+                        <md-select v-model="edit.rules" required>
+                            <md-option v-for="rule in ['Race', 'Elimination', 'Royal Rumble', 'Bingo']" :key="rule" :value="rule">{{ rule }}</md-option>
+                        </md-select>
                     </md-field>
                     <md-field>
                         <label>After</label>
@@ -69,6 +76,9 @@
                     <md-button class="md-primary" @click="saveChanges" :disabled="!formValid">Save</md-button>
                 </md-dialog-actions>
             </md-dialog>
+
+            <zd-player-dialog :show.sync="showAddRacerDialog" :taken="run.racers.map(r => r.name)" @save="addRacer"></zd-player-dialog>
+
             <md-dialog :md-active.sync="showAddIncentiveDialog">
                 <md-dialog-title>New Donation Incentive</md-dialog-title>
                 <md-dialog-content>
@@ -90,6 +100,7 @@
                 showEditDialog: false,
                 showQueueDialog: false,
                 showResetDialog: false,
+                showAddRacerDialog: false,
                 showAddIncentiveDialog: false,
                 edit: {
                     incentive: {}
@@ -98,7 +109,11 @@
         },
         computed: {
             run() {
-                return this.runs[this.runName] || {};
+                return this.runs[this.runName] || {
+                    racers: [],
+                    incentives: [],
+                    twitch: {}
+                };
             },
             boxartUrl() {
                 if (!this.run || !this.run.twitch || !this.run.twitch["box_art_url"]) {
@@ -116,8 +131,9 @@
                     abbr: this.run.abbr,
                     game: this.run.twitch.name,
                     gameValid: true,
-                    numRacers: this.run.racers && this.run.racers.length || 0,
-                    prev: Object.keys(this.runs).find(k => this.runs[k].next === this.runName)
+                    rules: this.run.rules || "Race",
+                    prev: Object.keys(this.runs).find(k => this.runs[k].next === this.runName),
+                    incentive: {}
                 };
                 this.showEditDialog = true;
             },
@@ -131,20 +147,7 @@
                         // update basic info
                         this.run.abbr = this.edit.abbr;
                         this.run.twitch = result.data[0];
-
-                        // update racers array
-                        if (!this.run.racers) {
-                            this.$set(this.run, "racers", []);
-                        }
-                        while (this.run.racers.length > this.edit.numRacers) {
-                            this.run.racers.pop();
-                        }
-                        while (this.run.racers.length < this.edit.numRacers) {
-                            this.run.racers.push({
-                                name: "",
-                                filename: ""
-                            });
-                        }
+                        this.run.rules = this.edit.rules;
 
                         // update position
                         const prev = Object.keys(this.runs).find(k => this.runs[k].next === this.runName);
@@ -200,7 +203,21 @@
                 this.run.finish = null;
                 this.run.racers.forEach(r => {
                     r.finish = null;
+                    r.position = undefined;
+                    r.checkpoints = [];
+                    r.checkpoint = 0;
+                    r.warning = false;
+                    r.eliminated = false;
+                    r.state = "";
                 });
+            },
+            addRacer(name) {
+                if (!this.run.racers) { this.$set(this.run, "racers", []); }
+                this.run.racers.push({ name });
+                this.showAddRacerDialog = false;
+            },
+            removeRacer(index) {
+                this.run.racers.splice(index, 1);
             },
             newIncentive() {
                 this.edit.incentive = {

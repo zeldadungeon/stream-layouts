@@ -28,7 +28,7 @@
                         <md-icon>{{ icons[runs[name].state] }}</md-icon>
                         <span class="md-list-item-text">{{ name }}</span>
                     </md-list-item>
-                    <md-list-item @click="showCreateDialog = true">
+                    <md-list-item @click="createRun">
                         <md-icon>playlist_add</md-icon>
                         <span class="md-list-item-text">Create New</span>
                     </md-list-item>
@@ -49,6 +49,12 @@
                             <label>Twitch Game</label>
                             <md-input v-model="newRun.game" required></md-input>
                             <span class="md-error">Couldn't find this game on Twitch.</span>
+                        </md-field>
+                        <md-field>
+                            <label>Rules</label>
+                            <md-select v-model="newRun.rules" required>
+                                <md-option v-for="rule in ['Race', 'Elimination', 'Royal Rumble', 'Bingo']" :key="rule" :value="rule">{{ rule }}</md-option>
+                            </md-select>
                         </md-field>
                         <md-field>
                             <label>After</label>
@@ -145,7 +151,10 @@
                 });
             },
             createRun() {
-                this.newRun = {};
+                this.newRun = {
+                    racers: [],
+                    incentives: []
+                };
                 this.showCreateDialog = true;
             },
             deleteRun() {

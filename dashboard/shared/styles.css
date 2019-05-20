@@ -16,6 +16,11 @@ body {
     z-index: 10;
 }
 
+/* fix media cover flex direction */
+.md-card-media-cover .md-card-header {
+    flex-direction: row;
+}
+
 .md-card {
     width: 320px;
     margin: 4px;

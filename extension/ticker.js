@@ -97,6 +97,5 @@ module.exports = function (nodecg) {
         }
 
         message.value = queue.shift();
-        console.log(message.value);
     }
 };

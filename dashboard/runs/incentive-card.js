@@ -60,7 +60,7 @@
             <md-dialog-confirm
                 :md-active.sync="showDeleteIncentiveDialog"
                 md-title="Delete this incentive?"
-                md-content="Are you sure? The donation tally for this incentive will be lost. Don't delete an incentive just because the run is finished."
+                md-content="The donation tally for this incentive will be lost. Don't delete an incentive just because the run is finished."
                 md-confirm-text="Delete"
                 md-cancel-text="Cancel"
                 @md-confirm="doDeleteIncentive" />
