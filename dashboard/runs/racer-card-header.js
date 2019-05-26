@@ -98,7 +98,7 @@
                 this.showSwapDialog = false;
             },
             removeRacer() {
-                this.$emit("remove");
+                this.run.racers.splice(this.run.racers.indexOf(this.racer), 1);
             }
         }
     });

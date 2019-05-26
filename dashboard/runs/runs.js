@@ -152,6 +152,7 @@
             },
             createRun() {
                 this.newRun = {
+                    rules: "Race",
                     racers: [],
                     incentives: []
                 };

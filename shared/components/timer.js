@@ -1,14 +1,19 @@
+function formatTime(time, small) {
+    time = time || 0;
+    let h = Math.floor(time / 3600);
+    let m = Math.floor(time % 3600 / 60);
+    let s = Math.floor(time % 3600 % 60);
+
+    if (small && h === 0) {
+        h = m;
+        m = s;
+    }
+
+    return `${h}:${m < 10 ? "0" : ""}${m}${small ? "" : `:${s < 10 ? "0" : ""}${s}`}`;
+}
+
 (function () {
     "use strict";
-
-    function formatTime(time) {
-        time = time || 0;
-        const h = Math.floor(time / 3600);
-        const m = Math.floor(time % 3600 / 60);
-        const s = Math.floor(time % 3600 % 60);
-
-        return `${h}:${m < 10 ? "0" : ""}${m}:${s < 10 ? "0" : ""}${s}`;
-    }
 
     Vue.component("zd-time-display", {
         template: `<span>{{ display }}</span>`,

@@ -4,7 +4,7 @@
     Vue.use(VueMaterial.default);
 
     Vue.component("zd-player-dialog", {
-        template: `<md-dialog :md-active.sync="doShow">
+        template: `<md-dialog :md-active="show" @update:mdActive="updateShow($event)">
             <md-dialog-title>Select Player</md-dialog-title>
             <md-dialog-content>
                 <md-field>
@@ -30,7 +30,7 @@
                 </div>
             </md-dialog-content>
             <md-dialog-actions>
-                <md-button class="md-primary" @click="showCreateDialog = false">Close</md-button>
+                <md-button class="md-primary" @click="$emit('update:show', false);">Close</md-button>
                 <md-button class="md-primary" @click="addPlayer" :disabled="!formValid">Save</md-button>
             </md-dialog-actions>
         </md-dialog>`,
@@ -38,7 +38,6 @@
         replicants: ["players"],
         data() {
             return {
-                doShow: false,
                 edit: {}
             }
         },
@@ -68,7 +67,11 @@
                 } else {
                     this.$emit("save", this.edit.racer);
                 }
-                this.doShow = false;
+                this.$emit("update:show", false);
+            },
+            updateShow(show) {
+                console.log("here");
+                this.$emit("update:show", show);
             }
         },
         watch: {
@@ -80,9 +83,6 @@
                         twitter: "",
                         twitch: ""
                     };
-                    this.doShow = true;
-                } else {
-                    this.doShow = false;
                 }
             }
         }

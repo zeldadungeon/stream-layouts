@@ -22,6 +22,9 @@
             <div v-if="run.rules === 'Elimination'">
                 <zd-elimination-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
             </div>
+            <div v-else-if="run.rules === 'Royal Rumble'">
+                <zd-rumble-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
+            </div>
             <div v-else>
                 <zd-race-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
             </div>
@@ -36,6 +39,11 @@
                 md-confirm-text="Queue"
                 md-cancel-text="Cancel"
                 @md-confirm="queueRun" />
+
+            <md-dialog-alert
+                :md-active.sync="showMissingEstimateDialog"
+                md-content="Make sure all racers have estimates first."
+                md-confirm-text="OK" />
 
             <md-dialog-confirm
                 :md-active.sync="showResetDialog"
@@ -99,6 +107,7 @@
             return {
                 showEditDialog: false,
                 showQueueDialog: false,
+                showMissingEstimateDialog: false,
                 showResetDialog: false,
                 showAddRacerDialog: false,
                 showAddIncentiveDialog: false,
@@ -181,8 +190,12 @@
                 this.$set(this.run, "state", "queued"); // $set because it starts out undefined. after this, can assign normally.
             },
             startRun() {
-                this.run.state = "running";
-                nodecg.sendMessage("timer:start");
+                if (this.run.rules === "Royal Rumble" && this.run.racers.some(r => !r.estimate)) {
+                    this.showMissingEstimateDialog = true;
+                } else {
+                    this.run.state = "running";
+                    nodecg.sendMessage("timer:start");
+                }
             },
             stopRun() {
                 this.doStopRun(this.run);
@@ -213,7 +226,12 @@
             },
             addRacer(name) {
                 if (!this.run.racers) { this.$set(this.run, "racers", []); }
-                this.run.racers.push({ name });
+                this.run.racers.push({
+                    name,
+                    position: 0,
+                    checkpoint: 0,
+                    splits: []
+                });
                 this.showAddRacerDialog = false;
             },
             removeRacer(index) {

@@ -11,14 +11,14 @@ body {
     background-color: var(--md-theme-default-background, #303030);
 }
 
-/* fix dropdown/select menus hiding behind dialog */
-.md-menu-content {
-    z-index: 10;
-}
-
 /* fix media cover flex direction */
 .md-card-media-cover .md-card-header {
     flex-direction: row;
+}
+
+/* fix inputs being too wide */
+.md-field .md-input, .md-field .md-textarea {
+    width: 100%;
 }
 
 .md-card {
@@ -31,6 +31,15 @@ body {
 .zd-boxart {
     float: left;
     margin: 0 1em 1em 0;
+}
+
+.zd-readonly-field:after {
+    background-color: initial !important;
+}
+
+.zd-readonly-field-value {
+    font-size: 16px;
+    line-height: 32px;
 }
 
 .zd-checkpoint-button {
