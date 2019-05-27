@@ -70,7 +70,6 @@
                 this.$emit("update:show", false);
             },
             updateShow(show) {
-                console.log("here");
                 this.$emit("update:show", show);
             }
         },

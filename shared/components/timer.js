@@ -1,15 +1,21 @@
-function formatTime(time, small) {
+function formatTime(time, mode) {
     time = time || 0;
-    let h = Math.floor(time / 3600);
-    let m = Math.floor(time % 3600 / 60);
-    let s = Math.floor(time % 3600 % 60);
+    const h = Math.floor(time / 3600);
+    const m = Math.floor(time % 3600 / 60);
+    const s = Math.floor(time % 3600 % 60);
 
-    if (small && h === 0) {
-        h = m;
-        m = s;
+    const parts = [];
+    if (mode === "full" || h > 0) {
+        parts.push(`${h}`); // never 0-pad hours
+    }
+    // if (mode === "full" || time >= 60) {
+        parts.push(`${m < 10 && parts.length > 0 ? "0" : ""}${m}`);
+    // }
+    if (mode !== "countdown" || h === 0) {
+        parts.push(`${s < 10 && parts.length > 0 ? "0" : ""}${s}`);
     }
 
-    return `${h}:${m < 10 ? "0" : ""}${m}${small ? "" : `:${s < 10 ? "0" : ""}${s}`}`;
+    return parts.join(":");
 }
 
 (function () {
@@ -60,7 +66,7 @@ function formatTime(time, small) {
                 this.setDisplayValue();
             },
             setDisplayValue() {
-                this.$el.value = formatTime(this.value);
+                this.$el.value = formatTime(this.value, "full");
             },
             parse(value) {
                 const parts = value.trim().split(":");

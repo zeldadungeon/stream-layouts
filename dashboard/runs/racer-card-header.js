@@ -50,7 +50,7 @@
                 </md-dialog-actions>
             </md-dialog>
             
-            <zd-player-dialog :show="showSwapDialog" :taken="[racer.name]" @save="swapRacer"></zd-player-dialog>
+            <zd-player-dialog :show.sync="showSwapDialog" :taken="[racer.name]" @save="swapRacer"></zd-player-dialog>
 
             <md-dialog-confirm
                 :md-active.sync="showRemoveDialog"

@@ -42,6 +42,14 @@ body {
     line-height: 32px;
 }
 
+.zd-text-good {
+    color: lightgreen !important;
+}
+
+.zd-text-bad {
+    color: lightcoral !important;
+}
+
 .zd-checkpoint-button {
     width: 200px;
 }

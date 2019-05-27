@@ -50,7 +50,7 @@
                                 :disabled="run.state !== 'running' || timeToStart > 0">
                             {{ splitButtonText }}
                         </md-button>
-                        <zd-finish-button v-else :racer="racer" :disabled="run.state !== 'running'" @finish="finish" @reset="racer.checkpoint--"></zd-finish-button>
+                        <zd-finish-button v-else :racer="racer" @finish="finish" @reset="racer.checkpoint--"></zd-finish-button>
                     </div>
                 </md-card-actions>
 
@@ -81,19 +81,22 @@
                                     </md-field>
                                 </div>
                                 <div class="md-layout-item md-size-50">
-                                    <zd-readonly-field :label="'Behind first'" :value="behindFirst" />
+                                    <zd-readonly-field :label="'Behind first'" :value="behindFirst === 0 ? 'N/A' : formatTime(behindFirst)" />
                                 </div>
                                 <div class="md-layout-item md-size-50">
-                                    <zd-readonly-field :label="'Normalized'" :value="normalized" />
+                                    <zd-readonly-field :label="'Normalized'" :value="formatTime(normalized)" />
                                 </div>
                                 <div class="md-layout-item md-size-50">
-                                    <zd-readonly-field :label="'Paced to pass first at'" :value="projection" />
+                                    <zd-readonly-field
+                                        :label="'Paced to pass first at'"
+                                        :value="projection === viewTime ? 'N/A' : projection < viewTime ? 'Never' : projection > (60 * 60 * 24) ? 'A long time' : formatTime(projection)"
+                                        :state="projection === viewTime ? '' : projection < viewTime || projection > longestEstimate ? 'bad' : 'good'" />
                                 </div>
                                 <div class="md-layout-item md-size-50">
-                                    <zd-readonly-field :label="'Split'" :value="thisSplit" />
+                                    <zd-readonly-field :label="'Split'" :value="formatTime(thisSplit)" />
                                 </div>
                                 <div class="md-layout-item md-size-50">
-                                    <zd-readonly-field :label="'Gained'" :value="gained" />
+                                    <zd-readonly-field :label="'Gained'" :value="gained" :state="gained === 'N/A' || gained === '0:00' ? '' : gained.startsWith('-') ? 'bad' : 'good'" />
                                 </div>
                             </div>
                         </div>
@@ -158,7 +161,7 @@
                 return this.longestEstimate - this.racer.estimate - this.stopwatch.time;
             },
             splitButtonText() {
-                return this.timeToStart > 0 ? `Starts in ${formatTime(this.timeToStart, true)}` : this.checkpoints[this.racer.checkpoint || 0];
+                return this.timeToStart > 0 ? `Starts in ${formatTime(this.timeToStart, "countdown")}` : this.checkpoints[this.racer.checkpoint || 0];
             },
             viewTime() {
                 return this.racer.splits[this.viewSplit];
@@ -166,29 +169,28 @@
             behindFirst() {
                 const first = this.run.racers.reduce((first, racer) => Math.min(first, racer.splits[this.viewSplit] || Number.MAX_SAFE_INTEGER), this.viewTime);
 
-                return first === this.viewTime ? "N/A" : formatTime(this.viewTime - first);
+                return this.viewTime - first;
             },
             offset() {
                 return this.longestEstimate - this.racer.estimate;
             },
             normalized() {
-                return formatTime(this.viewTime - this.longestEstimate + this.racer.estimate);
+                return this.viewTime - this.longestEstimate + this.racer.estimate;
             },
             projection() {
                 const first = this.run.racers.reduce((first, racer) => racer.splits[this.viewSplit] < first.splits[this.viewSplit] ? racer : first, this.racer);
                 if (first === this.racer) {
-                    return "N/A";
+                    return this.viewTime;
                 }
 
                 const firstOffset = this.longestEstimate - first.estimate;
                 const firstNormalized = first.splits[this.viewSplit] - firstOffset;
-                const normalized = this.viewTime - this.longestEstimate + this.racer.estimate;
-                if (normalized === firstNormalized) return "Never"; // protect against division by zero
-                const projection = Math.round((firstOffset * normalized - this.offset * firstNormalized) / (normalized - firstNormalized));
-                return projection < this.viewTime ? "Never" : projection > (60 * 60 * 24) ? "Not reasonably" : formatTime(projection);
+                if (this.normalized === firstNormalized) return 0; // protect against division by zero
+                const projection = Math.round((firstOffset * this.normalized - this.offset * firstNormalized) / (this.normalized - firstNormalized));
+                return projection;
             },
             thisSplit() {
-                return formatTime(this.viewTime - (this.racer.splits[this.viewSplit - 1] || this.offset));
+                return this.viewTime - (this.racer.splits[this.viewSplit - 1] || this.offset);
             },
             gained() {
                 const thisSplit = this.viewTime - this.run.racers.reduce((first, racer) => Math.min(first, racer.splits[this.viewSplit] || Number.MAX_SAFE_INTEGER), this.viewTime);
@@ -225,46 +227,6 @@
                 sorted.forEach((r, i) => {
                     r.position = i + 1;
                 });
-
-/*
-                
-                const finish = this.checkpointData.finish;
-                const prevFinish = this.prev ? this.player.checkpoints[this.prev].finish : 0;
-                const prevBehind = this.prev ? this.player.checkpoints[this.prev].behind : this.offset;
-                this.$set(this.checkpointData, "normalized", finish - this.offset);
-                this.$set(this.checkpointData, "split", finish - prevFinish);
-
-                let firstFinish = Object.keys(this.players).reduce((best, p) => Math.min(best, this.players[p].checkpoints[this.checkpoint] && this.players[p].checkpoints[this.checkpoint].finish || Number.MAX_VALUE), Number.MAX_VALUE);
-                if (firstFinish === Number.MAX_VALUE) { firstFinish = 0; } // this happens when the checkpoint is edited to 0 such that nobody's completed it
-                this.$set(this.checkpointData, "behind", finish - firstFinish);
-                this.$set(this.checkpointData, "gained", this.checkpointData.behind - prevBehind);
-                this.$set(this.player, "behind", finish - firstFinish);
-
-                if (this.checkpoint === "Finish") {
-                    this.$set(this.player, "finish", finish);
-                } else if (this.player.behind) {
-                    this.$set(this.player, "gained", this.checkpointData.behind - prevBehind);
-                    const self = this;
-                    setTimeout(() => self.$set(self.player, "gained", undefined), 10000);
-                }
-
-                // calculate warning/elimination
-                for (let i = this.checkpoints.length; i >= 1; --i) {
-                    const allowed = this.run.racers.length - i;
-                    
-                    const numPassed = this.run.racers.filter(r => r.checkpoint >= i).length;
-                    if (numPassed >= allowed) {
-                        // eliminate everyone else
-                        this.run.racers.filter(r => r.checkpoint < i).forEach(r => r.state = "eliminated");
-                    } else if (numPassed === allowed - 1) {
-                        const numChasing = this.run.racers.filter(r => r.checkpoint === i - 1).length;
-
-                        if (numChasing > 0) {
-                            // warn everyone not chasing (as well as those who are chasing, if more than 1)
-                            this.run.racers.filter(r => r.checkpoint < (numChasing > 1 ? i : i - 1)).forEach(r => r.state = r.state || "warning");
-                        }
-                    }
-                }*/
             },
             finish() {
                 this.split();
@@ -272,8 +234,8 @@
                     this.$emit("finish");
                 }
             },
-            formatTime(time, small) { // this gives the template access to the global formatTime function
-                return formatTime(time, small);
+            formatTime(time, mode) { // this gives the template access to the global formatTime function
+                return formatTime(time, mode);
             }
         },
         watch: {
