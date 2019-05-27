@@ -57,39 +57,44 @@ module.exports = function (nodecg) {
                 }
                 if (done.length > 0) {
                     queue.push({
-                        title: "Completed",
+                        label: "Completed",
                         message: done.join(", ")
                     });
                 }
                 if (ptr) {
                     queue.push({
-                        title: "Now playing",
+                        label: "Now playing",
                         message: ptr
                     });
-                }
-                ptr = runs.value[ptr].next;
-                if (ptr) {
-                    queue.push({
-                        title: "Next up",
-                        message: ptr
-                    });
+                    ptr = runs.value[ptr].next;
+                    if (ptr) {
+                        queue.push({
+                            label: "Next up",
+                            message: ptr
+                        });
+                    }
                 }
             } else if (nextTemplate.template === "incentives") {
-                let ptr = runs.value["start"].next;
+                let ptr = runs.value["start"].current;
                 while (ptr && queue.length < 3) {
                     if (runs.value[ptr].incentives && runs.value[ptr].incentives.length > 0) {
                         runs.value[ptr].incentives.forEach(incentive => {
-                            queue.push({
-                                title: `${ptr} - ${incentive.name}`,
-                                message: Object.keys(incentive.options)
-                                    .sort((a, b) => incentive.options[b] - incentive.options[a])
-                                    .slice(0, runs.value[ptr].racers.length)
-                                    .map(o => `${o} $${incentive.options[o].toFixed(2)}`)
-                                    .join(` <strong>〉</strong>`)
-                            })
+                            if (Object.keys(incentive.options).length > 0) {
+                                queue.push({
+                                    label: `${ptr} - ${incentive.name}`,
+                                    message: Object.keys(incentive.options)
+                                        .sort((a, b) => incentive.options[b] - incentive.options[a])
+                                        .slice(0, runs.value[ptr].racers.length)
+                                        .map(o => `${o} $${incentive.options[o].toFixed(2)}`)
+                                        .join(` <strong>〉</strong>`)
+                                });
+                            }
                         });
                     }
                     ptr = runs.value[ptr].next;
+                }
+                if (queue.length === 0) {
+                    advanceQueue(); // no incentives left
                 }
             } else {
                 queue.push(nextTemplate);
