@@ -14,7 +14,7 @@
 }
 
 .zd-player__twitch {
-    background: url("../images/Glitch_Purple_RGB.svg") no-repeat;
+    background: url("../images/Glitch_Purple_RGB.svg") no-repeat left/40px;
     padding-left: 1.25em;
 }
 

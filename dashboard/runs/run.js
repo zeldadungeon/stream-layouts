@@ -187,6 +187,7 @@
                 nodecg.sendMessage("timer:reset");
                 // TODO set Twitch game
                 if (this.run.finish) { this.run.finish = null; }
+                this.$set(this.runs.start, "current", this.runName);
                 this.$set(this.run, "state", "queued"); // $set because it starts out undefined. after this, can assign normally.
             },
             startRun() {

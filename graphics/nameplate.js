@@ -3,11 +3,11 @@
 
     const app = new Vue({
         el: "#app",
-        template: `<zd-player :num="num" :pos="pos" :type="type"></zd-player>`,
+        template: `<zd-player :num="num" :pos="pos" :runName="runName"></zd-player>`,
         data: {
             num: Number(window.location.search.substring(1).split('&')[0]) - 1,
             pos: window.location.search.substring(1).split("&")[1] || "topleft",
-            type: window.location.search.substring(1).split("&")[2] || ""
+            runName: window.location.search.substring(1).split("&")[2] || ""
         }
     });
 })();

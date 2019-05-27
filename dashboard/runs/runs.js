@@ -118,11 +118,7 @@
                 this.showDrawer = false;
             },
             selectCurrentRun() {
-                let runToSelect = "start";
-                while((this.runs[runToSelect].state === "done" || runToSelect === "start") && this.runs[runToSelect].next) {
-                    runToSelect = this.runs[runToSelect].next;
-                }
-                this.selectRun(runToSelect);
+                this.selectRun(this.runs.start.current || this.runs.start.next);
             },
             addRun() {
                 fetch(`https://api.twitch.tv/helix/games?name=${this.newRun.game}`, {
