@@ -33,7 +33,7 @@ module.exports = function (nodecg) {
                     }
                 }
                 return true;
-            }).slice(-4); // take the 4 hardest ones
+            }).sort((a, b) => a.difficulty - b.difficulty).slice(-4); // take the 4 hardest ones
         } while(bonus.length < 4);
 
         bonus.push({ difficulty: 25, types: ["DLC"], name: "Obliterator", synergy: 0 });
@@ -49,7 +49,7 @@ module.exports = function (nodecg) {
                 board.slice(11,16).sort((a, b) => a.difficulty - b.difficulty)
             ],
             bonus: bonus,
-            required: ["Vah Ruta", "Vah Rudania", "Calamity Ganon", "Vah Medoh", "Vah Naboris"].map(t => {
+            required: ["Vah Ruta", "Vah Rudania", "Ganon", "Vah Medoh", "Vah Naboris"].map(t => {
                 return {
                     name: t,
                     requires: 0,

@@ -25,6 +25,9 @@
             <div v-else-if="run.rules === 'Royal Rumble'">
                 <zd-rumble-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
             </div>
+            <div v-else-if="run.rules === 'Bingo'">
+                <zd-bingo-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" :team="index" @finish="stopRun" @remove="removeRacer(index)" />
+            </div>
             <div v-else>
                 <zd-race-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
             </div>
@@ -196,6 +199,10 @@
                 } else {
                     this.run.state = "running";
                     nodecg.sendMessage("timer:start");
+                }
+
+                if (this.run.rules === "Bingo") {
+                    nodecg.sendMessage("bingo:shuffle");
                 }
             },
             stopRun() {
