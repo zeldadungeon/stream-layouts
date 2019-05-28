@@ -20,13 +20,6 @@
                 "fullbleed": true
             },
             {
-                "name": "timer",
-                "title": "Timer",
-                "file": "timer/timer.html",
-                "width": 3,
-                "headerColor": "#9f9bbd"
-            },
-            {
                 "name": "twitter",
                 "title": "Twitter",
                 "width": 2,
@@ -38,21 +31,6 @@
                 "title": "Donations",
                 "width": 2,
                 "file": "donations/donations.html",
-                "headerColor": "#9f9bbd"
-            },
-            {
-                "name": "wars",
-                "title": "Donation Wars",
-                "width": 3,
-                "file": "wars/wars.html",
-                "headerColor": "#9f9bbd"
-            },
-            {
-                "name": "ticker",
-                "title": "Ticker",
-                "file": "ticker/ticker.html",
-                "workspace": "Manage",
-                "width": 4,
                 "headerColor": "#9f9bbd"
             },
             {
