@@ -78,27 +78,6 @@
                 "workspace": "Manage",
                 "width": 2,
                 "headerColor": "#9f9bbd"
-            },
-            {
-                "name": "bingo",
-                "title": "Bingo",
-                "file": "bingo/bingo.html",
-                "headerColor": "#9f9bbd",
-                "fullbleed": true
-            },
-            {
-                "name": "elimination",
-                "title": "Elimination",
-                "file": "elimination/elimination.html",
-                "headerColor": "#9f9bbd",
-                "fullbleed": true
-            },
-            {
-                "name": "rumble",
-                "title": "Royal Rumble",
-                "file": "rumble/rumble.html",
-                "headerColor": "#9f9bbd",
-                "fullbleed": true
             }
         ],
         "graphics": [
