@@ -21,6 +21,20 @@ body {
     width: 100%;
 }
 
+@media (max-width: 599px) {
+    /* fix not always hiding */
+    .md-xsmall-hide {
+        display: none !important;
+    }
+}
+
+@media (min-width: 600px) {
+    /* add show too because why don't they already have it */
+    .md-xsmall-show {
+        display: none !important;
+    }
+}
+
 .md-card {
     width: 320px;
     margin: 4px;

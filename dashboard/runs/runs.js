@@ -9,7 +9,7 @@
             <md-app-toolbar class="md-primary">
                 <md-button class="md-icon-button" @click="showDrawer = !showDrawer"><md-icon>menu</md-icon></md-button>
                 <span class="md-title">{{ selectedRunName }}</span>
-                <div v-if="selectedRunName" class="md-toolbar-section-end">
+                <div v-if="selectedRunName" class="md-toolbar-section-end md-xsmall-hide">
                     <md-button class="md-primary" @click="selectCurrentRun">Current</md-button>
                     <md-button class="md-primary" @click="selectRun(selectedRun.next)" v-if="selectedRun.next">Next</md-button>
                     <md-button @click="showDeleteDialog = true">Delete</md-button>
@@ -21,6 +21,17 @@
                         md-cancel-text="Cancel"
                         @md-confirm="deleteRun" />
                 </div>
+                <md-menu v-if="selectedRunName" md-direction="bottom-end" class="md-toolbar-section-end md-xsmall-show">
+                    <md-button class="md-icon-button" md-menu-trigger>
+                        <md-icon>more_vert</md-icon>
+                    </md-button>
+        
+                    <md-menu-content>
+                        <md-menu-item @click="selectCurrentRun">Current</md-menu-item>
+                        <md-menu-item v-if="selectedRun.next" @click="selectRun(selectedRun.next)">Next</md-menu-item>
+                        <md-menu-item @click="showDeleteDialog = true">Delete</md-menu-item>
+                    </md-menu-content>
+                </md-menu>
             </md-app-toolbar>
             <md-app-drawer :md-active.sync="showDrawer">
                 <md-list>
