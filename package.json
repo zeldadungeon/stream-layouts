@@ -20,18 +20,11 @@
                 "fullbleed": true
             },
             {
-                "name": "twitter",
-                "title": "Twitter",
-                "width": 2,
-                "file": "twitter/twitter.html",
-                "headerColor": "#9f9bbd"
-            },
-            {
-                "name": "donations",
-                "title": "Donations",
-                "width": 2,
-                "file": "donations/donations.html",
-                "headerColor": "#9f9bbd"
+                "name": "feed",
+                "title": "Feed",
+                "file": "feed/feed.html",
+                "headerColor": "#9f9bbd",
+                "fullbleed": true
             },
             {
                 "name": "twitch",
