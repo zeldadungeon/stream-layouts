@@ -3,7 +3,7 @@
 module.exports = function (nodecg) {
     const bingo = nodecg.Replicant("bingo", {
         defaultValue: {
-            teams: [[], [], []],
+            teams: [[], [], [], []],
             bonus: [],
             required: [],
             totalAtStart: 0,
@@ -16,29 +16,43 @@ module.exports = function (nodecg) {
         bingo.value.raised = newValue.total - bingo.value.totalAtStart;
     });
 
+    nodecg.listenFor("bingo:reset", () => {
+        bingo.value = {
+            teams: Array(4).fill(Array(5).fill({ name: "TBD" })),
+            bonus: [],
+            required: ["Vah Ruta", "Vah Rudania", "Vah Medoh", "Vah Naboris"].map(t => {
+                return {
+                    name: t,
+                    requires: 0,
+                    done: []
+                }
+            }),
+            totalAtStart: donations.value.total,
+            raised: 0
+        };
+    });
+
     nodecg.listenFor("bingo:shuffle", () => {
-        let board;
+        let board = generateBoard();
         let bonus;
 
         do { // this block rarely executes more than once
-            board = generateBoard();
-
-            bonus = board.slice(16).filter(task => {
+            // generate a new board just for bonus objectives
+            let bonusCandidate = generateBoard().sort((a, b) => b.difficulty - a.difficulty);
+            bonus = [];
+            bonusCandidate.forEach(task => {
                 // throw out 'dupes' (e.g. team must activate 10 towers, everyone must activate 7 towers)
-                for (let t = 1; t <= 15; ++t) {
-                    // if (board[t].types.some(type => task.types.indexOf(type) > -1)) {
-                    if (JSON.stringify(board[t].types.sort()) === JSON.stringify(task.types.sort())) {
-                        console.log("threw out", task, board[t]);
-                        return false;
-                    }
-                }
-                return true;
-            }).sort((a, b) => a.difficulty - b.difficulty).slice(-4); // take the 4 hardest ones
-        } while(bonus.length < 4);
 
-        bonus.push({ difficulty: 25, types: ["DLC"], name: "Obliterator", synergy: 0 });
-        for (let i = 0; i < 5; ++i) {
-            bonus[i].requires = [100, 250, 450, 700, 1000][i];
+                if (!board.concat(bonus).some(t => JSON.stringify(t.types.sort()) === JSON.stringify(task.types.sort()))) {
+                    bonus.push(task);
+                }
+            });
+        } while(bonus.length < 6);
+
+        bonus = bonus.slice(0, 6).reverse(); // take the 6 hardest ones
+        // bonus.push({ difficulty: 25, types: ["DLC"], name: "Obliterator", synergy: 0 });
+        for (let i = 0; i < 6; ++i) {
+            bonus[i].requires = [100, 225, 400, 600, 900, 1200][i];
             bonus[i].done = [];
         }
 
@@ -46,10 +60,11 @@ module.exports = function (nodecg) {
             teams: [
                 board.slice(1,6).sort((a, b) => a.difficulty - b.difficulty),
                 board.slice(6,11).sort((a, b) => a.difficulty - b.difficulty),
-                board.slice(11,16).sort((a, b) => a.difficulty - b.difficulty)
+                board.slice(11,16).sort((a, b) => a.difficulty - b.difficulty),
+                board.slice(16,21).sort((a, b) => a.difficulty - b.difficulty)
             ],
             bonus: bonus,
-            required: ["Vah Ruta", "Vah Rudania", "Ganon", "Vah Medoh", "Vah Naboris"].map(t => {
+            required: ["Vah Ruta", "Vah Rudania", "Vah Medoh", "Vah Naboris"].map(t => {
                 return {
                     name: t,
                     requires: 0,
@@ -3238,6 +3253,14 @@ function getTasks() {
                     "Camera",
                     "Compendium"
                 ]
+            },
+            {
+                "name": "Remake a Champion's Weapon or Shield",
+                "types": [
+                    "Equipment",
+                    "Divine Beast",
+                    "Gems"
+                ]
             }
         ],
         [
@@ -3978,15 +4001,7 @@ function getTasks() {
                 ]
             },
             {
-                "name": "Remake a Champion's Weapon or Shield",
-                "types": [
-                    "Equipment",
-                    "Divine Beast",
-                    "Gems"
-                ]
-            },
-            {
-                "name": "Climbing Gear ★",
+                "name": "Climbing Gear ★★",
                 "types": [
                     "Clothes",
                     "Climbing Gear",

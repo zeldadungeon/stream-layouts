@@ -8,9 +8,9 @@
             <zd-racer-card-header :racer="racer" :run="run"></zd-racer-card-header>
         
             <md-card-content class="md-layout">
-                <md-button v-for="(task, index) in tasks.filter(t => !t.done)" class="md-raised md-primary md-layout-item md-size-100" :key="'todo'+index" @click="toggle(task)">{{ task.name }}</md-button>
-                <md-button v-for="(task, index) in required.filter(t => !t.done[team])" class="md-raised md-primary md-layout-item md-size-100" :key="'todor'+index" @click="toggleRequired(task)">{{ task.name }}</md-button>
-                <md-button v-for="(task, index) in bonus.filter(t => !t.done[team])" class="md-raised md-primary md-layout-item md-size-100" :key="'todob'+index" @click="toggleBonus(task)">{{ task.name }}</md-button>
+                <md-button v-for="(task, index) in tasks.filter(t => !t.done)" class="md-raised md-primary md-layout-item md-size-100" :key="'todo'+index" :disabled="run.state != 'running'" @click="toggle(task)">{{ task.name }}</md-button>
+                <md-button v-for="(task, index) in required.filter(t => !t.done[team])" class="md-raised md-primary md-layout-item md-size-100" :key="'todor'+index" :disabled="run.state != 'running'" @click="toggleRequired(task)">{{ task.name }}</md-button>
+                <md-button v-for="(task, index) in bonus.filter(t => !t.done[team])" class="md-raised md-primary md-layout-item md-size-100" :key="'todob'+index" :disabled="run.state != 'running'" @click="toggleBonus(task)">{{ task.name }}</md-button>
             </md-card-content>
 
             <md-card-expand>

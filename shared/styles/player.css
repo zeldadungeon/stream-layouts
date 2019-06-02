@@ -102,20 +102,24 @@
 
 @keyframes slidein {
     from {
-        left: 100%;
+        opacity: 0;
+        left: 50%;
     }
 
     to {
+        opacity: 1;
         left: 0%;
     }
 }
 
 @keyframes slideout {
     from {
+        opacity: 1;
         top: 0%;
     }
 
     to {
+        opacity: 0;
         top: 100%;
     }
 }

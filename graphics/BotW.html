@@ -27,108 +27,139 @@
         }
 
         .zd-border {
-            width: 768px;
-            height: 432px;
-            box-sizing: border-box;
+            width: 704px; /*768px;*/
+            height: 396px; /*432px;*/
+            box-sizing: content-box;
             border: 2px solid #f3ba33;
         }
 
         #border1 {
-            border-color: #0d3018;
+            border-color: #04f702;
         }
 
         #border2 {
             right: 0px;
-            border-color: #65010b;
+            border-color: #fe0200;
         }
 
         #border3 {
             bottom: 83px;
-            border-color: #232e5c;
+            border-color: #198afd;
         }
 
         #border4 {
             bottom: 83px;
-            right: 400px;
-            width: 368px;
+            right: 0px;
+            border-color: #f34ffd;
         }
 
         #p1, #p2 {
-            top: 432px;
+            top: 400px;
         }
 
-        #p3 {
-            bottom: 515px;
+        #p3, #p4 {
+            bottom: 483px;
         }
 
-        #p2 {
+        #p2, #p4 {
             right: 0;
         }
 
-        #p1 {
-            color: #134522;
-        }
-
-        #p2 {
-            color: #9f0110;
-        }
-
-        #p3 {
-            color: #3a4b98;
-        }
-
-        #b3, #bb {
-            top: 565px;
+        #b3, #b4 {
+            bottom: 83px;
         }
 
         #b1, #b3 {
-            left: 768px;
+            left: 706px;
         }
 
-        #b2, #bb {
-            right: 768px;
+        #b2, #b4 {
+            right: 706px;
         }
 
-        #br{
-            top: 442px;
-            bottom: 525px;
-            left: 410px;
-            right: 410px;
+        #bonus1, #bonus2 {
+            top: 400px;
+            width: 308px;
+            height: 198px;
+        }
+
+        #bonus1 {
+            left: 400px;
+        }
+
+        #bonus2 {
+            right: 400px;
+        }
+
+        .zd-bingo-beasts {
+            width: 252px;
+            height: 50px;
+        }
+
+        #beasts1, #beasts2 {
+            top: 350px;
+        }
+
+        #beasts3, #beasts4 {
+            bottom: 433px;
+        }
+
+        #beasts1, #beasts3 {
+            left: 708px;
+        }
+
+        #beasts2, #beasts4 {
+            right: 708px;
+            text-align: right;
         }
 
         .zd-bingo-card--vertical {
-            width: 187px;
-            height: 432px;
+            width: 254px;
+            height: 350px;
+            line-height: 32px;
         }
 
         .zd-timer {
-            bottom: 515px;
+            top: 469px;
             right: 100px;
         }
 
         .zd-social {
-            bottom: 83px;
-            right: 0px;
+            top: 469px;
             width: 400px;
-            height: 200px;
+            height: 60px;
+        }
+
+        .zd-social__card {
+            flex-direction: row;
+        }
+
+        .zd-social__logo {
+            height: 100%;
+            max-width: 85px;
+            margin-bottom: 0;
+            margin-right: 0.5em;
         }
     </style>
 </head>
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
-        <!--<div class="zd-border" id="border1"></div>
+        <div class="zd-border" id="border1"></div>
         <div class="zd-border" id="border2"></div>
         <div class="zd-border" id="border3"></div>
-        <div class="zd-border" id="border4"></div>-->
+        <div class="zd-border" id="border4"></div>
         <zd-player id="p1" :num="0" :pos="'topright'"></zd-player>
         <zd-player id="p2" :num="1"></zd-player>
         <zd-player id="p3" :num="2" :pos="'bottomright'"></zd-player>
+        <zd-player id="p4" :num="3" :pos="'bottomleft'"></zd-player>
+        <zd-bingo-beasts v-for="n in 4" :key="'beasts'+n" :id="'beasts'+n" :team="n - 1"></zd-bingo-beasts>
         <zd-bingo-card id="b1" :num="1" :orientation="'vertical'"></zd-bingo-card>
         <zd-bingo-card id="b2" :num="2" :orientation="'vertical'"></zd-bingo-card>
         <zd-bingo-card id="b3" :num="3" :orientation="'vertical'"></zd-bingo-card>
-        <zd-bingo-shared id="br" :type="'required'"></zd-bingo-shared>
-        <zd-bingo-shared id="bb" :type="'bonus'" :orientation="'vertical'"></zd-bingo-shared>
+        <zd-bingo-card id="b4" :num="4" :orientation="'vertical'"></zd-bingo-card>
+        <zd-bingo-shared id="bonus1" :type="'even'"></zd-bingo-shared>
+        <zd-bingo-shared id="bonus2" :type="'odd'"></zd-bingo-shared>
         <zd-social></zd-social>
     </div>
 </body>

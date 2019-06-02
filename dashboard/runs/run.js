@@ -194,6 +194,9 @@
                     initials: this.run.abbr
                 };
                 if (this.run.finish) { this.run.finish = null; }
+                if (this.run.rules === "Bingo") {
+                    nodecg.sendMessage("bingo:reset");
+                }
                 this.$set(this.runs.start, "current", this.runName);
                 this.$set(this.run, "state", "queued"); // $set because it starts out undefined. after this, can assign normally.
             },

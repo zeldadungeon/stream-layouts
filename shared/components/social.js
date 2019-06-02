@@ -21,15 +21,15 @@
 				}, {
 					id: 1,
 					image: "Glitch_Purple_RGB.svg",
-					text: "/ZeldaDungeon"
+					text: "ZeldaDungeon"
 				}, {
 					id: 2,
 					image: "youtube_social_icon_red.png",
-					text: "/TheZeldaDungeon"
+					text: "TheZeldaDungeon"
 				}, {
 					id: 3,
 					image: "Twitter_Logo_Blue.svg",
-					text: "@ZeldaDungeon"
+					text: "ZeldaDungeon"
 				}, {
 					id: 4,
 					image: "flogo_RGB_HEX-72.svg",
@@ -48,7 +48,7 @@
 					text: "tinyurl.com/zdmshirts"
 				}, {
 					id: 7,
-					image: "ExtraLife_white.png",
+					image: "ExtraLife_icon.png",
 					text: "tinyurl.com/zdmdonate"
 				}]
 			}

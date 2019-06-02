@@ -28,19 +28,23 @@
 .zd-bingo-card--vertical .zd-bingo-card__task + .zd-bingo-card__task {
     border-top-width: 0px;
 }
-/*
+
 .zd-bingo-card--team1 .zd-bingo-card__task {
-    border-color: #0d3018;
+    border-color: #04f702;
 }
 
 .zd-bingo-card--team2 .zd-bingo-card__task {
-    border-color: #65010b
+    border-color: #fe0200;
 }
 
 .zd-bingo-card--team3 .zd-bingo-card__task {
-    border-color: #232e5c
+    border-color: #198afd;
 }
-*/
+
+.zd-bingo-card--team4 .zd-bingo-card__task {
+    border-color: #f34ffd;
+}
+
 .zd-bingo-card__done1 {
     background-color: #134522;
 }
@@ -53,6 +57,10 @@
     background-color: #3a4b98; /* #4b256e */
 }
 
+.zd-bingo-card__done4 {
+    background-color: #7d288e;
+}
+
 .zd-bingo-card__progress, .zd-bingo-card__teams {
     position: absolute;
     top: 0;
@@ -60,12 +68,17 @@
     left: 0;
     right: 0;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .zd-bingo-card__team {
-    flex: 1;
+    flex: 0 50%;
 }
 
 .zd-bingo-card__taskname {
     z-index: 10;
+}
+
+.zd-bingo-beasts__icon {
+    height: 100%;
 }
