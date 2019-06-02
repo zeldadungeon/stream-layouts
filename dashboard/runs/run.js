@@ -33,7 +33,9 @@
             </div>
 
             <div class="md-subheading" style="line-height: 40px;">Incentives<md-button class="md-icon-button" @click="newIncentive"><md-icon>add</md-icon></md-button></div>
-            <zd-incentive-card v-for="(incentive, index) in run.incentives" :incentive="incentive" :key="'incentive-' + index" @delete="deleteIncentive(index)" />
+            <div><!--Yes this has to be wrapped in a div for some reason-->
+                <zd-incentive-card v-for="(incentive, index) in run.incentives" :incentive="incentive" :numRacers="run.racers.length" :key="'incentive-' + index" @delete="deleteIncentive(index)" />
+            </div>
 
             <md-dialog-confirm
                 :md-active.sync="showQueueDialog"
@@ -261,7 +263,10 @@
             },
             addIncentive() {
                 if (!this.run.incentives) { this.$set(this.run, "incentives", []); }
-                this.run.incentives.push(this.edit.incentive);
+                this.run.incentives.push({
+                    name: this.edit.incentive.name,
+                    options: {}
+                });
                 this.showAddIncentiveDialog = false;
             },
             deleteIncentive(index) {

@@ -32,8 +32,8 @@
             <md-card-content>
                 <md-list>
                     <md-list-item v-for="option in options" :key="option">
-                        <div class="md-list-item-text md-primary">{{ option }}</div>
-                        <div class="md-list-item-text" style="text-align: right;"><span>{{ formatMoney(incentive.options[option]) }}</span></div>
+                        <div class="md-list-item-text md-primary" :class="optionClass(option)">{{ option }}</div>
+                        <div class="md-list-item-text" :class="optionClass(option)" style="text-align: right;"><span>{{ formatMoney(incentive.options[option]) }}</span></div>
                         <md-button class="md-icon-button" @click="editOption(option)"><md-icon>add</md-icon></md-button>
                     </md-list-item>
                 </md-list>
@@ -103,7 +103,7 @@
                 </md-dialog-actions>
             </md-dialog>
         </md-card>`,
-        props: ["incentive"],
+        props: ["incentive", "numRacers"],
         data() {
             return {
                 showEditIncentiveDialog: false,
@@ -132,6 +132,17 @@
             }
         },
         methods: {
+            optionClass(option) {
+                let higher = this.options.filter(o => this.incentive.options[o] >= this.incentive.options[option]);
+                if (higher.length <= this.numRacers) {
+                    return "zd-text-good";
+                }
+                higher = higher.filter(o => this.incentive.options[o] > this.incentive.options[option]);
+                if (higher.length < this.numRacers) {
+                    return "zd-text-bad";
+                }
+                return "";
+            },
             formatMoney(val) {
                 return `$${val.toFixed(2)}`;
             },

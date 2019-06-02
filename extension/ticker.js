@@ -84,8 +84,12 @@ module.exports = function (nodecg) {
                                     label: `${ptr} - ${incentive.name}`,
                                     message: Object.keys(incentive.options)
                                         .sort((a, b) => incentive.options[b] - incentive.options[a])
-                                        .slice(0, runs.value[ptr].racers.length)
-                                        .map(o => `${o} $${incentive.options[o].toFixed(2)}`)
+                                        .filter((v, i, a) => incentive.options[v] >= (incentive.options[a[runs.value[ptr].racers.length - 1]] || 0))
+                                        .map((v, i, a) => {
+                                            const result = `${v} $${incentive.options[v].toFixed(2)}`;
+                                            return a.length > runs.value[ptr].racers.length && incentive.options[v] === incentive.options[a[runs.value[ptr].racers.length - 1]] ?
+                                                `<strong>${result}</strong>` : result;
+                                        })
                                         .join(` <strong>〉</strong>`)
                                 });
                             }
