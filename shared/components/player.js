@@ -85,10 +85,10 @@
 						`zd-player__result--${this.pos || "topleft"}` : "";
 			},
             specialClass() {
-				return this.mode === "Elimination" && this.racer && {
-					eliminated: "zd-player--eliminated",
-					warning: "zd-player--warning"
-				}[this.racer.state] || "";
+				return `zd-player--${this.pos || "topleft"}${this.mode === "Elimination" && this.racer && {
+					eliminated: " zd-player--eliminated",
+					warning: " zd-player--warning"
+				}[this.racer.state] || ""}`;
 			},
 			info() {
 				if (this.mode === "Royal Rumble") {

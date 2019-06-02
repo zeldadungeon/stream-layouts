@@ -24,43 +24,37 @@
             position: absolute;
         }
 
-        #p1, #p2 {
-            top: 432px;
-        }
-
-        #p3, #p4 {
-            bottom: 512px;
-        }
-
         #p1, #p3 {
-            left: 184px;
+            left: 556px;
         }
 
         #p2, #p4 {
-            right: 184px;
+            right: 556px;
+        }
+
+        #p3, #p4 {
+            bottom: 80px;
         }
 
         .zd-timer {
-            top: 300px;
-            left: 860px;
+            top: 470px;
+            right: 636px;
         }
 
         .zd-social {
-            top: 360px;
-            left: 768px;
-            width: 384px;
-            height: 340px;
+            top: 470px;
+            left: 556px;
         }
     </style>
 </head>
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0"></zd-player>
-        <zd-player id="p2" :num="1"></zd-player>
-        <zd-player id="p3" :num="2" :pos="'bottomleft'"></zd-player>
-        <zd-player id="p4" :num="3" :pos="'bottomleft'"></zd-player>
-        <zd-social></zd-social>
+        <zd-player id="p1" :num="0" :pos="'left'"></zd-player>
+        <zd-player id="p2" :num="1" :pos="'right'"></zd-player>
+        <zd-player id="p3" :num="2" :pos="'left'"></zd-player>
+        <zd-player id="p4" :num="3" :pos="'right'"></zd-player>
+        <zd-social class="zd-social--small"></zd-social>
     </div>
 </body>
 </html>

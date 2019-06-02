@@ -26,12 +26,12 @@
 
         #p1 {
             top: 672px;
-            left: 184px;
+            left: 0px;
         }
 
         #p2 {
             top: 672px;
-            right: 184px;
+            right: 0px;
         }
 
         .zd-timer {
@@ -50,7 +50,7 @@
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0"></zd-player>
+        <zd-player id="p1" :num="0" :pos="'topright'"></zd-player>
         <zd-player id="p2" :num="1"></zd-player>
         <zd-social></zd-social>
     </div>

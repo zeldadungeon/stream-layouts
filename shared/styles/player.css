@@ -13,6 +13,22 @@
     animation-timing-function: linear;
 }
 
+.zd-player--left:before, .zd-player--right:after {
+    position: absolute;
+    top: -8px;
+    font-weight: bold;
+}
+
+.zd-player--left:before {
+    content: "〈";
+    left: 0px;;
+}
+
+.zd-player--right:after {
+    content: "〉";
+    right: 0px;
+}
+
 .zd-player__twitch {
     background: url("../images/Glitch_Purple_RGB.svg") no-repeat left/40px;
     padding-left: 1.25em;

@@ -25,17 +25,14 @@
         }
 
         #p1 {
-            top: 480px;
-            left: 800px;
-            width: 320px;
+            left: 1376px;
         }
 
-        #p2 {
-            bottom: 563px;
+        #p2, #p3 {
+            top: 440px;
         }
 
         #p3 {
-            bottom: 563px;
             right: 0px;
         }
 
@@ -45,19 +42,17 @@
         }
 
         .zd-social {
-            right: 0px;
-            width: 560px;
-            height: 457px;
+            left: 50px;
         }
     </style>
 </head>
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0"></zd-player>
+        <zd-player id="p1" :num="0" :pos="'left'"></zd-player>
         <zd-player id="p2" :num="1" :pos="'bottomright'"></zd-player>
         <zd-player id="p3" :num="2" :pos="'bottomleft'"></zd-player>
-        <zd-social></zd-social>
+        <zd-social class="zd-social--small"></zd-social>
     </div>
 </body>
 </html>

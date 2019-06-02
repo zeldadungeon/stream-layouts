@@ -43,12 +43,12 @@
         }
 
         #border3 {
-            bottom: 83px;
+            bottom: 80px;
             border-color: #198afd;
         }
 
         #border4 {
-            bottom: 83px;
+            bottom: 80px;
             right: 0px;
             border-color: #f34ffd;
         }
@@ -58,7 +58,7 @@
         }
 
         #p3, #p4 {
-            bottom: 483px;
+            bottom: 480px;
         }
 
         #p2, #p4 {
@@ -66,7 +66,7 @@
         }
 
         #b3, #b4 {
-            bottom: 83px;
+            bottom: 80px;
         }
 
         #b1, #b3 {
@@ -80,7 +80,7 @@
         #bonus1, #bonus2 {
             top: 400px;
             width: 308px;
-            height: 198px;
+            height: 200px;
         }
 
         #bonus1 {
@@ -101,7 +101,7 @@
         }
 
         #beasts3, #beasts4 {
-            bottom: 433px;
+            bottom: 430px;
         }
 
         #beasts1, #beasts3 {
@@ -120,25 +120,12 @@
         }
 
         .zd-timer {
-            top: 469px;
+            top: 470px;
             right: 100px;
         }
 
         .zd-social {
-            top: 469px;
-            width: 400px;
-            height: 60px;
-        }
-
-        .zd-social__card {
-            flex-direction: row;
-        }
-
-        .zd-social__logo {
-            height: 100%;
-            max-width: 85px;
-            margin-bottom: 0;
-            margin-right: 0.5em;
+            top: 470px;
         }
     </style>
 </head>
@@ -160,7 +147,7 @@
         <zd-bingo-card id="b4" :num="4" :orientation="'vertical'"></zd-bingo-card>
         <zd-bingo-shared id="bonus1" :type="'even'"></zd-bingo-shared>
         <zd-bingo-shared id="bonus2" :type="'odd'"></zd-bingo-shared>
-        <zd-social></zd-social>
+        <zd-social class="zd-social--small"></zd-social>
     </div>
 </body>
 </html>

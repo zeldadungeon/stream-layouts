@@ -22,3 +22,19 @@
 .fade-enter, .fade-leave-to {
     opacity: 0;
 }
+
+.zd-social--small {
+    width: 400px;
+    height: 60px;
+}
+
+.zd-social--small .zd-social__card {
+    flex-direction: row;
+}
+
+.zd-social--small .zd-social__logo {
+    height: 100%;
+    max-width: 85px;
+    margin-bottom: 0;
+    margin-right: 0.5em;
+}

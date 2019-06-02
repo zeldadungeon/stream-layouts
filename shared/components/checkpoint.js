@@ -4,7 +4,7 @@
     Vue.component("zd-checkpoint", {
         template: `<div class="zd-checkpoint" style="text-align: center; padding: 10px 15px; box-sizing: border-box;">
             <div style="display: inline-block; text-align: left;">
-                <div v-if="checkpoint < checkpoints.length">Checkpoint {{ checkpoint + 1 }}: {{ count }} / {{ target }}<br />{{ checkpoints[checkpoint] }}<br /></div>
+                <div v-if="checkpoint < checkpoints.length">{{ checkpoints[checkpoint] }}: {{ count }} / {{ target }}<br /></div>
                 <div style="display: flex; flex-wrap: wrap;">
                     <div v-for="finish in finished" style="flex: 1 1 50%; white-space: nowrap;">{{ finish }}</div>
                 </div>

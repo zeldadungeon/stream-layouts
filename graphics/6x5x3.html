@@ -26,12 +26,10 @@
 
         #p1, #p2, #p3 {
             top: 360px;
-            width: 384px;
         }
 
         #p4, #p5, #p6 {
             top: 577px;
-            width: 384px;
         }
 
         #p1, #p4 {
@@ -39,7 +37,7 @@
         }
 
         #p2, #p5 {
-            left: 768px;
+            left: 752px;
         }
 
         #p3, #p6 {
@@ -48,15 +46,11 @@
 
         .zd-timer {
             top: 470px;
-            left: 860px;
+            right: 100px;
         }
 
         .zd-social {
-            top: 360px;
-            right: 384px;
-            width: 384px;
-            height: 277px;
-            overflow: hidden;
+            top: 470px;
         }
     </style>
 </head>
@@ -69,7 +63,7 @@
         <zd-player id="p4" :num="3" :pos="'bottomright'"></zd-player>
         <zd-player id="p5" :num="4" :pos="'bottomleft'"></zd-player>
         <zd-player id="p6" :num="5" :pos="'bottomleft'"></zd-player>
-        <zd-social></zd-social>
+        <zd-social class="zd-social--small"></zd-social>
     </div>
 </body>
 </html>
