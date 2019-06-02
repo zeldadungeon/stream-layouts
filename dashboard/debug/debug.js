@@ -15,6 +15,10 @@
             <label>Last donation <input type="number" v-model.number.lazy="donations.lastDonation" style="width: 6em"></label>
             <br />
             <button @click="clearDonations">Clear Donations</button>
+            <br />
+            <label><input v-model="donation.displayName" /> Name</label><label><input v-model="donation.amount" /> Amount</label><label><input v-model="donation.message" /> Message</label>
+            <br />
+            <button @click="addDonation">Add Donation</button>
             <hr />
             <label><input type="checkbox" v-model="twitter.enabled" /> Twitter Link Enabled</label>
             <br />
@@ -23,8 +27,6 @@
             <label><input type="checkbox" v-model="twitch.enabled" /> Twitch Link Enabled</label>
             <hr />
             <button @click="addTweet">Add Tweet to Queue</button>
-            <button @click="addDonation">Add Donation to Queue</button>
-            <button @click="addAnonymous">Add Anonymous Donation to Queue</button>
             <button @click="addCheer">Add Cheer to Queue</button>
             <button @click="addFollow">Add Follow to Queue</button>
             <button @click="addSub">Add Sub to Queue</button>
@@ -32,6 +34,11 @@
             <label>Raised during Bingo <input type="number" v-model.number.lazy="bingo.raised" style="width: 6em"></label>
         </div>`,
         replicants: ["donations", "ticker", "twitter", "twitch", "bingo"],
+        data() {
+            return {
+                donation: {}
+            }
+        },
         methods: {
             addItem: function(item) {
                 nodecg.sendMessage("events:queue", item);
@@ -45,19 +52,11 @@
                 });
             },
             addDonation: function() {
-                this.addItem({
-                    type: "donation",
-                    id: Date.now(),
-                    name: "farorescourage",
-                    amount: "5.00"
-                });
-            },
-            addAnonymous: function() {
-                this.addItem({
-                    type: "donation",
-                    id: Date.now(),
-                    name: null,
-                    amount: "5.00"
+                nodecg.sendMessage("donations:debug", {
+                    createdDateUTC: new Date().toISOString(),
+                    displayName: this.donation.displayName,
+                    amount: Number(this.donation.amount),
+                    message: this.donation.message
                 });
             },
             addCheer: function() {
