@@ -64,7 +64,7 @@
                         <md-field>
                             <label>Rules</label>
                             <md-select v-model="newRun.rules" required>
-                                <md-option v-for="rule in ['Race', 'Elimination', 'Royal Rumble', 'Bingo']" :key="rule" :value="rule">{{ rule }}</md-option>
+                                <md-option v-for="rule in ['Race', 'Elimination', 'Royal Rumble', 'Bingo', 'Individual Levels']" :key="rule" :value="rule">{{ rule }}</md-option>
                             </md-select>
                         </md-field>
                         <md-field>
@@ -147,6 +147,20 @@
                         const next = this.runs[prev].next;
                         this.$set(this.runs[prev], "next", this.newRun.name);
                         this.newRun.next = next;
+
+                        if (this.newRun.rules === "Individual Levels") {
+                            this.newRun.levels = [
+                                {name: "L1", results: []},
+                                {name: "L2", results: []},
+                                {name: "L3", multiplier: 2, results: []},
+                                {name: "L4", multiplier: 2, results: []},
+                                {name: "L5", multiplier: 3, results: []},
+                                {name: "L6", multiplier: 3, results: []},
+                                {name: "L7", multiplier: 4, results: []},
+                                {name: "L8", multiplier: 4, results: []},
+                                {name: "L9", multiplier: 5, results: []},
+                            ]
+                        }
 
                         // commit
                         this.$set(this.runs, this.newRun.name, this.newRun);

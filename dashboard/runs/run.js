@@ -28,6 +28,9 @@
             <div v-else-if="run.rules === 'Bingo'">
                 <zd-bingo-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" :team="index" @finish="stopRun" @remove="removeRacer(index)" />
             </div>
+            <div v-else-if="run.rules === 'Individual Levels'">
+                <zd-levels-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
+            </div>
             <div v-else>
                 <zd-race-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
             </div>
@@ -74,7 +77,7 @@
                     <md-field>
                         <label>Rules</label>
                         <md-select v-model="edit.rules" required>
-                            <md-option v-for="rule in ['Race', 'Elimination', 'Royal Rumble', 'Bingo']" :key="rule" :value="rule">{{ rule }}</md-option>
+                            <md-option v-for="rule in ['Race', 'Elimination', 'Royal Rumble', 'Bingo', 'Individual Levels']" :key="rule" :value="rule">{{ rule }}</md-option>
                         </md-select>
                     </md-field>
                     <md-field>
@@ -162,6 +165,20 @@
                         this.run.abbr = this.edit.abbr;
                         this.run.twitch = result.data[0];
                         this.run.rules = this.edit.rules;
+
+                        if (this.run.rules === "Individual Levels" && !this.run.levels) {
+                            this.$set(this.run, "levels", [
+                                {name: "L1", results: []},
+                                {name: "L2", results: []},
+                                {name: "L3", multiplier: 2, results: []},
+                                {name: "L4", multiplier: 2, results: []},
+                                {name: "L5", multiplier: 3, results: []},
+                                {name: "L6", multiplier: 3, results: []},
+                                {name: "L7", multiplier: 4, results: []},
+                                {name: "L8", multiplier: 4, results: []},
+                                {name: "L9", multiplier: 5, results: []},
+                            ]);
+                        }
 
                         // update position
                         const prev = Object.keys(this.runs).find(k => this.runs[k].next === this.runName);

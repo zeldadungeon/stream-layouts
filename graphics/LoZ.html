@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../shared/styles/common.css" />
+    <link rel="stylesheet" href="../shared/styles/player.css" />
+    <link rel="stylesheet" href="../shared/styles/social.css" />
+    <link rel="stylesheet" href="../shared/styles/levels.css" />
+    <script defer src="../shared/scripts/lodash.core.js"></script>
+    <script defer src="../shared/scripts/vue.js"></script>
+    <script defer src="../shared/scripts/vuecg.js"></script>
+    <script defer src="../shared/components/player.js"></script>
+    <script defer src="../shared/components/levels.js"></script>
+    <script defer src="../shared/components/social.js"></script>
+    <script defer src="./layout.js"></script>
+    <style>
+        #app {
+            height: 1080px;
+            width: 1920px;
+            position: relative;
+        }
+        
+        #app > * {
+            position: absolute;
+        }
+
+        .zd-player {
+            width: 388px;
+        }
+
+        #p1, #p2 {
+            top: 440px;
+        }
+
+        #p3, #p4 {
+            bottom: 80px;
+        }
+
+        #p1, #p3 {
+            left: 572px;
+        }
+
+        #p2, #p4 {
+            right: 572px;
+        }
+
+        .zd-individual-levels {
+            height: 440px;
+            width: 168px;
+        }
+
+        #l3, #l4 {
+            bottom: 140px;
+        }
+
+        #l1, #l3 {
+            left: 572px;
+        }
+
+        #l2, #l4 {
+            right: 572px;
+        }
+
+        .zd-social {
+            left: 740px;
+            height: 60px;
+            width: 440px;
+        }
+    </style>
+</head>
+<body> 
+    <div id="app">
+        <zd-player id="p1" :num="0" :run-name="runName" :pos="'left'"></zd-player>
+        <zd-player id="p2" :num="1" :run-name="runName" :pos="'right'"></zd-player>
+        <zd-player id="p3" :num="2" :run-name="runName" :pos="'left'"></zd-player>
+        <zd-player id="p4" :num="3" :run-name="runName" :pos="'right'"></zd-player>
+        <zd-individual-levels id="l1" :run="run" :num="0"></zd-individual-levels>
+        <zd-individual-levels id="l2" :run="run" :num="1"></zd-individual-levels>
+        <zd-individual-levels id="l3" :run="run" :num="2"></zd-individual-levels>
+        <zd-individual-levels id="l4" :run="run" :num="3"></zd-individual-levels>
+        <zd-social class="zd-social--small"></zd-social>
+    </div>
+</body>
+</html>

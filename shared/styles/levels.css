@@ -1,0 +1,26 @@
+.zd-individual-levels {
+    display: table;
+    font-size: 24px;
+}
+
+.zd-individual-levels__level {
+    display: table-row;
+}
+
+.zd-individual-levels__level:nth-child(even) {
+    background-color: rgba(0,0,0,.5);
+}
+
+.zd-individual-levels__level:nth-child(odd) {
+    background-color: rgba(0,0,0,.2);
+}
+
+.zd-individual-levels__levelname {
+    display: table-cell;
+    padding: 0 .8em;
+}
+
+.zd-individual-levels__result {
+    display: table-cell;
+    padding: 0 .8em 0 0;
+}

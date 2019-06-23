@@ -216,6 +216,11 @@
                 "file": "BotW.html",
                 "width": 1920,
                 "height": 1080
+            },
+            {
+                "file": "LoZ.html",
+                "width": 1920,
+                "height": 1080
             }
         ],
         "soundCues": [
