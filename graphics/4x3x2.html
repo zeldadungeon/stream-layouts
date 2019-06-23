@@ -12,7 +12,7 @@
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
-    <script defer src="../shared/scripts/app.js"></script>
+    <script defer src="./layout.js"></script>
     <style>
         #app {
             height: 1080px;
@@ -25,11 +25,11 @@
         }
 
         #p1, #p3 {
-            left: 704px;
+            left: 750px;
         }
 
         #p2, #p4 {
-            right: 704px;
+            right: 750px;
         }
 
         #p2 {
@@ -37,34 +37,34 @@
         }
 
         #p3 {
-            bottom: 143px;
+            bottom: 140px;
         }
 
         #p4 {
-            bottom: 83px;
+            bottom: 80px;
         }
 
         .zd-timer {
-            top: 480px;
+            top: 440px;
             left: 860px;
         }
 
         .zd-social {
-            top: 517px;
-            left: 640px;
-            width: 640px;
-            height: 360px;
+            top: 500px;
+            left: 750px;
+            width: 420px;
+            height: 60px;
         }
     </style>
 </head>
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0" :pos="'none'"></zd-player>
-        <zd-player id="p2" :num="1" :pos="'none'"></zd-player>
-        <zd-player id="p3" :num="2" :pos="'none'"></zd-player>
-        <zd-player id="p4" :num="3" :pos="'none'"></zd-player>
-        <zd-social :pos="'topleft'"></zd-social>
+        <zd-player id="p1" :num="0" :run-name="runName" :pos="'left'"></zd-player>
+        <zd-player id="p2" :num="1" :run-name="runName" :pos="'right'"></zd-player>
+        <zd-player id="p3" :num="2" :run-name="runName" :pos="'left'"></zd-player>
+        <zd-player id="p4" :num="3" :run-name="runName" :pos="'right'"></zd-player>
+        <zd-social class="zd-social--small"></zd-social>
     </div>
 </body>
 </html>

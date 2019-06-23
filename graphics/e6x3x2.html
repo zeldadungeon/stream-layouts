@@ -13,7 +13,7 @@
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
     <script defer src="../shared/components/checkpoint.js"></script>
-    <script defer src="../shared/scripts/app.js"></script>
+    <script defer src="./layout.js"></script>
     <style>
         #app {
             height: 1080px;
@@ -71,12 +71,12 @@
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0" :type="'elimination'"></zd-player>
-        <zd-player id="p2" :num="1" :type="'elimination'"></zd-player>
-        <zd-player id="p3" :num="2" :type="'elimination'"></zd-player>
-        <zd-player id="p4" :num="3" :type="'elimination'"></zd-player>
-        <zd-player id="p5" :num="4" :type="'elimination'"></zd-player>
-        <zd-player id="p6" :num="5" :type="'elimination'"></zd-player>
+        <zd-player id="p1" :num="0" :run-name="runName" :type="'elimination'"></zd-player>
+        <zd-player id="p2" :num="1" :run-name="runName" :type="'elimination'"></zd-player>
+        <zd-player id="p3" :num="2" :run-name="runName" :type="'elimination'"></zd-player>
+        <zd-player id="p4" :num="3" :run-name="runName" :type="'elimination'"></zd-player>
+        <zd-player id="p5" :num="4" :run-name="runName" :type="'elimination'"></zd-player>
+        <zd-player id="p6" :num="5" :run-name="runName" :type="'elimination'"></zd-player>
         <zd-social></zd-social>
         <zd-checkpoint></zd-checkpoint>
     </div>

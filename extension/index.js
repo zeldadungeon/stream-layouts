@@ -1,6 +1,19 @@
 "use strict";
 
 module.exports = function(nodecg) {
+    // defaults
+    const players = nodecg.Replicant("players", {
+        defaultValue: {}
+    });
+    const runs = nodecg.Replicant("runs", {
+        defaultValue: {
+            start: {
+                next: undefined,
+                current: undefined
+            }
+        }
+    });
+
     let idle = true;
     const queue = [];
     const displayedEvent = nodecg.Replicant("social_event");

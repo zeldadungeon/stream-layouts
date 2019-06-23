@@ -14,7 +14,7 @@
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/bingo.js"></script>
     <script defer src="../shared/components/social.js"></script>
-    <script defer src="../shared/scripts/app.js"></script>
+    <script defer src="./layout.js"></script>
     <style>
         #app {
             height: 1080px;
@@ -136,10 +136,10 @@
         <div class="zd-border" id="border2"></div>
         <div class="zd-border" id="border3"></div>
         <div class="zd-border" id="border4"></div>
-        <zd-player id="p1" :num="0" :pos="'topright'"></zd-player>
-        <zd-player id="p2" :num="1"></zd-player>
-        <zd-player id="p3" :num="2" :pos="'bottomright'"></zd-player>
-        <zd-player id="p4" :num="3" :pos="'bottomleft'"></zd-player>
+        <zd-player id="p1" :num="0" :run-name="runName" :pos="'topright'"></zd-player>
+        <zd-player id="p2" :num="1" :run-name="runName"></zd-player>
+        <zd-player id="p3" :num="2" :run-name="runName" :pos="'bottomright'"></zd-player>
+        <zd-player id="p4" :num="3" :run-name="runName" :pos="'bottomleft'"></zd-player>
         <zd-bingo-beasts v-for="n in 4" :key="'beasts'+n" :id="'beasts'+n" :team="n - 1"></zd-bingo-beasts>
         <zd-bingo-card id="b1" :num="1" :orientation="'vertical'"></zd-bingo-card>
         <zd-bingo-card id="b2" :num="2" :orientation="'vertical'"></zd-bingo-card>

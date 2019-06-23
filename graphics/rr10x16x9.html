@@ -12,7 +12,7 @@
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
-    <script defer src="../shared/scripts/app.js"></script>
+    <script defer src="./layout.js"></script>
     <style>
         #app {
             height: 1080px;
@@ -66,16 +66,16 @@
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0" :pos="'topright'" :type="'rumble'"></zd-player>
-        <zd-player id="p2" :num="1" :pos="'topright'" :type="'rumble'"></zd-player>
-        <zd-player id="p3" :num="2" :pos="'topright'" :type="'rumble'"></zd-player>
-        <zd-player id="p4" :num="3" :pos="'topright'" :type="'rumble'"></zd-player>
-        <zd-player id="p5" :num="4" :pos="'topright'" :type="'rumble'"></zd-player>
-        <zd-player id="p6" :num="5" :pos="'topright'" :type="'rumble'"></zd-player>
-        <zd-player id="p7" :num="6" :pos="'topright'" :type="'rumble'"></zd-player>
-        <zd-player id="p8" :num="7" :pos="'topright'" :type="'rumble'"></zd-player>
-        <zd-player id="p9" :num="8" :pos="'topright'" :type="'rumble'"></zd-player>
-        <zd-player id="p10" :num="9" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p1" :num="0" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p2" :num="1" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p3" :num="2" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p4" :num="3" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p5" :num="4" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p6" :num="5" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p7" :num="6" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p8" :num="7" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p9" :num="8" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p10" :num="9" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
         <zd-social></zd-social>
     </div>
 </body>

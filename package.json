@@ -133,12 +133,17 @@
                 "height": 1080
             },
             {
-                "file": "4x4x3.html",
+                "file": "4x3x2.html",
                 "width": 1920,
                 "height": 1080
             },
             {
                 "file": "1x2x4x3.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "1x2x4x3s.html",
                 "width": 1920,
                 "height": 1080
             },
@@ -149,6 +154,11 @@
             },
             {
                 "file": "3x2x4x3.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "1x8x5.html",
                 "width": 1920,
                 "height": 1080
             },
@@ -174,11 +184,6 @@
             },
             {
                 "file": "6x5x3.html",
-                "width": 1920,
-                "height": 1080
-            },
-            {
-                "file": "6x5x3v2.html",
                 "width": 1920,
                 "height": 1080
             },

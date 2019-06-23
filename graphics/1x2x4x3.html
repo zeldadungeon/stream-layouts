@@ -12,7 +12,7 @@
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
-    <script defer src="../shared/scripts/app.js"></script>
+    <script defer src="./layout.js"></script>
     <style>
         #app {
             height: 1080px;
@@ -22,28 +22,29 @@
         
         #p1 {
             position: absolute;
-            left: 120px;
+            top: 440px;
+            left: 187px;
         }
 
         .zd-timer {
             position: absolute;
-            bottom: 120px;
-            left: 220px;
+            top: 440px;
+            width: 187px;
         }
 
         .zd-social {
             position: absolute;
-            left: 1280px;
-            width: 640px;
-            height: 997px;
+            top: 500px;
+            width: 587px;
+            height: 60px;
         }
     </style>
 </head>
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0" :pos="'none'"></zd-player>
-        <zd-social></zd-social>
+        <zd-player id="p1" :num="0" :run-name="runName" :pos="'none'"></zd-player>
+        <zd-social class="zd-social--small"></zd-social>
     </div>
 </body>
 </html>

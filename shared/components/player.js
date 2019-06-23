@@ -69,7 +69,7 @@
             result() {
 				if (!this.racer) { return this.format(0); }
 
-				if (this.mode === "Elimination" && racer.state === "eliminated") {
+				if (this.mode === "Elimination" && this.racer.state === "eliminated") {
 					const place = this.racer.position;
 					return `OUT - ${place}${{1: "st", 2: "nd", 3: "rd"}[place] || "th"} place`
 				} else if (this.mode === "Royal Rumble" && !this.racer.finish) {

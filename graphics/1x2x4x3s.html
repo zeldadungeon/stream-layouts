@@ -19,41 +19,40 @@
             width: 1920px;
             position: relative;
         }
-        
-        #app > * {
+
+        #barkle {
             position: absolute;
-        }
-
-        #p1, #p3 {
-            left: 556px;
-        }
-
-        #p2, #p4 {
-            right: 556px;
-        }
-
-        #p3, #p4 {
             bottom: 80px;
+            left: 20px;
+            width: 270px;
+        }
+        
+        #p1 {
+            position: absolute;
+            top: 800px;
+            right: 640px;
         }
 
         .zd-timer {
-            top: 470px;
-            right: 636px;
+            position: absolute;
+            top: 800px;
+            left: 520px;
         }
 
         .zd-social {
-            top: 470px;
-            left: 556px;
+            position: absolute;
+            top: 900px;
+            left: 520px;
+            width: 400px;
+            height: 60px;
         }
     </style>
 </head>
 <body> 
     <div id="app">
+        <img id="barkle" src="../shared/images/Barkle.png" />
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0" :run-name="runName" :pos="'left'"></zd-player>
-        <zd-player id="p2" :num="1" :run-name="runName" :pos="'right'"></zd-player>
-        <zd-player id="p3" :num="2" :run-name="runName" :pos="'left'"></zd-player>
-        <zd-player id="p4" :num="3" :run-name="runName" :pos="'right'"></zd-player>
+        <zd-player id="p1" :num="0" :run-name="runName" :pos="'none'"></zd-player>
         <zd-social class="zd-social--small"></zd-social>
     </div>
 </body>
