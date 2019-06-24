@@ -257,6 +257,19 @@
                     r.eliminated = false;
                     r.state = "";
                 });
+                if (this.run.levels) {
+                    this.run.levels = [
+                        {name: "L1", results: []},
+                        {name: "L2", results: []},
+                        {name: "L3", multiplier: 2, results: []},
+                        {name: "L4", multiplier: 2, results: []},
+                        {name: "L5", multiplier: 3, results: []},
+                        {name: "L6", multiplier: 3, results: []},
+                        {name: "L7", multiplier: 4, results: []},
+                        {name: "L8", multiplier: 4, results: []},
+                        {name: "L9", multiplier: 5, results: []},
+                    ];
+                }
             },
             addRacer(name) {
                 if (!this.run.racers) { this.$set(this.run, "racers", []); }
