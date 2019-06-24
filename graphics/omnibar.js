@@ -6,10 +6,10 @@
         template: `<div class="zd-omnibar">
             <div class="zd-omnibar__logo">
                 <transition name="zd-omnibar__logo-transition">
-                    <img v-if="expandLogo" src="../shared/images/zd marathon.svg" />
+                    <img v-if="expandLogo" src="../shared/images/ZDMarathon2019.png" />
                 </transition>
                 <transition name="zd-omnibar__logo-transition">
-                    <img v-if="!expandLogo" style="left: 0px;" src="../shared/images/zdm icon.svg" />
+                    <img v-if="!expandLogo" style="left: 0px;" src="../shared/images/ZDMarathon2019Icon.png" />
                 </transition>
                 <transition name="zd-omnibar__logo-transition">
                     <img v-if="!expandLogo" style="right: 0px;" src="../shared/images/ExtraLife_white.png" />
