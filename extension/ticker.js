@@ -99,6 +99,7 @@ module.exports = function (nodecg) {
                 }
                 if (queue.length === 0) {
                     advanceQueue(); // no incentives left
+                    return;
                 }
             } else {
                 queue.push(nextTemplate);

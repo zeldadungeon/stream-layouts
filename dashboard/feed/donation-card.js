@@ -72,8 +72,8 @@
                 while(name) {
                     if (this.runs[name].state !== "running" && this.runs[name].incentives.length > 0) {
                         names.push(name);
-                        name = this.runs[name].next;
                     }
+                    name = this.runs[name].next;
                 }
                 return names;
             },

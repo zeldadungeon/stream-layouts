@@ -4,6 +4,11 @@
     const app = new Vue({
         el: "#app",
         template: `<div class="zd-omnibar">
+            <transition name="slide" mode="out-in">
+                <div class="zd-omnibar__slideover" v-if="event">
+                    <div class="zd-omnibar__slideover-body"><img class="zd-omnibar__slideover-icon" :src="'../shared/images/' + event.image" /><span v-html="event.text" style="vertical-align: middle;"></span></div>
+                </div>
+			</transition>
             <div class="zd-omnibar__logo">
                 <transition name="zd-omnibar__logo-transition">
                     <img v-if="expandLogo" src="../shared/images/ZDMarathon2019.png" />
@@ -32,9 +37,8 @@
             </div>
             <div class="zd-omnibar__divider" />
             <div class="zd-omnibar__time"><div class="zd-bignumber">{{ now }}</div><div class="zd-label">Local Time</div></div>
-            {{ message }}
         </div>`,
-        replicants: ["ticker", "donations", "message"],
+        replicants: ["ticker", "donations", "message", "social_event"],
         data: {
             now: new Date().toLocaleString("en-US", { hour: "numeric", minute: "numeric", hour12: true }),
             total: 0,
@@ -71,7 +75,46 @@
             },
             frame: function() {
                 return this.ticker.tick % 2;
-            }
+            },
+			event: function() {
+				const event = this.social_event;
+				if (event) {
+					switch(event.type) {
+						case "tweet":
+							return {
+								id: event.id,
+								image: "LA_Weathervane.gif",
+								text: `<strong>@${event.name}: </strong>${event.text}`
+							};
+						case "donation":
+							return {
+								id: event.id,
+								image: "rupee_anim.gif",
+								text: `${event.name ? `<strong>${event.name}</strong>` : `Someone`} donated <strong>$${event.amount}</strong>!`
+							};
+						case "cheer":
+							return {
+								id: event.id,
+								image: "force_gem.gif",
+								text: `<strong>${event.name}</strong> cheered with <strong>${event.bits} bit${event.bits > 1 ? "s" : ""}</strong>!`
+							};
+						case "follow":
+							return {
+								id: event.id,
+								image: "BowWow.gif",
+								text: `<strong>${event.name}</strong> followed!`
+							};
+						case "sub":
+							return {
+								id: event.id,
+								image: "phone.gif",
+								text: `<strong>${event.name}</strong> subscribed!`
+							};
+					}
+				}
+
+				return null;
+			}
         },
         methods: {
         },

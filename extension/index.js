@@ -37,6 +37,10 @@ module.exports = function(nodecg) {
         }
     }
 
+    nodecg.listenFor("events:queue", d => {
+        enqueue(d);
+    });
+
     require("./timer")(nodecg);
     require("./ticker")(nodecg);
     require("./donations")(nodecg, enqueue);

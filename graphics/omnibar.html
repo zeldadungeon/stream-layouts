@@ -154,6 +154,51 @@
             transform: translateX(calc(1230px - 100%)); /* 1230px = width of ticker */
         }
 
+        .zd-omnibar__slideover {
+            position: absolute;
+            width: 1560px;
+            left: 0px;
+            z-index: 1;
+            background: url("../shared/images/background.png"), linear-gradient(#1d4c6c,#0b1d29,#30414d);
+        }
+
+        .zd-omnibar__slideover::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: -8px;
+            width: 34px;
+            height: 100%;
+            background: right / auto 66px no-repeat url("../shared/images/ZDFeatherIcon.png");
+            background-position-x: 0px;
+        }
+
+        .zd-omnibar__slideover-body {
+            overflow: hidden;
+            white-space: nowrap;
+            text-align: center;
+            text-overflow: ellipsis;
+            padding-right: 30px;
+            height: 100%;
+        }
+
+        .zd-omnibar__slideover-icon {
+            vertical-align: middle;
+            height: 100%;
+            max-width: 85px;
+            margin-bottom: 0;
+            margin-right: 0.5em;
+        }
+
+        .slide-enter-active, .slide-leave-active {
+            transition: all .8s;
+        }
+
+        .slide-enter, .slide-leave-to {
+            left: -1520px;
+            background-position-x: 1520px;
+        }
+
         @keyframes slidedown {
             from {
                 top: -100%;
