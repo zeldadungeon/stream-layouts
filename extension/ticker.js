@@ -49,50 +49,44 @@ module.exports = function (nodecg) {
             const nextTemplate = template.shift();
             template.push(nextTemplate);
             if (nextTemplate.template === "games") {
-                let done = [];
-                let ptr = runs.value["start"].next;
-                while (ptr && runs.value[ptr].state === "done") {
-                    done.push(runs.value[ptr].abbr);
-                    ptr = runs.value[ptr].next;
-                }
+                const runNames = Object.keys(runs.value).filter(r => r !== "start");
+                const done = runNames.filter(r => runs.value[r].state === "done" && runs.value[r].abbr).map(r => runs.value[r].abbr);
                 if (done.length > 0) {
                     queue.push({
                         label: "Completed",
                         message: done.join(", ")
                     });
                 }
-                if (ptr) {
+                if (runs.value.start.current) {
                     queue.push({
                         label: "Now playing",
-                        message: ptr
+                        message: runs.value.start.current
                     });
-                    ptr = runs.value[ptr].next;
-                    if (ptr) {
-                        queue.push({
-                            label: "Next up",
-                            message: ptr
-                        });
-                    }
+                }
+                if (runs.value.start.next) {
+                    queue.push({
+                        label: "Next up",
+                        message: runs.value.start.next
+                    });
                 }
             } else if (nextTemplate.template === "incentives") {
                 let ptr = runs.value["start"].current;
                 while (ptr && queue.length < 3) {
                     if (runs.value[ptr].incentives && runs.value[ptr].incentives.length > 0) {
                         runs.value[ptr].incentives.forEach(incentive => {
-                            if (Object.keys(incentive.options).length > 0) {
-                                queue.push({
-                                    label: `${ptr} - ${incentive.name}`,
-                                    message: Object.keys(incentive.options)
-                                        .sort((a, b) => incentive.options[b] - incentive.options[a])
-                                        .filter((v, i, a) => incentive.options[v] >= (incentive.options[a[runs.value[ptr].racers.length - 1]] || 0))
-                                        .map((v, i, a) => {
-                                            const result = `${v} $${incentive.options[v].toFixed(2)}`;
-                                            return a.length > runs.value[ptr].racers.length && incentive.options[v] === incentive.options[a[runs.value[ptr].racers.length - 1]] ?
-                                                `<strong>${result}</strong>` : result;
-                                        })
-                                        .join(` <strong>〉</strong>`)
-                                });
-                            }
+                            const options = Object.keys(incentive.options);
+                            queue.push({
+                                label: `${ptr} - ${incentive.name}`,
+                                message: options.length === 0 ? "No donations yet!" : options
+                                    .sort((a, b) => incentive.options[b] - incentive.options[a])
+                                    .filter((v, i, a) => incentive.options[v] >= (incentive.options[a[runs.value[ptr].racers.length - 1]] || 0))
+                                    .map((v, i, a) => {
+                                        const result = `${v} $${incentive.options[v].toFixed(2)}`;
+                                        return a.length > runs.value[ptr].racers.length && incentive.options[v] === incentive.options[a[runs.value[ptr].racers.length - 1]] ?
+                                            `<strong>${result}</strong>` : result;
+                                    })
+                                    .join(` <strong>〉</strong>`)
+                            });
                         });
                     }
                     ptr = runs.value[ptr].next;

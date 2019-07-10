@@ -20,38 +20,39 @@
             position: relative;
         }
 
-        #app > * {
+        .zd-player, .zd-timer, .zd-social {
             position: absolute;
         }
 
-        #p1 {
-            left: 1376px;
+        #p1, #p3 {
+            left: 356px;
         }
 
-        #p2, #p3 {
-            top: 440px;
-        }
-
-        #p3 {
+        #p2, #p4 {
             right: 0px;
         }
 
+        #p3, #p4 {
+            bottom: 80px;
+        }
+
         .zd-timer {
-            bottom: 290px;
-            left: 860px;
+            bottom: 80px;
+            right: 682px;
         }
 
         .zd-social {
-            left: 50px;
+            right: 582px;
         }
     </style>
 </head>
 <body> 
     <div id="app">
-        <zd-timer v-if="showTimer"></zd-timer>
-        <zd-player id="p1" :num="0" :run-name="runName" :pos="'left'"></zd-player>
-        <zd-player id="p2" :num="1" :run-name="runName" :pos="'bottomright'"></zd-player>
-        <zd-player id="p3" :num="2" :run-name="runName" :pos="'bottomleft'"></zd-player>
+        <zd-timer></zd-timer>
+        <zd-player id="p1" :num="0" :run-name="runName"></zd-player>
+        <zd-player id="p2" :num="1" :run-name="runName"></zd-player>
+        <zd-player id="p3" :num="2" :run-name="runName"></zd-player>
+        <zd-player id="p4" :num="3" :run-name="runName"></zd-player>
         <zd-social class="zd-social--small"></zd-social>
     </div>
 </body>

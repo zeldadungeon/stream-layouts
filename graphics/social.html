@@ -8,7 +8,6 @@
     <script defer src="../shared/scripts/vue.js"></script>
     <script defer src="../shared/scripts/vuecg.js"></script>
     <script defer src="../shared/components/social.js"></script>
-    <script defer src="../shared/scripts/app.js"></script>
     <style>
         html, body, #app {
             height: 100%;
@@ -16,8 +15,19 @@
     </style>
 </head>
 <body> 
-    <div id="app">
-        <zd-social></zd-social>
-    </div>
+    <div id="app"></div>
+    <script defer>
+window.onload = function() {
+    "use strict";
+
+    const app = new Vue({
+        el: "#app",
+        template: `<zd-social :class="displayClass"></zd-social>`,
+        data: {
+            displayClass: window.location.search === '?small' ? 'zd-social--small' : ''
+        }
+    });
+};
+    </script>
 </body>
 </html>

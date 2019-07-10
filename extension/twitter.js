@@ -19,21 +19,21 @@ module.exports = function (nodecg, enqueue) {
     twitter.on("change", (newVal, oldVal) => {
         // turn twitter connection on or off
         if (newVal.enabled) {
-            if (!streams.user) {
-                initializeStream("user");
-            }
+            // if (!streams.user) {
+            //     initializeStream("user");
+            // }
             if (!streams.filter && config.hashtag && config.hashtag !== "") {
                 initializeStream("filter");
             }
         } else {
-            if (streams.user) {
-                try {
-                    streams.user.close();
-                } catch(ex) {
-                    nodecg.log.error("[twitter] Exception while closing user connection: ", ex)
-                }
-                streams.user = undefined;
-            }
+            // if (streams.user) {
+            //     try {
+            //         streams.user.close();
+            //     } catch(ex) {
+            //         nodecg.log.error("[twitter] Exception while closing user connection: ", ex)
+            //     }
+            //     streams.user = undefined;
+            // }
             if (streams.filter) {
                 try {
                     streams.filter.close();

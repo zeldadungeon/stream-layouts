@@ -5,7 +5,8 @@
         el: "#app",
         replicants: ["runs"],
         data: {
-            runName: decodeURIComponent(window.location.search.substring(1).split("&")[0]) || ""
+            runName: decodeURIComponent(window.location.search.substring(1).split("&")[0]) || "",
+            showTimer: decodeURIComponent(window.location.search.substring(1).split("&")[1]) !== "false"
         },
         computed: {
             run() {

@@ -67,7 +67,7 @@
                     <!-- TODO support renaming run? could be tricky since it's used as index -->
                     <md-field>
                         <label>Abbreviation</label>
-                        <md-input v-model="edit.abbr" required></md-input>
+                        <md-input v-model="edit.abbr"></md-input>
                     </md-field>
                     <md-field :class="{ 'md-invalid': !edit.gameValid }">
                         <label>Twitch Game</label>
@@ -139,7 +139,7 @@
                 return this.run.twitch["box_art_url"].replace("{width}", "85").replace("{height}", "113");
             },
             formValid() {
-                return this.edit.abbr && this.edit.game && this.edit.prev;
+                return this.edit.game && this.edit.prev;
             }
         },
         methods: {

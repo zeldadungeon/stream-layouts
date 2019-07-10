@@ -54,7 +54,7 @@
                         </md-field>
                         <md-field>
                             <label>Abbreviation</label>
-                            <md-input v-model="newRun.abbr" required></md-input>
+                            <md-input v-model="newRun.abbr"></md-input>
                         </md-field>
                         <md-field :class="{ 'md-invalid': !newRunGameValid }">
                             <label>Twitch Game</label>
