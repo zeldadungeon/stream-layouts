@@ -49,48 +49,12 @@
 				}, {
 					id: 7,
 					image: "ExtraLife_icon.png",
-					text: "tinyurl.com/zdmdonate"
+					text: "tinyurl.com/zdmdonate2019"
 				}]
 			}
 		},
 		computed: {
 			display: function() {
-				const event = this.social_event;
-				if (event) {
-					switch(event.type) {
-						case "tweet":
-							return {
-								id: event.id,
-								image: "LA_Weathervane.gif",
-								text: `<strong>@${event.name}</strong><br>${event.text}`
-							};
-						case "donation":
-							return {
-								id: event.id,
-								image: "rupee_anim.gif",
-								text: `${event.name ? `<strong>${event.name}</strong>` : `Someone`} donated <strong>$${event.amount}</strong>!`
-							};
-						case "cheer":
-							return {
-								id: event.id,
-								image: "force_gem.gif",
-								text: `<strong>${event.name}</strong> cheered with <strong>${event.bits} bit${event.bits > 1 ? "s" : ""}</strong>!`
-							};
-						case "follow":
-							return {
-								id: event.id,
-								image: "BowWow.gif",
-								text: `<strong>${event.name}</strong> followed!`
-							};
-						case "sub":
-							return {
-								id: event.id,
-								image: "phone.gif",
-								text: `<strong>${event.name}</strong> subscribed!`
-							};
-					}
-				}
-
 				return this.cards[Math.floor(this.ticker.tick / 2) % this.cards.length || 0];
 			}
 		}

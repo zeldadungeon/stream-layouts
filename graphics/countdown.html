@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../shared/styles/common.css" />
+    <link rel="stylesheet" href="../shared/styles/timer.css" />
+    <link rel="stylesheet" href="../shared/styles/social.css" />
+    <script defer src="../shared/scripts/lodash.core.js"></script>
+    <script defer src="../shared/scripts/vue.js"></script>
+    <script defer src="../shared/scripts/vuecg.js"></script>
+    <script defer src="../shared/components/timer.js"></script>
+    <script defer src="../shared/components/social.js"></script>
+    <style>
+        #app {
+            height: 1080px;
+            width: 1920px;
+            position: relative;
+        }
+    </style>
+</head>
+<body> 
+    <div id="app">
+    </div>
+    <script defer>
+window.onload = function() {
+    "use strict";
+
+    const app = new Vue({
+        el: "#app",
+        template: `<div>
+		<img style="display: block; width: 80%; margin: auto; margin-top: 100px;" src="../shared/images/ZDMarathon2019.png" />
+		<div style="text-align: center; font-size: 2em; margin-top: 100px;">Starts in {{ time }}</div>
+		<zd-social style="margin-top: 100px;"></zd-social>
+	</div>`,
+        data: {
+		now: new Date()
+        },
+	computed: {
+		time() {
+			return formatTime(((new Date("7/13/2019 9:00 GMT-0500")) - this.now)/1000);
+		}
+	},
+	created() {
+		setInterval(() => this.now = new Date(), 1000);
+	}
+    });
+};
+    </script>
+</body>
+</html>

@@ -12,7 +12,7 @@
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
-    <script defer src="./layout.js"></script>
+    <script defer src="../shared/scripts/app.js"></script>
     <style>
         #app {
             height: 1080px;
@@ -24,46 +24,55 @@
             position: absolute;
         }
 
-        #p1, #p2, #p3 {
-            top: 360px;
+        #pf {
+            top: 600px;
+            left: 600px;
         }
 
-        #p4, #p5, #p6 {
-            top: 580px;
+        #p1, #p3, #p5 {
+            right: 460px;
         }
 
-        #p1, #p4 {
-            left: 0px;
-        }
-
-        #p2, #p5 {
-            left: 752px;
-        }
-
-        #p3, #p6 {
+        #p2, #p4, #p6 {
             right: 0px;
         }
 
+        #p1, #p2 {
+            top: 240px;
+        }
+
+        #p3, #p4 {
+            top: 570px;
+        }
+
+        #p5, #p6 {
+            top: 900px;
+        }
+
         .zd-timer {
-            top: 470px;
-            right: 100px;
+            top: 600px;
+            left: 400px;
         }
 
         .zd-social {
-            top: 470px;
+            top: 600px;
+            width: 400px;
+            height: 397px;
+            overflow: hidden;
         }
     </style>
 </head>
 <body> 
     <div id="app">
-        <zd-timer v-if="showTimer"></zd-timer>
-        <zd-player id="p1" :num="0" :run-name="runName" :pos="'topright'"></zd-player>
-        <zd-player id="p2" :num="1" :run-name="runName"></zd-player>
-        <zd-player id="p3" :num="2" :run-name="runName"></zd-player>
-        <zd-player id="p4" :num="3" :run-name="runName" :pos="'bottomright'"></zd-player>
-        <zd-player id="p5" :num="4" :run-name="runName" :pos="'bottomleft'"></zd-player>
-        <zd-player id="p6" :num="5" :run-name="runName" :pos="'bottomleft'"></zd-player>
-        <zd-social class="zd-social--small"></zd-social>
+        <zd-timer></zd-timer>
+        <zd-player id="pf" :num="0"></zd-player>
+        <zd-player id="p1" :num="0"></zd-player>
+        <zd-player id="p2" :num="1"></zd-player>
+        <zd-player id="p3" :num="2"></zd-player>
+        <zd-player id="p4" :num="3"></zd-player>
+        <zd-player id="p5" :num="4"></zd-player>
+        <zd-player id="p6" :num="5"></zd-player>
+        <zd-social></zd-social>
     </div>
 </body>
 </html>
