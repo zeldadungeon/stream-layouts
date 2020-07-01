@@ -43,7 +43,7 @@ module.exports = function(nodecg) {
 
     require("./timer")(nodecg);
     require("./ticker")(nodecg);
-    require("./donations")(nodecg, enqueue);
+    require("./tiltify")(nodecg, enqueue);
     require("./bingo")(nodecg);
 
     if (nodecg.bundleConfig.twitch) {
