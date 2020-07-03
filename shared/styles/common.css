@@ -19,6 +19,12 @@ strong, .hashtag {
     font-weight: bold;
 }
 
+.zd-highlight {
+    color: #f3ba33;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 .zd-time--positive {
     color: lightcoral;
 }
