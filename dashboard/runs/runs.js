@@ -64,7 +64,7 @@
                         <md-field>
                             <label>Rules</label>
                             <md-select v-model="newRun.rules" required>
-                                <md-option v-for="rule in ['Race', 'Elimination', 'Royal Rumble', 'Bingo', 'Individual Levels']" :key="rule" :value="rule">{{ rule }}</md-option>
+                                <md-option v-for="rule in ['Race', 'Teams', 'Elimination', 'Royal Rumble', 'Bingo', 'Individual Levels']" :key="rule" :value="rule">{{ rule }}</md-option>
                             </md-select>
                         </md-field>
                         <md-field>

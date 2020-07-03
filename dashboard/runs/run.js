@@ -18,7 +18,7 @@
             </div>
             <div style="clear: left;" />
 
-            <div class="md-subheading" style="line-height: 40px;">Racers<md-button class="md-icon-button" @click="showAddRacerDialog = true"><md-icon>add</md-icon></md-button></div>
+            <div class="md-subheading" style="line-height: 40px;">Racers<md-button class="md-icon-button" @click="addRacer"><md-icon>add</md-icon></md-button></div>
             <div v-if="run.rules === 'Elimination'">
                 <zd-elimination-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
             </div>
@@ -30,6 +30,9 @@
             </div>
             <div v-else-if="run.rules === 'Individual Levels'">
                 <zd-levels-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
+            </div>
+            <div v-else-if="run.rules === 'Teams'">
+                <zd-team-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
             </div>
             <div v-else>
                 <zd-race-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
@@ -77,7 +80,7 @@
                     <md-field>
                         <label>Rules</label>
                         <md-select v-model="edit.rules" required>
-                            <md-option v-for="rule in ['Race', 'Elimination', 'Royal Rumble', 'Bingo', 'Individual Levels']" :key="rule" :value="rule">{{ rule }}</md-option>
+                            <md-option v-for="rule in ['Race', 'Teams', 'Elimination', 'Royal Rumble', 'Bingo', 'Individual Levels']" :key="rule" :value="rule">{{ rule }}</md-option>
                         </md-select>
                     </md-field>
                     <md-field>
@@ -93,7 +96,7 @@
                 </md-dialog-actions>
             </md-dialog>
 
-            <zd-player-dialog :show.sync="showAddRacerDialog" :taken="run.racers.map(r => r.name)" @save="addRacer"></zd-player-dialog>
+            <zd-player-dialog :show.sync="showAddRacerDialog" :taken="run.racers.map(r => r.name)" @save="doAddRacer"></zd-player-dialog>
 
             <md-dialog :md-active.sync="showAddIncentiveDialog">
                 <md-dialog-title>New Donation Incentive</md-dialog-title>
@@ -257,6 +260,12 @@
                     r.warning = false;
                     r.eliminated = false;
                     r.state = "";
+                    r.deaths = 0;
+                    if (r.members) {
+                        r.members.forEach(m => {
+                            m.points = 0;
+                        });
+                    }
                 });
                 if (this.run.levels) {
                     this.run.levels = [
@@ -272,7 +281,20 @@
                     ];
                 }
             },
-            addRacer(name) {
+            addRacer() {
+                if (this.run.rules === "Teams") {
+                    if (!this.run.racers) { this.$set(this.run, "racers", []); }
+                    this.run.racers.push({
+                        name: `Team ${this.run.racers.length + 1}`,
+                        members: [],
+                        deaths: 0,
+                        currentRacer: null
+                    })
+                } else {
+                    this.showAddRacerDialog = true;
+                }
+            },
+            doAddRacer(name) {
                 if (!this.run.racers) { this.$set(this.run, "racers", []); }
                 this.run.racers.push({
                     name,
