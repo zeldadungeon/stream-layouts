@@ -19,52 +19,33 @@
             width: 1920px;
             position: relative;
         }
-        
-        #app > * {
+
+        #p1 {
             position: absolute;
-        }
-
-        #p1, #p3 {
-            left: 640px;
-        }
-
-        #p2, #p4 {
-            right: 640px;
-        }
-
-        #p2 {
-            top: 60px;
-        }
-
-        #p3 {
-            bottom: 143px;
-        }
-
-        #p4 {
-            bottom: 83px;
+            top: 440px;
+            right: 1111px;
         }
 
         .zd-timer {
+            position: absolute;
             top: 440px;
-            left: 860px;
+            left: 0px;
         }
 
         .zd-social {
-            top: 500px;
-            left: 750px;
-            width: 420px;
-            height: 60px;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 809px;
+            height: 440px;
         }
     </style>
 </head>
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0" :run-name="runName" :pos="'left'"></zd-player>
-        <zd-player id="p2" :num="1" :run-name="runName" :pos="'right'"></zd-player>
-        <zd-player id="p3" :num="2" :run-name="runName" :pos="'left'"></zd-player>
-        <zd-player id="p4" :num="3" :run-name="runName" :pos="'right'"></zd-player>
-        <zd-social class="zd-social--small"></zd-social>
+        <zd-player id="p1" :num="0" :run-name="runName"></zd-player>
+        <zd-social></zd-social>
     </div>
 </body>
 </html>
