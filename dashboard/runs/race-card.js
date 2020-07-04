@@ -12,6 +12,7 @@
                     <label>Filename</label>
                     <md-input v-model="racer.filename"></md-input>
                 </md-field>
+                <zd-maiamais v-if="run.name === 'Link Between Worlds'" :racer="racer" :showControls="true" />
             </md-card-content>
 
             <md-card-actions><zd-finish-button :racer="racer" :disabled="run.state !== 'running'" @finish="finish"></zd-finish-button></md-card-actions>

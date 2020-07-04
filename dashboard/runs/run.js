@@ -261,6 +261,8 @@
                     r.eliminated = false;
                     r.state = "";
                     r.deaths = 0;
+                    r.collected = 0;
+                    r.required = 0;
                     if (r.members) {
                         r.members.forEach(m => {
                             m.points = 0;
