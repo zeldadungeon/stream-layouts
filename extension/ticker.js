@@ -6,7 +6,9 @@ module.exports = function (nodecg) {
     }, {
         template: "games"
     }, {
-        message: "Donate toward Black Girls CODE - tinyurl.com/zdm20donate - Pick a filename you want us to use under Rewards"
+        message: "Donate toward Black Girls CODE - tinyurl.com/zdm20donate"
+    }, {
+        message: "When donating, pick a filename you want us to use under Rewards"
     }, {
         template: "incentives"
     }];
