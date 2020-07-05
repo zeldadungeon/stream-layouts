@@ -25,34 +25,39 @@
         }
 
         #p1, #p3 {
-            left: 356px;
+            left: 512px;
         }
 
         #p2, #p4 {
             right: 0px;
         }
 
+        #p1, #p2 {
+            top: 44px;
+        }
+
         #p3, #p4 {
-            bottom: 80px;
+            top: 896px;
         }
 
         .zd-timer {
-            bottom: 80px;
-            right: 682px;
+            top: 896px;
+            right: 604px;
         }
 
         .zd-social {
-            right: 582px;
+            top: 44px;
+            right: 504px;
         }
     </style>
 </head>
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0" :run-name="runName"></zd-player>
-        <zd-player id="p2" :num="1" :run-name="runName"></zd-player>
-        <zd-player id="p3" :num="2" :run-name="runName"></zd-player>
-        <zd-player id="p4" :num="3" :run-name="runName"></zd-player>
+        <zd-player id="p1" :num="0" :run-name="runName" :pos="bottomleft"></zd-player>
+        <zd-player id="p2" :num="1" :run-name="runName" :pos="bottomright"></zd-player>
+        <zd-player id="p3" :num="2" :run-name="runName" :pos="topleft"></zd-player>
+        <zd-player id="p4" :num="3" :run-name="runName" :pos="topright"></zd-player>
         <zd-social class="zd-social--small"></zd-social>
     </div>
 </body>

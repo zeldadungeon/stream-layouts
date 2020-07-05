@@ -2,7 +2,7 @@
 	"use strict";
 
 	Vue.component("zd-maiamais", {
-		template: `<div class="md-label">
+		template: `<div class="zd-maiamais md-label">
 			{{ player.collected || 0 }} <md-button
 				v-if="showControls"
 				class="md-icon-button"
