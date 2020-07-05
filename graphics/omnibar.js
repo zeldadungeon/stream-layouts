@@ -11,13 +11,13 @@
 			</transition>
             <div class="zd-omnibar__logo">
                 <transition name="zd-omnibar__logo-transition">
-                    <img v-if="expandLogo" src="../shared/images/ZDMarathon2019.png" />
+                    <img v-if="expandLogo" src="../shared/images/ZDMarathon2020.png" />
                 </transition>
                 <transition name="zd-omnibar__logo-transition">
-                    <img v-if="!expandLogo" style="left: 0px;" src="../shared/images/ZDMarathon2019Icon.png" />
+                    <img v-if="!expandLogo" style="left: 0px;" src="../shared/images/ZDMarathon2020.png" />
                 </transition>
                 <transition name="zd-omnibar__logo-transition">
-                    <img v-if="!expandLogo" style="right: 0px;" src="../shared/images/ExtraLife_white.png" />
+                    <img v-if="!expandLogo" style="right: 0px;" src="../shared/images/BlackGirlsCode_Icon_Square.jpg" />
                 </transition>
             </div>
             <div class="zd-omnibar__divider" />
@@ -71,7 +71,8 @@
             },
             expandLogo: function() {
                 const tick = this.ticker && Math.floor(this.ticker.tick / 3) % 6;
-                return tick == 0;
+                return false; // BGC's and ZD's logos are small so we can keep them both up all the time
+                // return tick == 0;
             },
             frame: function() {
                 return this.ticker.tick % 2;

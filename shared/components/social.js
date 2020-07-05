@@ -16,7 +16,7 @@
 				event: undefined,
 				cards: [{
 					id: 0,
-					image: "feather.svg",
+					image: "ZD_Icon.png",
 					text: "ZeldaDungeon.net"
 				}, {
 					id: 1,
@@ -25,7 +25,7 @@
 				}, {
 					id: 2,
 					image: "youtube_social_icon_red.png",
-					text: "TheZeldaDungeon"
+					text: "ZeldaDungeon"
 				}, {
 					id: 3,
 					image: "Twitter_Logo_Blue.svg",
@@ -45,11 +45,11 @@
 				}, {
 					id: 6,
 					image: "Teespring.svg",
-					text: "tinyurl.com/zdmshirts"
+					text: "tinyurl.com/zdm20shirts"
 				}, {
 					id: 7,
-					image: "ExtraLife_icon.png",
-					text: "tinyurl.com/zdmdonate2019"
+					image: "BlackGirlsCode_Icon_Square.jpg",
+					text: "tinyurl.com/zdm20donate"
 				}]
 			}
 		},
