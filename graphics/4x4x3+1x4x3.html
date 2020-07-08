@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../shared/styles/common.css" />
+    <link rel="stylesheet" href="../shared/styles/player.css" />
+    <link rel="stylesheet" href="../shared/styles/timer.css" />
+    <link rel="stylesheet" href="../shared/styles/social.css" />
+    <script defer src="../shared/scripts/lodash.core.js"></script>
+    <script defer src="../shared/scripts/vue.js"></script>
+    <script defer src="../shared/scripts/vuecg.js"></script>
+    <script defer src="../shared/components/player.js"></script>
+    <script defer src="../shared/components/timer.js"></script>
+    <script defer src="../shared/components/social.js"></script>
+    <script defer src="./layout.js"></script>
+    <style>
+        #app {
+            height: 1080px;
+            width: 1920px;
+            position: relative;
+        }
+        
+        #app > * {
+            position: absolute;
+        }
+
+        #p1, #p2 {
+            top: 432px;
+        }
+
+        #p3, #p4 {
+            bottom: 512px;
+        }
+
+        #p1, #p3 {
+            left: 88px;
+        }
+
+        #p2, #p4 {
+            right: 88px;
+        }
+    </style>
+</head>
+<body> 
+    <div id="app">
+        <zd-player id="p1" :num="0" :run-name="runName"></zd-player>
+        <zd-player id="p2" :num="1" :run-name="runName"></zd-player>
+        <zd-player id="p3" :num="2" :run-name="runName" :pos="'bottomleft'"></zd-player>
+        <zd-player id="p4" :num="3" :run-name="runName" :pos="'bottomleft'"></zd-player>
+    </div>
+</body>
+</html>
