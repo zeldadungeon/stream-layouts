@@ -220,6 +220,9 @@
                 if (this.run.rules === "Bingo") {
                     nodecg.sendMessage("bingo:reset");
                 }
+                if (this.run.name === "Majora's Mask") {
+                    nodecg.sendMessage("masks:reset"); // TODO I need to come up with some sort of plugin model for these...
+                }
                 this.$set(this.runs.start, "current", this.runName);
                 this.$set(this.run, "state", "queued"); // $set because it starts out undefined. after this, can assign normally.
             },
@@ -281,6 +284,9 @@
                         {name: "L8", multiplier: 4, results: []},
                         {name: "L9", multiplier: 5, results: []},
                     ];
+                }
+                if (this.run.name === "Majora's Mask") {
+                    nodecg.sendMessage("masks:reset"); // TODO I need to come up with some sort of plugin model for these...
                 }
             },
             addRacer() {

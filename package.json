@@ -109,6 +109,11 @@
                 "height": 60
             },
             {
+                "file": "masks.html",
+                "width": 288,
+                "height": 192
+            },
+            {
                 "file": "burndown.html",
                 "width": 1920,
                 "height": 1080

@@ -31,9 +31,9 @@
             <button @click="addFollow">Add Follow to Queue</button>
             <button @click="addSub">Add Sub to Queue</button>
             <hr />
-            <label>Raised during Bingo <input type="number" v-model.number.lazy="bingo.raised" style="width: 6em"></label>
+            <label>Raised during MM <input type="number" v-model.number.lazy="masks.raised" style="width: 6em"></label>
         </div>`,
-        replicants: ["donations", "ticker", "twitter", "twitch", "bingo"],
+        replicants: ["donations", "ticker", "twitter", "twitch", "masks"],
         data() {
             return {
                 donation: {}

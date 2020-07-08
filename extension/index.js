@@ -44,7 +44,7 @@ module.exports = function(nodecg) {
     require("./timer")(nodecg);
     require("./ticker")(nodecg);
     require("./tiltify")(nodecg, enqueue);
-    require("./bingo")(nodecg);
+    require("./masks")(nodecg);
 
     if (nodecg.bundleConfig.twitch) {
         require("./twitch")(nodecg, enqueue);
