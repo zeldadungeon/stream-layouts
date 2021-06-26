@@ -24,11 +24,11 @@
             position: absolute;
         }
 
-        #p1 {
-            left: 1404px;
+        #p2 {
+            left: 115px;
         }
 
-        #p2, #p3 {
+        #p1, #p3 {
             top: 440px;
         }
 
@@ -44,7 +44,7 @@
 
         .zd-social {
             top: 0px;
-            left: 0px;
+            left: 1404px;
             width: 515px;
         }
     </style>
@@ -52,9 +52,9 @@
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0" :run-name="runName" :pos="'left'"></zd-player>
-        <zd-player id="p2" :num="1" :run-name="runName" :pos="'bottomright'"></zd-player>
-        <zd-player id="p3" :num="2" :run-name="runName" :pos="'bottomleft'"></zd-player>
+        <zd-player id="p1" :num="0" :run-name="runName" :pos="'bottomleft'"></zd-player>
+        <zd-player id="p2" :num="1" :run-name="runName" :pos="'right'"></zd-player>
+        <zd-player id="p3" :num="2" :run-name="runName" :pos="'bottomright'"></zd-player>
         <zd-social class="zd-social--small"></zd-social>
     </div>
 </body>

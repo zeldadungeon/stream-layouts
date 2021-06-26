@@ -41,9 +41,10 @@ module.exports = function (nodecg) {
     });
 
     const donations = nodecg.Replicant("donations");
-    /*donations.on("change", (newValue, oldValue) => {
+
+    donations.on("change", (newValue, oldValue) => {
         masks.value.raised = newValue.total - masks.value.totalAtStart;
-    });*/
+    });
 
     nodecg.listenFor("masks:reset", () => {
         masks.value = {
