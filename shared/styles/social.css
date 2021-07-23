@@ -9,10 +9,29 @@
     justify-content: center;
 }
 
-.zd-social__logo {
-    height: 100px;
+.zd-social__logo-wrapper {
+    height: 150px;
     margin-bottom: 1em;
-    image-rendering: pixelated;
+}
+
+.zd-social__logo {
+    /*image-rendering: pixelated;*/
+    max-height: 150px;
+    max-width: 150px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.zd-social:not(.zd-social--small) .zd-social__logo--game-to-grow {
+    max-height: 244px;
+    max-width: 200px;
+}
+
+/* SVGs need some width or height set. This will be bounded by the max width/height while maintaining aspect ratio. */
+.zd-social__logo[src$='.svg'] {
+    height: 150px;
+    width: 150px;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -32,9 +51,13 @@
     flex-direction: row;
 }
 
-.zd-social--small .zd-social__logo {
+.zd-social--small .zd-social__logo-wrapper {
     height: 100%;
-    max-width: 85px;
     margin-bottom: 0;
     margin-right: 0.5em;
+}
+
+.zd-social--small .zd-social__logo {
+    max-width: 85px;
+    max-height: 60px;
 }

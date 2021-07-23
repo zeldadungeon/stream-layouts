@@ -28,7 +28,7 @@ window.onload = function() {
     const app = new Vue({
         el: "#app",
         template: `<div>
-		<img style="display: block; height: 300px; margin: auto; margin-top: 100px;" src="../shared/images/ZDMarathon2020.png" />
+		<img style="display: block; height: 300px; margin: auto; margin-top: 100px;" src="../shared/images/ZDMX_2021_logo_CENTERED.png" />
 		<div style="text-align: center; font-size: 2em; margin-top: 100px;">Starts in {{ time }}</div>
 		<zd-social style="margin-top: 100px;"></zd-social>
 	</div>`,
@@ -37,7 +37,7 @@ window.onload = function() {
         },
 	computed: {
 		time() {
-			return formatTime(((new Date("7/11/2020 9:00 GMT-0500")) - this.now)/1000);
+			return formatTime(((new Date("7/24/2021 14:00 GMT-0500")) - this.now)/1000);
 		}
 	},
 	created() {

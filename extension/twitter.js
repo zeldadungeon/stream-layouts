@@ -6,6 +6,7 @@ const TwitterStream = require("twitter-stream-api");
 module.exports = function (nodecg, enqueue) {
     const config = nodecg.bundleConfig.twitter;
     const TARGET_USER_ID = config.userId;
+    const log = new nodecg.Logger(`${nodecg.bundleName}:twitter`);
     
     const twitter = nodecg.Replicant("twitter", {
         defaultValue: {
@@ -30,7 +31,7 @@ module.exports = function (nodecg, enqueue) {
             //     try {
             //         streams.user.close();
             //     } catch(ex) {
-            //         nodecg.log.error("[twitter] Exception while closing user connection: ", ex)
+            //         log.error("Exception while closing user connection: ", ex)
             //     }
             //     streams.user = undefined;
             // }
@@ -38,7 +39,7 @@ module.exports = function (nodecg, enqueue) {
                 try {
                     streams.filter.close();
                 } catch(ex) {
-                    nodecg.log.error("[twitter] Exception while closing filter connection: ", ex)
+                    log.error("Exception while closing filter connection: ", ex)
                 }
                 streams.filter = undefined;
             }
@@ -57,12 +58,16 @@ module.exports = function (nodecg, enqueue) {
 
     nodecg.listenFor("twitter:reject", removeTweetById);
 
-    nodecg.listenFor("twitter:debug", () => addTweet({
-        id: 1234,
-        id_str: "1234",
-        text: "test",
-        user: {screen_name: "test", name: "name"}
-    }));
+    nodecg.listenFor("twitter:debug", data => {
+        if (config.hashtag && config.hashtag !== "") {
+            for (let hashtag of config.hashtag.split(",")) {
+                if (data.text.toLowerCase().indexOf(`#${hashtag.toLowerCase()}`) !== -1) {
+                    addTweet(data);
+                    break;
+                }
+            }
+        }   
+    });
 
     /**
      * Builds the stream. Called once every 90 minutes because sometimes the stream just dies silently.
@@ -113,49 +118,58 @@ module.exports = function (nodecg, enqueue) {
                 retweetedStatus.retweetId = data.id_str;
                 addTweet(retweetedStatus);
             } else if (data.text) {
-                if (data.user.id_str !== TARGET_USER_ID && (!config.hashtag || config.hashtag === "" || data.text.indexOf(config.hashtag) === -1)) {
-                	return;
-                }
-
                 // Filter out @ replies
                 if (data.text.charAt(0) === "@") {
                     return;
                 }
+                
+                // Show all tweets by ZD
+                if (data.user.id_str !== TARGET_USER_ID) {
+                    addTweet(data);
+                }
 
-                addTweet(data);
+                // Show tweets that contain one of the hashtags
+                if (config.hashtag && config.hashtag !== "") {
+                    for (let hashtag of config.hashtag.split(",")) {
+                        if (data.text.indexOf(`#${hashtag}`) !== -1) {
+                            addTweet(data);
+                            break;
+                        }
+                    }
+                }
             }
         });
 
         streams[type].on("error", error => {
-            nodecg.log.error(`[twitter] [${type}]`, error.stack);
+            log.error(`[${type}]`, error.stack);
         });
 
         streams[type].on("connection success", () => {
-            nodecg.log.info(`[twitter] [${type}] Connection success.`);
+            log.info(`[${type}] Connection success.`);
         });
 
         streams[type].on("connection aborted", () => {
-            nodecg.log.warn(`[twitter] [${type}] Connection aborted!`);
+            log.warn(`[${type}] Connection aborted!`);
         });
 
         streams[type].on("connection error network", error => {
-            nodecg.log.error(`[twitter] [${type}] Connection error network:`, error.stack);
+            log.error(`[${type}] Connection error network:`, error.stack);
         });
 
         streams[type].on("connection error stall", () => {
-            nodecg.log.error(`[twitter] [${type}] Connection error stall!`);
+            log.error(`[${type}] Connection error stall!`);
         });
 
         streams[type].on("connection error http", httpStatusCode => {
-            nodecg.log.error(`[twitter] [${type}] Connection error HTTP:`, httpStatusCode);
+            log.error(`[${type}] Connection error HTTP:`, httpStatusCode);
         });
 
         streams[type].on("connection rate limit", httpStatusCode => {
-            nodecg.log.error(`[twitter] [${type}] Connection rate limit:`, httpStatusCode);
+            log.error(`[${type}] Connection rate limit:`, httpStatusCode);
         });
 
         streams[type].on("connection error unknown", error => {
-            nodecg.log.error(`[twitter] [${type}] Connection error unknown:`, error.stack);
+            log.error(`[${type}] Connection error unknown:`, error.stack);
             streams[type].close();
             streams[type] = new TwitterStream({
                 consumer_key: config.consumerKey,
@@ -173,7 +187,7 @@ module.exports = function (nodecg, enqueue) {
         setTimeout(() => {
             // make sure twitter's enabled and this is the same connection as before
             if (twitter.value.enabled && streams[type] === thisStream) {
-                nodecg.log.info(`[twitter] [${type}] Restarting Twitter connection (done every 90 minutes).`);
+                log.info(`[${type}] Restarting Twitter connection (done every 90 minutes).`);
                 streams[type].close();
                 initializeStream(type);
             }
@@ -230,7 +244,7 @@ module.exports = function (nodecg, enqueue) {
 
         // Highlight the hashtag.
         if (config.hashtag && config.hashtag !== "") {
-            tweet.text = tweet.text.replace(new RegExp(`#${config.hashtag}`, "ig"), `<span class="hashtag">#${config.hashtag}</span>`);
+            tweet.text = tweet.text.replace(new RegExp(`(${config.hashtag.split(",").map(h => `#${h}`).join("|")})`, "ig"), `<span class="hashtag">$1</span>`);
         }
 
         // Add the tweet to the list

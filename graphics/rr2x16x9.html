@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../shared/styles/common.css" />
+    <link rel="stylesheet" href="../shared/styles/player.css" />
+    <link rel="stylesheet" href="../shared/styles/timer.css" />
+    <link rel="stylesheet" href="../shared/styles/social.css" />
+    <script defer src="../shared/scripts/lodash.core.js"></script>
+    <script defer src="../shared/scripts/vue.js"></script>
+    <script defer src="../shared/scripts/vuecg.js"></script>
+    <script defer src="../shared/components/placeholder.js"></script>
+    <script defer src="../shared/components/player.js"></script>
+    <script defer src="../shared/components/timer.js"></script>
+    <script defer src="../shared/components/social.js"></script>
+    <script defer src="./layout.js"></script>
+    <style>
+        #p1, #p2 {
+            top: 540px;
+        }
+
+        #p1 {
+            left: 230px;
+        }
+
+        #p2 {
+            right: 230px;
+        }
+
+        .zd-timer {
+            top: 540px;
+            left: 860px;
+        }
+
+        .zd-social {
+            top: 620px;
+            left: 760px;
+            width: 400px;
+            height: 380px;
+        }
+    </style>
+</head>
+<body> 
+    <div id="app">
+        <zd-timer></zd-timer>
+        <zd-placeholder :kind="'16x9'" :left="0" :top="0" :width="960" :height="540" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'16x9'" :left="960" :top="0" :width="960" :height="540" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'cam'" :left="0" :top="600" :width="760" :height="400" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'cam'" :left="1160" :top="600" :width="760" :height="400" :run-name="runName"></zd-placeholder>
+        <zd-player id="p1" :num="0" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p2" :num="1" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-social></zd-social>
+    </div>
+</body>
+</html>

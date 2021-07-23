@@ -132,7 +132,7 @@
                 this.selectRun(this.runs.start.current || this.runs.start.next);
             },
             addRun() {
-                fetch(`https://api.twitch.tv/helix/games?name=${this.newRun.game}`, {
+                fetch(`https://api.twitch.tv/helix/games?name=${encodeURIComponent(this.newRun.game)}`, {
                     headers: {
                         Authorization: `Bearer ${nodecg.bundleConfig.twitch.oauthToken}`,
                         "Client-ID": nodecg.bundleConfig.twitch.clientId

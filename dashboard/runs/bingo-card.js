@@ -51,7 +51,7 @@
                 return (this.bingo.bonus && this.bingo.bonus.filter(b => this.bingo.raised >= b.requires)) || [];
             },
             canFinish() {
-                return this.tasks.every(t => t.done) && this.required.every(r => r.done[this.team]) && this.bonus.every(b => b.done[this.team]);
+                return this.tasks.every(t => t.done) && this.required.filter(r => r.done[this.team]).length >= 2 && this.bonus.every(b => b.done[this.team]);
             }
         },
         methods: {

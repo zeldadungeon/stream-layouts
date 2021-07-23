@@ -7,7 +7,7 @@
         template: `<md-card>
             <md-card-header>
                 <md-card-header-text>
-                    <div class="md-title">{{ racer.name }}<div style="float: right; margin-right: 1em;"><img src="../../shared/images/rip.png" style="height: 1.4em;" /> {{ racer.deaths }}</div></div>
+                    <div class="md-title">{{ racer.name }}<!--div style="float: right; margin-right: 1em;"><img src="../../shared/images/rip.png" style="height: 1.4em;" /> {{ racer.deaths }}</div--></div>
                 </md-card-header-text>
             
                 <md-menu md-direction="bottom-end">
@@ -45,7 +45,7 @@
             </md-card-content>
 
             <md-card-actions md-alignment="space-between">
-                <div>
+                <!--div>
                     <md-button class="md-raised md-accent"
                         @click="gameover"
                         :disabled="run.state !== 'running'">
@@ -56,7 +56,7 @@
                         :disabled="run.state !== 'running'">
                         +1 Point
                     </md-button>
-                </div>
+                </div-->
                 <div>
                     <zd-finish-button :racer="racer" :disabled="run.state !== 'running'" @finish="finish"></zd-finish-button>
                 </div>

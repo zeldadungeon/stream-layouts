@@ -3,17 +3,12 @@
     "type": "object",
 
     "properties": {
-        "displayDuration": {
-            "type": "number",
-            "description": "How long (in seconds) most things show on-screen for.",
-            "default": 10
-        },
         "twitter": {
             "type": ["object", "null"],
             "properties": {
                 "hashtag": {
                     "type": "string",
-                    "description": "Filter to track on twitter. Include the # for a hashtag."
+                    "description": "Filter to track on twitter. Do not include the # for a hashtag. Separate OR'd terms with commas."
                 },
                 "userId": {
                     "type": "string",
@@ -74,6 +69,38 @@
             },
             "required": ["participantId"],
             "default": null
+        },
+        "tiltify": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "properties": {
+                "oauthToken": {
+                    "type": "string",
+                    "description": "The OAuth token to use to make API requests."
+                },
+                "campaignId": {
+                    "type": "string",
+                    "description": "Campaign ID to track donations and total for"
+                }
+            }
+        },
+        "localResources": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "properties": {
+                "nodecgServer": {
+                    "type": "string",
+                    "description": "URL to access the nodecg dashboard on the local network. Include only the protocol, IP, and port number."
+                },
+                "wifiSSID": {
+                    "type": "string",
+                    "description": "SSID of the local WiFi access point"
+                },
+                "wifiPassword": {
+                    "type": "string",
+                    "description": "Password for the local WiFi access point"
+                }
+            }
         }
     }
 }

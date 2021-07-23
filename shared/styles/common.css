@@ -7,6 +7,16 @@ body {
     color: white;
 }
 
+#app {
+    height: 1080px;
+    width: 1920px;
+    position: relative;
+}
+
+#app > * {
+    position: absolute;
+}
+
 .zd-label {
     font-size: 22px;
     line-height: 28px;

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../shared/styles/common.css" />
+    <link rel="stylesheet" href="../shared/styles/player.css" />
+    <link rel="stylesheet" href="../shared/styles/timer.css" />
+    <link rel="stylesheet" href="../shared/styles/social.css" />
+    <script defer src="../shared/scripts/lodash.core.js"></script>
+    <script defer src="../shared/scripts/vue.js"></script>
+    <script defer src="../shared/scripts/vuecg.js"></script>
+    <script defer src="../shared/components/placeholder.js"></script>
+    <script defer src="../shared/components/player.js"></script>
+    <script defer src="../shared/components/timer.js"></script>
+    <script defer src="../shared/components/social.js"></script>
+    <script defer src="./layout.js"></script>
+    <style>
+        #place2 {
+            right: 0;
+            bottom: 80px;
+            width: 417px;
+            height: 313px;
+        }
+
+        #placecam1, #placecam2 {
+            width: 768px;
+            height: 500px;
+        }
+
+        #placecam2 {
+            bottom: 80px;
+        }
+
+        #p1 {
+            top: 691px;
+            right: 417px;
+        }
+
+        .zd-timer {
+            top: 691px;
+            left: 768px;
+        }
+
+        .zd-social {
+            bottom: 195px;
+            left: 768px;
+            width: 735px;
+            height: 60px;
+        }
+    </style>
+</head>
+<body> 
+    <div id="app">
+        <zd-timer></zd-timer>
+        <zd-placeholder :kind="'5x3'" :left="768" :top="0" :width="1152" :height="691" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'4x3'" :left="1503" :top="691" :width="417" :height="313" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'cam'" :left="0" :top="0" :width="768" :height="500" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'cam'" :left="0" :top="500" :width="768" :height="500" :run-name="runName"></zd-placeholder>
+        <zd-player id="p1" :num="0" :run-name="runName"></zd-player>
+        <zd-social class="zd-social--small"></zd-social>
+    </div>
+</body>
+</html>

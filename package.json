@@ -174,6 +174,11 @@
                 "height": 1080
             },
             {
+                "file": "1x5x3+1x4x3.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
                 "file": "1x2x4x3.html",
                 "width": 1920,
                 "height": 1080
@@ -214,7 +219,7 @@
                 "height": 1080
             },
             {
-                "file": "1x16x9-teams.html",
+                "file": "1x16x9x2p.html",
                 "width": 1920,
                 "height": 1080
             },
@@ -225,6 +230,11 @@
             },
             {
                 "file": "2x16x9.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "2x16x9x2p.html",
                 "width": 1920,
                 "height": 1080
             },
@@ -249,7 +259,22 @@
                 "height": 1080
             },
             {
+                "file": "6x16x9.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "8x16x9.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
                 "file": "e2x3x2.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "e4x3x2.html",
                 "width": 1920,
                 "height": 1080
             },
@@ -259,12 +284,32 @@
                 "height": 1080
             },
             {
+                "file": "e8x3x2.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
                 "file": "e10x3x2.html",
                 "width": 1920,
                 "height": 1080
             },
             {
+                "file": "e12x3x2.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
                 "file": "rr10x16x9.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "rr8x16x9.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "rr2x16x9.html",
                 "width": 1920,
                 "height": 1080
             },

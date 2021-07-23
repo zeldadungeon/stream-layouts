@@ -8,7 +8,7 @@
             <div class="md-layout-item">
                 <md-button class="md-raised" :class="buttonClass" @click="selectMember">{{ member.name }}</md-button>
             </div>
-            <div class="md-layout-item md-label">{{ member.points }} Points</div>
+            <!--div class="md-layout-item md-label">{{ member.points }} Points</div-->
             <div class="md-layout-item">
                 <md-menu md-direction="bottom-end">
                     <md-button class="md-icon-button" md-menu-trigger>
@@ -43,6 +43,10 @@
                         <md-field>
                             <label>Twitch</label>
                             <md-input v-model="edit.player.twitch"></md-input>
+                        </md-field>
+                        <md-field>
+                            <label>Instagram</label>
+                            <md-input v-model="edit.player.instagram"></md-input>
                         </md-field>
                     </md-dialog-content>
                     <md-dialog-actions>
@@ -86,13 +90,15 @@
             editPlayer() {
                 this.edit.player = {
                     twitter: this.players[this.member.name].twitter,
-                    twitch: this.players[this.member.name].twitch
+                    twitch: this.players[this.member.name].twitch,
+                    instagram: this.players[this.member.name].instagram
                 };
                 this.showEditDialog = true;
             },
             savePlayerChanges() {
                 this.players[this.member.name].twitter = this.edit.player.twitter;
                 this.players[this.member.name].twitch = this.edit.player.twitch;
+                this.players[this.member.name].instagram = this.edit.player.instagram;
                 this.showEditDialog = false;
             },
             swapMember(name) {

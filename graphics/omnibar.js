@@ -11,13 +11,13 @@
 			</transition>
             <div class="zd-omnibar__logo">
                 <transition name="zd-omnibar__logo-transition">
-                    <img v-if="expandLogo" src="../shared/images/ZDMarathon2020.png" />
+                    <img v-if="expandLogo" src="../shared/images/ZDMX_2021_logo.png" />
                 </transition>
                 <transition name="zd-omnibar__logo-transition">
-                    <img v-if="!expandLogo" style="left: 0px;" src="../shared/images/ZDMarathon2020.png" />
+                    <img v-if="!expandLogo" style="left: 0px;" src="../shared/images/ZDMX_2021_logo.png" />
                 </transition>
                 <transition name="zd-omnibar__logo-transition">
-                    <img v-if="!expandLogo" style="right: 0px;" src="../shared/images/BlackGirlsCode_Icon_Square.jpg" />
+                    <img v-if="!expandLogo" style="right: 0px;" src="../shared/images/Game-to-Grow-Logo-Icon.png" />
                 </transition>
             </div>
             <div class="zd-omnibar__divider" />

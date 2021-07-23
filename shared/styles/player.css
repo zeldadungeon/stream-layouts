@@ -44,6 +44,11 @@
     padding-left: 1.25em;
 }
 
+.zd-player__instagram {
+    background: left / contain url("../images/instagram.png") no-repeat;
+    padding-left: 50px;
+}
+
 .zd-player__facebook {
     background: url("../images/flogo_RGB_HEX-72.svg") no-repeat;
     padding-left: 60px;

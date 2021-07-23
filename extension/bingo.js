@@ -36,6 +36,7 @@ module.exports = function (nodecg) {
         let board = generateBoard();
         let bonus;
 
+        /*
         do { // this block rarely executes more than once
             // generate a new board just for bonus objectives
             let bonusCandidate = generateBoard().sort((a, b) => b.difficulty - a.difficulty);
@@ -55,6 +56,7 @@ module.exports = function (nodecg) {
             bonus[i].requires = [100, 225, 400, 600, 900, 1200][i];
             bonus[i].done = [];
         }
+        */
 
         bingo.value = {
             teams: [
@@ -63,14 +65,36 @@ module.exports = function (nodecg) {
                 board.slice(11,16).sort((a, b) => a.difficulty - b.difficulty),
                 board.slice(16,21).sort((a, b) => a.difficulty - b.difficulty)
             ],
-            bonus: bonus,
-            required: ["Vah Ruta", "Vah Rudania", "Vah Medoh", "Vah Naboris"].map(t => {
-                return {
-                    name: t,
-                    requires: 0,
-                    done: []
-                }
-            }),
+            bonus: [{
+                name: "Flip a Guardian Stalker",
+                requires: 50,
+                done: []
+            }, {
+                name: "Surprise a Yiga Footsoldier",
+                requires: 100,
+                done: []
+            }, {
+                name: "Stack eight boxes",
+                requires: 250,
+                done: []
+            }, {
+                name: "Defeat Zelda's Room Moblin with bookcase",
+                requires: 500,
+                done: []
+            }, {
+                name: "Retrace SS Zelda's path", // Spring of Courage -> Spring of Power -> Forgotten Temple (theoretically the original ToT) -> Temple of Time (was constructed by Rauru over the ruins of the Sealed Temple)
+                requires: 750,
+                done: []
+            }, {
+                name: "Master Sword", // if running late then cheating will be allowed
+                requires: 1000,
+                done: []
+            }],
+            required: ["Vah Ruta", "Vah Rudania", "Vah Medoh", "Vah Naboris"].map(t => ({
+                name: t,
+                requires: 0,
+                done: []
+            })),
             totalAtStart: donations.value.total,
             raised: 0
         };

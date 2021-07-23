@@ -17,6 +17,15 @@
                 <md-progress-bar v-if="run.state === 'running'" md-mode="indeterminate"></md-progress-bar>
             </div>
             <div style="clear: left;" />
+            
+            <div v-if="run.rules === 'Teams'">
+                <md-field style="width: 320px;">
+                    <label>Player Rotation Mode</label>
+                    <md-select v-model="run.teamRotationMode">
+                        <md-option v-for="mode in teamRotationModes" :key="mode[1]" :value="mode[1]">{{ mode[0] }}</md-option>
+                    </md-select>
+                </md-field>
+            </div>
 
             <div class="md-subheading" style="line-height: 40px;">Racers<md-button class="md-icon-button" @click="addRacer"><md-icon>add</md-icon></md-button></div>
             <div v-if="run.rules === 'Elimination'">
@@ -42,6 +51,8 @@
             <div><!--Yes this has to be wrapped in a div for some reason-->
                 <zd-incentive-card v-for="(incentive, index) in run.incentives" :incentive="incentive" :numRacers="run.racers.length" :key="'incentive-' + index" @delete="deleteIncentive(index)" />
             </div>
+
+            <md-switch v-model="run.showPlaceholders">Show layout placeholders</md-switch>
 
             <md-dialog-confirm
                 :md-active.sync="showQueueDialog"
@@ -124,7 +135,13 @@
                 showAddIncentiveDialog: false,
                 edit: {
                     incentive: {}
-                }
+                },
+                teamRotationModes: [
+                    ["Don't track rotations", "Static"],
+                    ["Split members to separate nameplates", "Split"],
+                    ["Rotate manually", "Manual"],
+                    ["Automatically rotate from donations", "Donations"]
+                ]
             }
         },
         computed: {
@@ -158,7 +175,7 @@
                 this.showEditDialog = true;
             },
             saveChanges() {
-                fetch(`https://api.twitch.tv/helix/games?name=${this.edit.game}`, {
+                fetch(`https://api.twitch.tv/helix/games?name=${encodeURIComponent(this.edit.game)}`, {
                     headers: {
                         Authorization: `Bearer ${nodecg.bundleConfig.twitch.oauthToken}`,
                         "Client-ID": nodecg.bundleConfig.twitch.clientId

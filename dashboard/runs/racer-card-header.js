@@ -43,6 +43,10 @@
                         <label>Twitch</label>
                         <md-input v-model="edit.player.twitch"></md-input>
                     </md-field>
+                    <md-field>
+                        <label>Instagram</label>
+                        <md-input v-model="edit.player.instagram"></md-input>
+                    </md-field>
                 </md-dialog-content>
                 <md-dialog-actions>
                     <md-button class="md-primary" @click="showEditDialog = false">Close</md-button>
@@ -78,13 +82,15 @@
             editPlayer() {
                 this.edit.player = {
                     twitter: this.players[this.racer.name].twitter,
-                    twitch: this.players[this.racer.name].twitch
+                    twitch: this.players[this.racer.name].twitch,
+                    instagram: this.players[this.racer.name].instagram
                 };
                 this.showEditDialog = true;
             },
             savePlayerChanges() {
                 this.players[this.racer.name].twitter = this.edit.player.twitter;
                 this.players[this.racer.name].twitch = this.edit.player.twitch;
+                this.players[this.racer.name].instagram = this.edit.player.instagram;
                 this.showEditDialog = false;
             },
             swapRacer(name) {

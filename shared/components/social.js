@@ -5,7 +5,9 @@
 		template: `<div class="zd-social">
 			<transition name="fade" mode="out-in">
 				<div class="zd-social__card" :key="display.id">
-					<img class="zd-social__logo" :src="'../shared/images/' + display.image" />
+					<div class="zd-social__logo-wrapper">
+						<img :class="'zd-social__logo ' + (display.class || '')" :src="'../shared/images/' + display.image" :style="display.style || ''" />
+					</div>
 					<div class="zd-social__text" v-html="display.text"></div>
 				</div>
 			</transition>
@@ -21,10 +23,12 @@
 				}, {
 					id: 1,
 					image: "Glitch_Purple_RGB.svg",
+					style: "width: 100px;",
 					text: "ZeldaDungeon"
 				}, {
 					id: 2,
 					image: "youtube_social_icon_red.png",
+					style: "width: 100px;",
 					text: "ZeldaDungeon"
 				}, {
 					id: 3,
@@ -33,6 +37,7 @@
 				}, {
 					id: 4,
 					image: "flogo_RGB_HEX-72.svg",
+					style: "width: 100px;",
 					text: "ZeldaDungeon"
 				}, {
 					id: 8,
@@ -44,12 +49,13 @@
 					text: "discord.io/zelda"
 				}, {
 					id: 6,
-					image: "Teespring.svg",
-					text: "tinyurl.com/zdm20shirts"
+					image: "ZDMerch_logo.png",
+					text: "tinyurl.com/ZDMXmerch"
 				}, {
 					id: 7,
-					image: "BlackGirlsCode_Icon_Square.jpg",
-					text: "tinyurl.com/zdm20donate"
+					image: "Game-to-Grow-Logo-Vertical.png",
+					class: "zd-social__logo--game-to-grow",
+					text: "tinyurl.com/ZDMXdonate"
 				}]
 			}
 		},

@@ -8,12 +8,12 @@
 				class="md-icon-button"
 			  	@click="addCollected">
 				<md-icon>add</md-icon>
-			</md-button> / {{ player.required || 0 }} <md-button
+			</md-button> / {{ player.required || 0 }} <!--md-button
 				v-if="showControls"
 				class="md-icon-button"
 				@click="addRequired">
 				<md-icon>add</md-icon>
-			</md-button> <img src="/bundles/zelda/shared/images/maiamai.png" style="height: 1.5em;" />
+			</md-button--> <img src="/bundles/zelda/shared/images/maiamai.png" style="height: 1.5em;" />
 		</div>`,
 		props: ["num", "runName", "racer", "showControls"],
 		replicants: ["runs"],

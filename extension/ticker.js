@@ -2,15 +2,19 @@
 
 module.exports = function (nodecg) {
     const template = [{
-        message: "Welcome to the Zelda Dungeon Marathon!"
+        message: "Welcome to the 10th annual Zelda Dungeon Marathon!"
     }, {
         template: "games"
     }, {
-        message: "Donate toward Black Girls CODE - tinyurl.com/zdm20donate"
+        message: "Donate toward Game to Grow - tinyurl.com/ZDMXdonate"
     }, {
-        message: "When donating, pick a filename you want us to use under Rewards"
+        message: "Include a game and filename in your message and we'll use the ones with the highest total"
+    }, {
+        message: "Donate $20 or more to move a game one spot in the ranking - tinyurl.com/ZDMXranking"
     }, {
         template: "incentives"
+    }, {
+        message: "Send us stuff! If we receive it before Saturday 7/31 we will open it on stream! \"!pobox\""
     }];
 
     const queue = [];

@@ -7,13 +7,22 @@
 		template: `<div class="zd-player" :class="specialClass">
 			<div class="zd-player__result" :class="resultClass" v-html="result"></div>
 			<div class="zd-spinner">
-				<div class="zd-spinner__item" :class="nameClass">{{ player.name }}{{ info }}</div>
-				<div class="zd-spinner__item" :class="twitchClass"><span class="zd-player__twitch">{{player.twitch}}</span></div>
-				<div class="zd-spinner__item" :class="twitterClass"><span class="zd-player__twitter">{{player.twitter}}</span></div>
+				<div class="zd-spinner__item" :class="nameClass">
+					<div v-if="run.rules === 'Teams'">
+						<div v-if="mem != undefined">{{ currentPlayer.name }}</div>
+						<div v-else>
+							<span v-for="(member, index) in racer.members" :key="member.name"><span :class="memberClass(member)">{{ member.name }}</span><span v-if="index < racer.members.length - 1">, </span></span>
+						</div>
+					</div>
+					<div v-else>{{ player.name }}{{ info }}</div>
+				</div>
+				<div class="zd-spinner__item" :class="twitchClass"><span class="zd-player__twitch">{{currentPlayer.twitch}}</span></div>
+				<div class="zd-spinner__item" :class="twitterClass"><span class="zd-player__twitter">{{currentPlayer.twitter}}</span></div>
+				<div class="zd-spinner__item" :class="instagramClass"><span class="zd-player__instagram">{{currentPlayer.instagram}}</span></div>
 				<div class="zd-spinner__item" :class="filenameClass">{{ filenameText }}</div>
 			</div>
 		</div>`,
-		props: ["num", "pos", "runName"],
+		props: ["num", "mem", "pos", "runName", "totalNumDisplayed"],
 		replicants: ["runs", "players", "ticker", "stopwatch"],
         data: function() {
             return {
@@ -25,32 +34,69 @@
 			run() {
 				return this.runs && this.runs.start && this.runs[this.runName || this.runs.start.current] || { racers: [] };
 			},
-			mode() {
-				return this.run.rules;
+			adjustedNum() {
+				if (this.run.rules === "Elimination") {
+					let numNotEliminated = 0;
+					for (let i = 0; i < this.run.racers.length; ++i) {
+						if ((this.run.racers[i].position == undefined || this.run.racers[i].position <= this.totalNumDisplayed) && numNotEliminated++ === this.num) {
+							return i;
+						}
+					}
+				}
+
+				return this.num;
 			},
 			racer() {
-				return this.run.racers[this.num] || {};
+				return this.run.racers[this.adjustedNum] || {};
 			},
 			player() {
 				return this.players && this.players[this.racer.name] || {};
 			},
+			currentRacer() {
+				if (!this.racer.members) {
+					// individual racer, not a team
+					return this.racer;
+				}
+
+				if (this.run.teamRotationMode == "Split" && this.mem != undefined) {
+					return this.racer.members[this.mem] || {};
+				}
+
+				if (this.run.teamRotationMode == undefined || this.run.teamRotationMode === "Static") {
+					// "currentRacer" isn't relevant, but let's rotate through their social media
+					const mod = this.ticker.tick % (MOD * this.racer.members.length);
+					return this.racer.members[Math.floor(mod/MOD)] || {};
+				}
+
+				return this.racer.members[this.racer.currentRacer] || {};
+			},
+			currentPlayer() {
+				return this.players && this.players[this.currentRacer.name] || this.player;
+			},
 			nameClass() {
 				const mod = this.ticker.tick % MOD;
-				const show = mod != 0 && mod != 1 && mod != 5 || !this.player.twitch && mod == 0 || !this.player.twitter && mod == 1 || !this.racer.filename && mod == 5;
+				const show = mod != 0 && mod != 1 && mod != 2 && mod != 5 || !this.currentPlayer.twitch && mod == 0 || !this.currentPlayer.twitter && mod == 1 || !this.currentPlayer.instagram && mod == 2 || !this.racer.filename && mod == 5;
 				return {
 					"zd-spinner__item--show": show,
 					"zd-spinner__item--hide": !show
 				};
 			},
 			twitchClass() {
-				const show = this.player.twitch && this.ticker.tick % MOD == 0;
+				const show = this.currentPlayer.twitch && this.ticker.tick % MOD == 0;
 				return {
 					"zd-spinner__item--show": show,
 					"zd-spinner__item--hide": !show
 				};
 			},
 			twitterClass() {
-				const show = this.player.twitter && this.ticker.tick % MOD == 1;
+				const show = this.currentPlayer.twitter && this.ticker.tick % MOD == 1;
+				return {
+					"zd-spinner__item--show": show,
+					"zd-spinner__item--hide": !show
+				};
+			},
+			instagramClass() {
+				const show = this.currentPlayer.instagram && this.ticker.tick % MOD == 2;
 				return {
 					"zd-spinner__item--show": show,
 					"zd-spinner__item--hide": !show
@@ -69,10 +115,10 @@
             result() {
 				if (!this.racer) { return this.format(0); }
 
-				if (this.mode === "Elimination" && this.racer.state === "eliminated") {
+				if (this.run.rules === "Elimination" && this.racer.state === "eliminated") {
 					const place = this.racer.position;
 					return `OUT - ${place}${{1: "st", 2: "nd", 3: "rd"}[place] || "th"} place`
-				} else if (this.mode === "Royal Rumble" && !this.racer.finish) {
+				} else if (this.run.rules === "Royal Rumble" && !this.racer.finish) {
 					return [this.positionChange, this.gainedTime].filter(v => v).join(" ");
 				}
 
@@ -80,18 +126,18 @@
 			},
 			resultClass() {
 				return this.racer && (this.racer.finish ||
-					this.mode === "Elimination" && this.racer.state === "eliminated" ||
-					this.mode === "Royal Rumble" && (this.positionChange || this.gainedTime)) ?
+					this.run.rules === "Elimination" && this.racer.state === "eliminated" ||
+					this.run.rules === "Royal Rumble" && (this.positionChange || this.gainedTime)) ?
 						`zd-player__result--${this.pos || "topleft"}` : "";
 			},
             specialClass() {
-				return `zd-player--${this.pos || "topleft"}${this.mode === "Elimination" && this.racer && {
+				return `zd-player--${this.pos || "topleft"}${this.run.rules === "Elimination" && this.racer && {
 					eliminated: " zd-player--eliminated",
 					warning: " zd-player--warning"
 				}[this.racer.state] || ""}`;
 			},
 			info() {
-				if (this.mode === "Royal Rumble") {
+				if (this.run.rules === "Royal Rumble") {
 					const longestEstimate = this.run.racers.reduce((longest, racer) => Math.max(longest, racer.estimate), 0);
 					if (this.racer.position === 1 || !this.racer.position && this.racer.estimate === longestEstimate) {
 						return " - Leader";
@@ -118,6 +164,9 @@
 			}
 		},
 		methods: {
+			memberClass(member) {
+				return  this.run.teamRotationMode != undefined && this.run.teamRotationMode !== 'Static' && member === this.currentRacer ? "zd-highlight" : "";
+			},
             format(time, diff = false) {
                 let negative = time < 0;
                 if (negative) { time = -time; }

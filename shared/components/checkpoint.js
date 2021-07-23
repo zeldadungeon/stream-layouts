@@ -18,10 +18,12 @@
                     "Deepwood Shrine",
                     "Gust Jar",
                     "Earth Element",
+                    "Grip Ring",
                     "Cave of Flames",
                     "Cane of Pacci",
                     "Fire Element",
-                    "Pegasus Boots",
+                    "Boots on floor",
+                    "Bow",
                     "Fortress of Winds"
                 ]
             };

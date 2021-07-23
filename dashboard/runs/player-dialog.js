@@ -27,6 +27,10 @@
                         <label>Twitch</label>
                         <md-input v-model="edit.twitch"></md-input>
                     </md-field>
+                    <md-field>
+                        <label>Instagram</label>
+                        <md-input v-model="edit.instagram"></md-input>
+                    </md-field>
                 </div>
             </md-dialog-content>
             <md-dialog-actions>
@@ -61,7 +65,8 @@
                     this.$set(this.players, this.edit.name, {
                         name: this.edit.name,
                         twitter: this.edit.twitter,
-                        twitch: this.edit.twitch
+                        twitch: this.edit.twitch,
+                        instagram: this.edit.instagram
                     });
                     this.$emit("save", this.edit.name);
                 } else {
@@ -80,7 +85,8 @@
                         racer: this.playerOptions[0],
                         name: "",
                         twitter: "",
-                        twitch: ""
+                        twitch: "",
+                        instagram: ""
                     };
                 }
             }

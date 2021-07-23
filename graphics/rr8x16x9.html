@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../shared/styles/common.css" />
+    <link rel="stylesheet" href="../shared/styles/player.css" />
+    <link rel="stylesheet" href="../shared/styles/timer.css" />
+    <link rel="stylesheet" href="../shared/styles/social.css" />
+    <script defer src="../shared/scripts/lodash.core.js"></script>
+    <script defer src="../shared/scripts/vue.js"></script>
+    <script defer src="../shared/scripts/vuecg.js"></script>
+    <script defer src="../shared/components/placeholder.js"></script>
+    <script defer src="../shared/components/player.js"></script>
+    <script defer src="../shared/components/timer.js"></script>
+    <script defer src="../shared/components/social.js"></script>
+    <script defer src="./layout.js"></script>
+    <style>
+        #p1, #p2, #p3, #p4, #p5 {
+            top: 270px;
+        }
+
+        #p5, #p6, #p7, #p8 {
+            top: 600px;
+        }
+
+        #p1, #p5 {
+            left: 40px;
+        }
+
+        #p2, #p6 {
+            left: 520px;
+        }
+
+        #p3, #p7 {
+            right: 520px;
+        }
+
+        #p4, #p8 {
+            right: 40px;
+        }
+
+        .zd-timer {
+            top: 660px;
+            left: 860px;
+        }
+
+        .zd-social {
+            top: 720px;
+            left: 770px;
+            width: 400px;
+            height: 280px;
+        }
+    </style>
+</head>
+<body> 
+    <div id="app">
+        <zd-timer></zd-timer>
+        <zd-placeholder :kind="'16x9'" :left="0" :top="0" :width="480" :height="270" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'16x9'" :left="480" :top="0" :width="480" :height="270" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'16x9'" :left="960" :top="0" :width="480" :height="270" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'16x9'" :left="1440" :top="0" :width="480" :height="270" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'16x9'" :left="0" :top="330" :width="480" :height="270" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'16x9'" :left="480" :top="330" :width="480" :height="270" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'16x9'" :left="960" :top="330" :width="480" :height="270" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'16x9'" :left="1440" :top="330" :width="480" :height="270" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'cam'" :left="0" :top="660" :width="760" :height="340" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'cam'" :left="1160" :top="660" :width="760" :height="340" :run-name="runName"></zd-placeholder>
+        <zd-player id="p1" :num="0" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p2" :num="1" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p3" :num="2" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p4" :num="3" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p5" :num="4" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p6" :num="5" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p7" :num="6" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-player id="p8" :num="7" :run-name="runName" :pos="'topright'" :type="'rumble'"></zd-player>
+        <zd-social></zd-social>
+    </div>
+</body>
+</html>

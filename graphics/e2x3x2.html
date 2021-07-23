@@ -9,22 +9,13 @@
     <script defer src="../shared/scripts/lodash.core.js"></script>
     <script defer src="../shared/scripts/vue.js"></script>
     <script defer src="../shared/scripts/vuecg.js"></script>
+    <script defer src="../shared/components/placeholder.js"></script>
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
     <script defer src="../shared/components/checkpoint.js"></script>
     <script defer src="./layout.js"></script>
     <style>
-        #app {
-            height: 1080px;
-            width: 1920px;
-            position: relative;
-        }
-        
-        #app > * {
-            position: absolute;
-        }
-
         #p1, #p2 {
             top: 640px;
         }
@@ -54,15 +45,23 @@
             width: 400px;
             height: 300px;
         }
+
+        .zd-checkpoint > div > div:nth-child(2) {
+            font-size: 0.8em;
+        }
     </style>
 </head>
 <body> 
     <div id="app">
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0" :run-name="runName" :type="'elimination'"></zd-player>
-        <zd-player id="p2" :num="1" :run-name="runName" :pos="'topright'" :type="'elimination'"></zd-player>
+        <zd-placeholder :kind="'3x2'" :left="0" :top="0" :width="960" :height="640" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'3x2'" :left="960" :top="0" :width="960" :height="640" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'cam'" :left="400" :top="700" :width="560" :height="300" :run-name="runName"></zd-placeholder>
+        <zd-placeholder :kind="'cam'" :left="960" :top="700" :width="560" :height="300" :run-name="runName"></zd-placeholder>
+        <zd-player id="p1" :num="0" :run-name="runName" :type="'elimination'" :total-num-displayed="2"></zd-player>
+        <zd-player id="p2" :num="1" :run-name="runName" :pos="'topright'" :type="'elimination'" :total-num-displayed="2"></zd-player>
         <zd-social></zd-social>
-        <!--zd-checkpoint></zd-checkpoint-->
+        <zd-checkpoint></zd-checkpoint>
     </div>
 </body>
 </html>
