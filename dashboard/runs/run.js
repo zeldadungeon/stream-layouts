@@ -229,6 +229,7 @@
                 });
                 nodecg.sendMessage("timer:reset");
                 this.twitch.game = {
+                    id: this.run.twitch.id,
                     fullTitle: this.run.twitch.name,
                     subtitle: this.runName,
                     initials: this.run.abbr

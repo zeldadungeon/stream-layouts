@@ -52,7 +52,7 @@ module.exports = function (nodecg, enqueue) {
                 .replace("${fullTitle}", newVal.game && newVal.game.fullTitle || "")
                 .replace("${subtitle}", newVal.game && newVal.game.subtitle || "")
                 .replace("${initials}", newVal.game && newVal.game.initials || ""),
-                newVal.game.fullTitle);
+                newVal.game.id);
         }
     });
 
@@ -134,16 +134,15 @@ module.exports = function (nodecg, enqueue) {
     function getChannelStatus() {
         request({
             method: "get",
-            uri: `https://api.twitch.tv/kraken/streams/${config.channelId}`,
+            uri: `https://api.twitch.tv/helix/streams?user_id=${config.channelId}`,
             headers: {
-                Accept: "application/vnd.twitchtv.v5+json",
-                Authorization: `OAuth ${config.oauthToken}`,
+                Authorization: `Bearer ${config.oauthToken}`,
                 "Client-ID": config.clientId,
                 "Content-Type": "application/json"
             },
             json: true
         }).then(res => {
-            twitch.value.live = !!(res && res.stream)
+            twitch.value.live = !!(res && res.data && res.data.length > 0)
         }).catch(err => {
             log.error("Failed to get stream live status:\n\t", err);
             twitch.value.live = false;
@@ -178,30 +177,30 @@ module.exports = function (nodecg, enqueue) {
     function getFollowers() {
         request({
             method: "get",
-            uri: `https://api.twitch.tv/kraken/channels/${config.channelId}/follows`,
+            uri: `https://api.twitch.tv/helix/users/follows?to_id=${config.channelId}`,
             headers: {
-                Accept: "application/vnd.twitchtv.v5+json",
-                Authorization: `OAuth ${config.oauthToken}`,
+                Authorization: `Bearer ${config.oauthToken}`,
                 "Client-ID": config.clientId,
                 "Content-Type": "application/json"
             },
             json: true
         }).then(res => {
-            if (!res || !res.follows || res.follows.length === 0) { return; }
+            if (!res || !res.data || res.data.length === 0) { return; }
             if (followers == undefined) {
                 // first call, just populate the cache and don't send any events
-                followers = res.follows.map(f => f.user._id);
+                followers = res.data.map(f => f.from_id);
                 return;
             }
 
             // iterate backwards to get oldest first
-            for (let i = res.follows.length - 1; i >= 0; --i) {
-                if (followers.indexOf(res.follows[i].user._id) === -1) {
-                    followers.push(res.follows[i].user._id);
+            for (let i = res.data.length - 1; i >= 0; --i) {
+                const follow = res.data[i];
+                if (followers.indexOf(follow.from_id) === -1) {
+                    followers.push(follow.from_id);
                     enqueue({
                         type: "follow",
-                        id: res.follows[i].created_at,
-                        name: res.follows[i].user.display_name // .user.name
+                        id: follow.followed_at,
+                        name: follow.from_name
                     });
                 }
             }
@@ -212,22 +211,19 @@ module.exports = function (nodecg, enqueue) {
 
     function putStreamInfo(title, game) {
         const update = {
-            status: title,
-            game: game
+            title: title,
+            game_id: game
         };
         log.info("Updating Twitch title and game to", update);
         request({
-            method: "put",
-            uri: `https://api.twitch.tv/kraken/channels/${config.channelId}`,
+            method: "patch",
+            uri: `https://api.twitch.tv/helix/channels?broadcaster_id=${config.channelId}`,
             headers: {
-                Accept: "application/vnd.twitchtv.v5+json",
-                Authorization: `OAuth ${config.oauthToken}`,
+                Authorization: `Bearer ${config.oauthToken}`,
                 "Client-ID": config.clientId,
                 "Content-Type": "application/json"
             },
-            body: {
-                channel: update
-            },
+            body: update,
             json: true
         }).then(() => {
             log.info("Successfully updated Twitch title and game to", update);
