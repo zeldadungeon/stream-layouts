@@ -37,7 +37,7 @@ window.onload = function() {
         },
 	computed: {
 		time() {
-			return formatTime(((new Date("7/24/2021 14:00 GMT-0500")) - this.now)/1000);
+			return formatTime(((new Date(window.location.search.substring(1))) - this.now)/1000);
 		}
 	},
 	created() {

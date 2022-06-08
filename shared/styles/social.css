@@ -34,6 +34,20 @@
     width: 150px;
 }
 
+.zd-social__qrcode-wrapper {
+    background-color: white;
+    padding: 10px;
+    max-height: calc(100% - 2em);
+}
+
+.zd-social__qrcode {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+    object-fit: contain;
+}
+
 .fade-enter-active, .fade-leave-active {
     transition: opacity .5s;
 }

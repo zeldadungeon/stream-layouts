@@ -123,34 +123,22 @@
             setInterval(() => this.now = new Date().toLocaleString("en-US", { hour: "numeric", minute: "numeric", hour12: true }), 1000);
 
             this._nodecgReplicants["message"].on("change", (newVal, oldVal) => {
-                if (this.frame === 0) {
-                    this.slot1.label = newVal.label;
-                    this.slot1.message = newVal.message;
-                    this.slot1.labelClass = `zd-omnibar__ticker__active--label`;
-                    this.slot2.labelClass = `zd-omnibar__ticker__staging--label`;
+                const activeSlot = this.frame === 0 ? this.slot1 : this.slot2;
+                const stagingSlot = this.frame === 0 ? this.slot2 : this.slot1;
+                activeSlot.label = newVal.label;
+                activeSlot.message = newVal.message;
+                activeSlot.labelClass = `zd-omnibar__ticker__active--label`;
+                activeSlot.messageClass = `zd-omnibar__ticker__active--${ activeSlot.label ? "message" : "full" }`;
+                stagingSlot.labelClass = `zd-omnibar__ticker__staging--label`;
+                stagingSlot.messageClass = `zd-omnibar__ticker__staging--${ stagingSlot.label ? "message" : "full" }`;
+
+                if (activeSlot.label) {
                     setTimeout(() => {
-                        if (this.slot1.label &&
-                            this.$refs.frame0Message && this.$refs.boundary &&
-                            this.$refs.frame0Message.getBoundingClientRect().width > this.$refs.boundary.getBoundingClientRect().width) {
-                            this.slot1.messageClass += " zd-omnibar__ticker__active--scroll";
+                        const messageRef = this.frame === 0 ? this.$refs.frame0Message : this.$refs.frame1Message;
+                        if (messageRef && this.$refs.boundary && messageRef.getBoundingClientRect().width > this.$refs.boundary.getBoundingClientRect().width) {
+                            activeSlot.messageClass += " zd-omnibar__ticker__active--scroll";
                         }
                     }, Math.max(0, this.ticker.duration/2 - 1500));
-                    this.slot1.messageClass = `zd-omnibar__ticker__active--${!this.slot1.label ? "full" : "message"}`;
-                    this.slot2.messageClass = `zd-omnibar__ticker__staging--${!this.slot2.label ? "full" : "message"}`;
-                } else {
-                    this.slot2.label = newVal.label;
-                    this.slot2.message = newVal.message;
-                    this.slot2.labelClass = `zd-omnibar__ticker__active--label`;
-                    this.slot1.labelClass = `zd-omnibar__ticker__staging--label`;
-                    setTimeout(() => {
-                        if (this.slot2.label &&
-                            this.$refs.frame1Message && this.$refs.boundary &&
-                            this.$refs.frame1Message.getBoundingClientRect().width > this.$refs.boundary.getBoundingClientRect().width) {
-                            this.slot2.messageClass += " zd-omnibar__ticker__active--scroll";
-                        }
-                    }, Math.max(0, this.ticker.duration/2 - 1500));
-                    this.slot2.messageClass = `zd-omnibar__ticker__active--${!this.slot2.label ? "full" : "message"}`;
-                    this.slot1.messageClass = `zd-omnibar__ticker__staging--${!this.slot1.label ? "full" : "message"}`;
                 }
             });
 

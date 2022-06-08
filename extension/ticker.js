@@ -2,19 +2,20 @@
 
 module.exports = function (nodecg) {
     const template = [{
-        message: "Welcome to the 10th annual Zelda Dungeon Marathon!"
+        message: "Welcome to the Zelda Dungeon Marathon supporting Starlight Children's Foundation!"
     }, {
         template: "games"
     }, {
-        message: "Donate toward Game to Grow - tinyurl.com/ZDMXdonate"
+        label: 'Follow us',
+        message: '<img src="../shared/images/youtube_social_icon_red.png" /> ZeldaDungeon &nbsp; <img src="../shared/images/Twitter_Logo_Blue.svg" style="transform: scale(1.6);" /> ZeldaDungeon &nbsp; <img src="../shared/images/flogo_RGB_HEX-72.svg" /> ZeldaDungeon &nbsp; <img src="../shared/images/instagram.png" style="transform: scale(1.4)" /> Zelda_Dungeon'
     }, {
-        message: "Include a game and filename in your message and we'll use the ones with the highest total"
+        message: "Donate, view the schedule, get merch, and more at zeldadungeon.net/marathon"
     }, {
-        message: "Donate $20 or more to move a game one spot in the ranking - tinyurl.com/ZDMXranking"
+        message: "Donate $20 or more to move a game one spot in the ranking - tinyurl.com/zdmranking"
+    }, {
+        message: "Include a game and filename in your dontation message and we'll use the ones with the highest total"
     }, {
         template: "incentives"
-    }, {
-        message: "Send us stuff! If we receive it before Saturday 7/31 we will open it on stream! \"!pobox\""
     }];
 
     const queue = [];
