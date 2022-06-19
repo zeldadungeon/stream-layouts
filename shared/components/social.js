@@ -4,7 +4,7 @@
 	Vue.component('zd-social', {
 		template: `<div class="zd-social">
 			<transition name="fade" mode="out-in">
-				<div class="zd-social__card" :key="display.id">
+				<div v-if="display" class="zd-social__card" :key="display.id">
 					<div v-if="display.logo" class="zd-social__logo-wrapper">
 						<img :class="'zd-social__logo ' + (display.class || '')" :src="'../shared/images/' + display.logo" :style="display.style || ''" />
 					</div>
@@ -34,7 +34,7 @@
 				}, {
 					id: 3,
 					logo: 'Starlight Full White.png',
-					style: 'max-width: initial;',
+					style: 'max-width: 100%;',
 					text: 'starlight.org'
 				}, {
 					id: 4,
