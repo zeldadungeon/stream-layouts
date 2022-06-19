@@ -13,18 +13,18 @@
     animation-timing-function: linear;
 }
 
-.zd-player--left:before, .zd-player--right:after {
+.zd-player--left .zd-spinner:before, .zd-player--right .zd-spinner:after {
     position: absolute;
-    top: -8px;
+    top: -7px;
     font-weight: bold;
 }
 
-.zd-player--left:before {
+.zd-player--left .zd-spinner:before {
     content: "〈";
     left: 0px;;
 }
 
-.zd-player--right:after {
+.zd-player--right .zd-spinner:after {
     content: "〉";
     right: 0px;
 }
