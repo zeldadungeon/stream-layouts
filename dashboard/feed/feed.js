@@ -18,11 +18,6 @@
                 const idx = this.donations.donations.findIndex(d => d.createdDateUTC === timestamp);
                 if (idx > -1) { this.donations.donations.splice(idx, 1); }
             }
-        },
-        mounted() {
-            const localResources = nodecg.bundleConfig.localResources;
-            new QRCode(document.getElementById("qr-wifi"), `WIFI:T:WPA;S:"${localResources.wifiSSID}";P:"${localResources.wifiPassword}";;`);
-            new QRCode(document.getElementById("qr-feed"), `${localResources.nodecgServer}/dashboard/#fullbleed/feed`);
         }
 	});
 })();
