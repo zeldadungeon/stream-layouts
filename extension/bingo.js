@@ -66,27 +66,27 @@ module.exports = function (nodecg) {
                 board.slice(16,21).sort((a, b) => a.difficulty - b.difficulty)
             ],
             bonus: [{
-                name: "Flip a Guardian Stalker",
+                name: "Death Mountain's Secret",
                 requires: 50,
                 done: []
             }, {
-                name: "Surprise a Yiga Footsoldier",
+                name: "Frog Catching",
                 requires: 100,
                 done: []
             }, {
-                name: "Stack eight boxes",
+                name: "The Mystery Polluter",
                 requires: 250,
                 done: []
             }, {
-                name: "Defeat Zelda's Room Moblin with bookcase",
+                name: "Recital at Warbler's Nest",
                 requires: 500,
                 done: []
             }, {
-                name: "Retrace SS Zelda's path", // Spring of Courage -> Spring of Power -> Forgotten Temple (theoretically the original ToT) -> Temple of Time (was constructed by Rauru over the ruins of the Sealed Temple)
+                name: "Playtime with Cottla",
                 requires: 750,
                 done: []
             }, {
-                name: "Master Sword", // if running late then cheating will be allowed
+                name: "Koko's Specialty",
                 requires: 1000,
                 done: []
             }],
@@ -382,13 +382,14 @@ function getTasks() {
                     "Equipment"
                 ]
             },
-            {
+/*            {
                 "name": "1 Koko Cooking Side Quest",
                 "types": [
                     "Side Quest",
                     "Dueling Peaks"
                 ]
             },
+*/
             {
                 "name": "'Find Kheel' Side Quest",
                 "types": [
@@ -468,13 +469,14 @@ function getTasks() {
                     "Dueling Peaks"
                 ]
             },
-            {
+/*            {
                 "name": "'Playtime with Cottla' Side Quest",
                 "types": [
                     "Side Quest",
                     "Dueling Peaks"
                 ]
             },
+*/
             {
                 "name": "'Wild Horses' Side Quest",
                 "types": [
@@ -490,13 +492,14 @@ function getTasks() {
                     "Hateno"
                 ]
             },
-            {
+/*            {
                 "name": "'Frog Catching' Side Quest",
                 "types": [
                     "Side Quest",
                     "Lanayru"
                 ]
             },
+*/
             {
                 "name": "'Luminous Stone Gathering' Side Quest",
                 "types": [
@@ -681,13 +684,14 @@ function getTasks() {
                     "Heirloom"
                 ]
             },
-            {
+/*            {
                 "name": "2 Koko Cooking Side Quests",
                 "types": [
                     "Side Quest",
                     "Dueling Peaks"
                 ]
             },
+*/
             {
                 "name": "'Arrows of Burning Heat' Side Quest",
                 "types": [
@@ -1066,13 +1070,14 @@ function getTasks() {
                     "Central Hyrule"
                 ]
             },
-            {
+/*            {
                 "name": "'The Mystery Polluter' Side Quest",
                 "types": [
                     "Side Quest",
                     "Wasteland"
                 ]
             },
+*/
             {
                 "name": "'The Two Rings' Shrine Quest",
                 "types": [
@@ -1255,13 +1260,14 @@ function getTasks() {
                     "Hateno"
                 ]
             },
-            {
+/*            {
                 "name": "3 Koko Cooking Side Quests",
                 "types": [
                     "Side Quest",
                     "Dueling Peaks"
                 ]
             },
+*/
             {
                 "name": "'A Gift of Nightshade' Side Quest",
                 "types": [
@@ -1293,7 +1299,7 @@ function getTasks() {
                     "Hateno"
                 ]
             },
-            {
+/*            {
                 "name": "'Recital at Warbler's Nest' Shrine Quest",
                 "types": [
                     "Shrine",
@@ -1301,6 +1307,7 @@ function getTasks() {
                     "Tabantha"
                 ]
             },
+*/
             {
                 "name": "'The Ceremonial Song' Shrine Quest",
                 "types": [
@@ -1451,13 +1458,14 @@ function getTasks() {
                     "Hateno"
                 ]
             },
-            {
+/*            {
                 "name": "4 Koko Cooking Side Quests",
                 "types": [
                     "Side Quest",
                     "Dueling Peaks"
                 ]
             },
+*/
             {
                 "name": "'The Sheep Rustlers' Side Quest",
                 "types": [
@@ -3047,13 +3055,14 @@ function getTasks() {
                     "Kilton"
                 ]
             },
-            {
+/*            {
                 "name": "'Death Mountain's Secret' Side Quest",
                 "types": [
                     "Side Quest",
                     "Eldin"
                 ]
             },
+*/
             {
                 "name": "'Lynel Safari' Side Quest",
                 "types": [

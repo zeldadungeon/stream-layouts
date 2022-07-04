@@ -54,7 +54,10 @@
                     "Fire Element",
                     "Boots on floor",
                     "Bow",
-                    "Fortress of Winds"
+                    "Fortress of Winds",
+                    "Digging Mitts",
+                    "Ocarina",
+                    "Temple of Droplets"
                 ],
                 showFinishDialog: false,
                 edit: {

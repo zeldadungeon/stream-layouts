@@ -27,7 +27,7 @@
 
                 <md-card-expand-content>
                     <md-card-content class="md-layout">
-                        <md-button v-for="(task, index) in tasks.filter(t => t.done)" class="md-raised md-layout-item md-size-100" :key="'done'+index" @click="toggle2(task)">{{ task.name }}</md-button>
+                        <md-button v-for="(task, index) in tasks.filter(t => t.done)" class="md-raised md-layout-item md-size-100" :key="'done'+index" @click="toggle(task)">{{ task.name }}</md-button>
                         <md-button v-for="(task, index) in required.filter(t => t.done[team])" class="md-raised md-layout-item md-size-100" :key="'doner'+index" @click="toggleRequired(task)">{{ task.name }}</md-button>
                         <md-button v-for="(task, index) in bonus.filter(t => t.done[team])" class="md-raised md-layout-item md-size-100" :key="'doneb'+index" @click="toggleBonus(task)">{{ task.name }}</md-button>
                     </md-card-content>
