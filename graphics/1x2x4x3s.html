@@ -9,7 +9,7 @@
     <script defer src="../shared/scripts/lodash.core.js"></script>
     <script defer src="../shared/scripts/vue.js"></script>
     <script defer src="../shared/scripts/vuecg.js"></script>
-    <script defer src="../shared/components/placeholder.js"></script>
+    <script defer src="../shared/components/feed.js"></script>
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
@@ -18,37 +18,31 @@
         #barkle {
             position: absolute;
             bottom: 80px;
-            left: 20px;
-            width: 270px;
-        }
-        
-        #p1 {
-            top: 800px;
-            right: 640px;
+            left: 60px;
+            height: 480px;
         }
 
         .zd-timer {
-            top: 800px;
-            left: 520px;
+            top: 730px;
+            left: 540px;
         }
 
         .zd-social {
-            top: 900px;
-            left: 520px;
-            width: 400px;
-            height: 60px;
+            top: 520px;
+            right: 640px;
+            width: 440px;
+            height: 480px;
         }
     </style>
 </head>
 <body> 
     <div id="app">
         <img id="barkle" src="../shared/images/Barkle.png" />
+        <zd-feed kind="4x3" left="1280" top="0" width="640" height="480" :run-name="runName"></zd-feed>
+        <zd-feed kind="4x3" left="1280" top="520" width="640" height="480" :run-name="runName"></zd-feed>
+        <zd-feed kind="cam" left="0" top="0" width="1280" height="520" :run-name="runName" player-num="0"></zd-feed>
         <zd-timer></zd-timer>
-        <zd-placeholder :kind="'4x3'" :left="1280" :top="0" :width="640" :height="480" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'4x3'" :left="1280" :top="520" :width="640" :height="480" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'cam'" :left="0" :top="0" :width="1280" :height="800" :run-name="runName"></zd-placeholder>
-        <zd-player id="p1" :num="0" :run-name="runName" :pos="'none'"></zd-player>
-        <zd-social class="zd-social--small"></zd-social>
+        <zd-social></zd-social>
     </div>
 </body>
 </html>

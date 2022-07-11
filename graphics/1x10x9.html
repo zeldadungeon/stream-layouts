@@ -9,27 +9,21 @@
     <script defer src="../shared/scripts/lodash.core.js"></script>
     <script defer src="../shared/scripts/vue.js"></script>
     <script defer src="../shared/scripts/vuecg.js"></script>
-    <script defer src="../shared/components/placeholder.js"></script>
+    <script defer src="../shared/components/feed.js"></script>
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
     <script defer src="./layout.js"></script>
     <style>
-        #p1 {
-            position: absolute;
-            top: 440px;
-            right: 1111px;
-        }
-
         .zd-timer {
             position: absolute;
-            top: 440px;
+            top: 500px;
             left: 0px;
         }
 
         .zd-social {
             position: absolute;
-            top: 0px;
+            top: 560px;
             left: 0px;
             width: 809px;
             height: 440px;
@@ -38,8 +32,9 @@
 </head>
 <body> 
     <div id="app">
+        <zd-feed kind="10x9" left="809" top="0" width="1111" height="1000" :run-name="runName"></zd-feed>
+        <zd-feed kind="cam" left="0" top="0" width="809" height="500" :run-name="runName" player-num="0" nameplate-pos="bottomright"></zd-feed>
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0" :run-name="runName"></zd-player>
         <zd-social></zd-social>
     </div>
 </body>

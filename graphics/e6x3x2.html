@@ -9,7 +9,7 @@
     <script defer src="../shared/scripts/lodash.core.js"></script>
     <script defer src="../shared/scripts/vue.js"></script>
     <script defer src="../shared/scripts/vuecg.js"></script>
-    <script defer src="../shared/components/placeholder.js"></script>
+    <script defer src="../shared/components/feed.js"></script>
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
@@ -65,20 +65,14 @@
 </head>
 <body> 
     <div id="app">
+        <zd-feed kind="3x2" left="0" top="0" width="480" height="320" :run-name="runName" player-num="0" total-num-displayed="6"></zd-feed>
+        <zd-feed kind="3x2" left="480" top="0" width="480" height="320" :run-name="runName" player-num="1" total-num-displayed="6"></zd-feed>
+        <zd-feed kind="3x2" left="960" top="0" width="480" height="320" :run-name="runName" player-num="2" total-num-displayed="6"></zd-feed>
+        <zd-feed kind="3x2" left="1440" top="0" width="480" height="320" :run-name="runName" player-num="3" total-num-displayed="6"></zd-feed>
+        <zd-feed kind="3x2" left="0" top="380" width="480" height="320" :run-name="runName" player-num="4" total-num-displayed="6"></zd-feed>
+        <zd-feed kind="3x2" left="1440" top="380" width="480" height="320" :run-name="runName" player-num="5" total-num-displayed="6"></zd-feed>
+        <zd-feed kind="cam" left="480" top="380" width="960" height="560" :run-name="runName"></zd-feed>
         <zd-timer></zd-timer>
-        <zd-placeholder :kind="'3x2'" :left="0" :top="0" :width="480" :height="320" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'3x2'" :left="480" :top="0" :width="480" :height="320" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'3x2'" :left="960" :top="0" :width="480" :height="320" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'3x2'" :left="1440" :top="0" :width="480" :height="320" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'3x2'" :left="0" :top="380" :width="480" :height="320" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'3x2'" :left="1440" :top="380" :width="480" :height="320" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'cam'" :left="480" :top="380" :width="960" :height="560" :run-name="runName"></zd-placeholder>
-        <zd-player id="p1" :num="0" :run-name="runName" :type="'elimination'" :total-num-displayed="6"></zd-player>
-        <zd-player id="p2" :num="1" :run-name="runName" :type="'elimination'" :total-num-displayed="6"></zd-player>
-        <zd-player id="p3" :num="2" :run-name="runName" :type="'elimination'" :total-num-displayed="6"></zd-player>
-        <zd-player id="p4" :num="3" :run-name="runName" :type="'elimination'" :total-num-displayed="6"></zd-player>
-        <zd-player id="p5" :num="4" :run-name="runName" :type="'elimination'" :total-num-displayed="6"></zd-player>
-        <zd-player id="p6" :num="5" :run-name="runName" :type="'elimination'" :total-num-displayed="6"></zd-player>
         <zd-social></zd-social>
         <zd-checkpoint></zd-checkpoint>
     </div>

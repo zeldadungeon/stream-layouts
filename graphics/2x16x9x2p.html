@@ -9,24 +9,12 @@
     <script defer src="../shared/scripts/lodash.core.js"></script>
     <script defer src="../shared/scripts/vue.js"></script>
     <script defer src="../shared/scripts/vuecg.js"></script>
-    <script defer src="../shared/components/placeholder.js"></script>
+    <script defer src="../shared/components/feed.js"></script>
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
     <script defer src="./layout.js"></script>
     <style>
-        #p2, #p4 {
-            top: 600px;
-        }
-
-        #p1, #p2 {
-            left: 280px;
-        }
-
-        #p3, #p4 {
-            right: 280px;
-        }
-
         .zd-timer {
             top: 600px;
             left: 860px;
@@ -43,15 +31,17 @@
 </head>
 <body> 
     <div id="app">
+        <zd-feed kind="16x9" left="0" top="60" width="960" height="540" :run-name="runName">
+            <template slot="top" slot-scope="{ pos }"><zd-player num="0" mem="0" :run-name="runName" :pos="pos"></zd-player></template>
+            <template slot="bottom" slot-scope="{ pos }"><zd-player num="0" mem="1" :run-name="runName" :pos="pos"></zd-player></template>
+        </zd-feed>
+        <zd-feed kind="16x9" left="960" top="60" width="960" height="540" :run-name="runName">
+            <template slot="top" slot-scope="{ pos }"><zd-player num="1" mem="0" :run-name="runName" :pos="pos"></zd-player></template>
+            <template slot="bottom" slot-scope="{ pos }"><zd-player num="1" mem="1" :run-name="runName" :pos="pos"></zd-player></template>
+        </zd-feed>
+        <zd-feed kind="cam" left="0" top="660" width="680" height="340" :run-name="runName"></zd-feed>
+        <zd-feed kind="cam" left="1240" top="660" width="680" height="340" :run-name="runName"></zd-feed>
         <zd-timer></zd-timer>
-        <zd-placeholder :kind="'16x9'" :left="0" :top="60" :width="960" :height="540" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'16x9'" :left="960" :top="60" :width="960" :height="540" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'cam'" :left="0" :top="660" :width="680" :height="340" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'cam'" :left="1240" :top="660" :width="680" :height="340" :run-name="runName"></zd-placeholder>
-        <zd-player id="p1" :num="0" :mem="0" :run-name="runName"></zd-player>
-        <zd-player id="p2" :num="0" :mem="1" :run-name="runName"></zd-player>
-        <zd-player id="p3" :num="1" :mem="0" :run-name="runName"></zd-player>
-        <zd-player id="p4" :num="1" :mem="1" :run-name="runName"></zd-player>
         <zd-social></zd-social>
     </div>
 </body>

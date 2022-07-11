@@ -9,37 +9,32 @@
     <script defer src="../shared/scripts/lodash.core.js"></script>
     <script defer src="../shared/scripts/vue.js"></script>
     <script defer src="../shared/scripts/vuecg.js"></script>
-    <script defer src="../shared/components/placeholder.js"></script>
+    <script defer src="../shared/components/feed.js"></script>
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
     <script defer src="./layout.js"></script>
     <style>
-        #p1 {
-            top: 440px;
-            left: 187px;
-        }
-
         .zd-timer {
-            top: 440px;
-            width: 187px;
+            top: 110px;
+            left: 1160px;
         }
 
         .zd-social {
-            top: 500px;
-            width: 587px;
-            height: 60px;
+            left: 520px;
+            width: 520px;
+            height: 500px;
         }
     </style>
 </head>
 <body> 
     <div id="app">
+        <zd-feed kind="4x3" left="1480" top="0" width="440" height="330" :run-name="runName"></zd-feed>
+        <zd-feed kind="4x3" left="1040" top="340" width="880" height="660" :run-name="runName" player-num="0" nameplate-pos="topleft"></zd-feed>
+        <zd-feed kind="cam" left="0" top="0" width="520" height="500" :run-name="runName"></zd-feed>
+        <zd-feed kind="cam" left="0" top="500" width="1040" height="500" :run-name="runName"></zd-feed>
         <zd-timer></zd-timer>
-        <zd-placeholder :kind="'4x3'" :left="0" :top="0" :width="587" :height="440" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'4x3'" :left="587" :top="0" :width="1333" :height="1000" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'cam'" :left="0" :top="560" :width="587" :height="440" :run-name="runName"></zd-placeholder>
-        <zd-player id="p1" :num="0" :run-name="runName" :pos="'none'"></zd-player>
-        <zd-social class="zd-social--small"></zd-social>
+        <zd-social></zd-social>
     </div>
 </body>
 </html>

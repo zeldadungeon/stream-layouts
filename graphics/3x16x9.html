@@ -9,44 +9,33 @@
     <script defer src="../shared/scripts/lodash.core.js"></script>
     <script defer src="../shared/scripts/vue.js"></script>
     <script defer src="../shared/scripts/vuecg.js"></script>
-    <script defer src="../shared/components/placeholder.js"></script>
+    <script defer src="../shared/components/feed.js"></script>
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
     <script defer src="./layout.js"></script>
     <style>
-        #p2 {
-            left: 115px;
-        }
-
-        #p1, #p3 {
-            top: 440px;
-        }
-
-        #p3 {
-            right: 0px;
-        }
-
         .zd-timer {
-            top: 500px;
-            left: 889px;
-            width: 142px;
+            top: 734px;
+            left: 860px;
         }
 
         .zd-social {
             top: 0px;
-            left: 1404px;
-            width: 515px;
+            left: 1376px;
+            width: 544px;
+            height: 468px;
         }
     </style>
 </head>
 <body> 
     <div id="app">
+        <zd-feed kind="16x9" left="544" top="0" width="832" height="468" :run-name="runName" player-num="0"></zd-feed>
+        <zd-feed kind="16x9" left="0" top="528" width="832" height="468" :run-name="runName" player-num="1" nameplate-pos="topleft"></zd-feed>
+        <zd-feed kind="16x9" left="1088" top="528" width="832" height="468" :run-name="runName" player-num="2" nameplate-pos="topright"></zd-feed>
+        <zd-feed kind="cam" left="0" top="0" width="544" height="468" :run-name="runName"></zd-feed>
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0" :run-name="runName" :pos="'bottomleft'"></zd-player>
-        <zd-player id="p2" :num="1" :run-name="runName" :pos="'right'"></zd-player>
-        <zd-player id="p3" :num="2" :run-name="runName" :pos="'bottomright'"></zd-player>
-        <zd-social class="zd-social--small"></zd-social>
+        <zd-social></zd-social>
     </div>
 </body>
 </html>

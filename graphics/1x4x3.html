@@ -22,6 +22,7 @@
 
         .zd-social {
             top: 530px;
+            left: 0px;
             width: 480px;
             height: 470px;
         }
@@ -29,8 +30,8 @@
 </head>
 <body> 
     <div id="app">
-        <zd-feed kind="16x9" left="480" top="95" width="1440" height="810" :run-name="runName" player-num="0"></zd-feed>
-        <zd-feed kind="cam" left="0" top="0" width="480" height="470" :run-name="runName"></zd-feed>
+        <zd-feed kind="4x3" left="720" top="0" width="1200" height="900" :run-name="runName" player-num="0" nameplate-pos="bottom"></zd-feed>
+        <zd-feed kind="cam" left="0" top="0" width="720" height="470" :run-name="runName"></zd-feed>
         <zd-timer></zd-timer>
         <zd-social></zd-social>
     </div>

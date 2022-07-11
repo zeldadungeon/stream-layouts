@@ -9,22 +9,12 @@
     <script defer src="../shared/scripts/lodash.core.js"></script>
     <script defer src="../shared/scripts/vue.js"></script>
     <script defer src="../shared/scripts/vuecg.js"></script>
-    <script defer src="../shared/components/placeholder.js"></script>
+    <script defer src="../shared/components/feed.js"></script>
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
     <script defer src="./layout.js"></script>
     <style>
-        #p1 {
-            top: 648px;
-            left: 0px;
-        }
-
-        #p2 {
-            top: 648px;
-            right: 0px;
-        }
-
         .zd-timer {
             top: 588px;
             left: 860px;
@@ -39,13 +29,11 @@
 </head>
 <body> 
     <div id="app">
+        <zd-feed kind="10x9" left="0" top="0" width="720" height="648" :run-name="runName" player-num="0" nameplate-pos="bottomleft"></zd-feed>
+        <zd-feed kind="10x9" left="1200" top="0" width="720" height="648" :run-name="runName" player-num="1" nameplate-pos="bottomright"></zd-feed>
+        <zd-feed kind="cam" left="400" top="648" width="560" height="352" :run-name="runName"></zd-feed>
+        <zd-feed kind="cam" left="960" top="648" width="560" height="352" :run-name="runName"></zd-feed>
         <zd-timer></zd-timer>
-        <zd-placeholder :kind="'10x9'" :left="0" :top="0" :width="720" :height="648" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'10x9'" :left="1200" :top="0" :width="720" :height="648" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'cam'" :left="400" :top="648" :width="560" :height="352" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'cam'" :left="960" :top="648" :width="560" :height="352" :run-name="runName"></zd-placeholder>
-        <zd-player id="p1" :num="0" :run-name="runName"></zd-player>
-        <zd-player id="p2" :num="1" :run-name="runName"></zd-player>
         <zd-social></zd-social>
     </div>
 </body>
