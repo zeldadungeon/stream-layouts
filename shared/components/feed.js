@@ -10,7 +10,7 @@
 				</table>
 				<div :style="bgStyle" />
 			</div>
-			<zd-player v-if="playerNum != undefined" :style="nameplateStyle" :num="playerNum" :run-name="runName" :pos="nameplateOverlayPos"></zd-player>
+			<zd-player v-if="playerNum != undefined" :style="nameplateStyle" :num="playerNum" :run-name="runName" :pos="nameplateOverlayPos" :total-num-displayed="totalNumDisplayed"></zd-player>
 			<div style="position: absolute; top: -60px;"><slot name="topleft" :pos="'bottomright'"></slot></div>
 			<div style="position: absolute; top: -60px; width: 100%; display: flex; justify-content: center;"><slot name="top" :pos="'bottomright'"></slot></div>
 			<div style="position: absolute; top: -60px; right: 0;"><slot name="topright" :pos="'bottomleft'"></slot></div>
@@ -24,7 +24,7 @@
 			<div style="position: absolute; bottom: -60px; width: 100%; display: flex; justify-content: center;"><slot name="bottom" :pos="'topright'"></slot><slot :pos="'topright'"></slot></div>
 			<div style="position: absolute; bottom: -60px; right: 0;"><slot name="bottomright" :pos="'topleft'"></slot></div>
 		</div>`,
-		props: ["kind", "left", "top", "width", "height", "runName", "playerNum", "nameplatePos"],
+		props: ["kind", "left", "top", "width", "height", "runName", "playerNum", "nameplatePos", "totalNumDisplayed"],
 		replicants: ["runs"],
         data: function() {
             return {};
@@ -37,7 +37,7 @@
 					height: ${ this.height }px;`;
 			},
 			guidesStyle() {
-				return this.run.showPlaceholders ? 'display: block;' : ''
+				return this.run.showPlaceholders ? 'display: block;' : 'display: none;'
 			},
 			bgStyle() {
 				return `position: absolute;
