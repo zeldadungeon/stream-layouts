@@ -55,7 +55,7 @@
                     "Boots on floor",
                     "Bow",
                     "Fortress of Winds",
-                    "Digging Mitts",
+                    "Mole Mitts",
                     "Ocarina",
                     "Temple of Droplets"
                 ],

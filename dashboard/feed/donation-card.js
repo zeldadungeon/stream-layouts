@@ -7,13 +7,13 @@
         template: `<md-card>
             <md-card-header>
                 <md-card-header-text>
-                    <div class="md-title">{{ donation.displayName }}</div>
+                    <div class="md-title">{{ donation.name }}</div>
                     <div>\${{ donation.amount }}</div>
                 </md-card-header-text>
             </md-card-header>
 
             <md-card-content>
-                {{ donation.message }}
+                {{ donation.comment }}
             </md-card-content>
 
             <md-card-actions md-alignment="space-between">

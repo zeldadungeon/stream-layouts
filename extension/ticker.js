@@ -13,7 +13,7 @@ module.exports = function (nodecg) {
     }, {
         message: "Donate $20 or more to move a game one spot in the ranking - tinyurl.com/zdmranking"
     }, {
-        message: "Include a game and filename in your dontation message and we'll use the ones with the highest total"
+        message: "Include a game and filename in your donation message and we'll use the ones with the highest total"
     }, {
         template: "incentives"
     }];

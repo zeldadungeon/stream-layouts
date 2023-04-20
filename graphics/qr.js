@@ -6,7 +6,7 @@
         data: {
             arg: decodeURIComponent(window.location.search.substring(1)) || "",
             qrData: {
-                WiFi: `WIFI:T:WPA;S:"${nodecg.bundleConfig.localResources.wifiSSID}";P:"${nodecg.bundleConfig.localResources.wifiPassword}";;`,
+                WiFi: `WIFI:T:WPA;S:${nodecg.bundleConfig.localResources.wifiSSID};P:${nodecg.bundleConfig.localResources.wifiPassword};;`,
                 Dashboard: `${nodecg.bundleConfig.localResources.nodecgServer}/dashboard/#fullbleed/feed`
             }
         },
