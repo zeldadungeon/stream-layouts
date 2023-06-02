@@ -1,288 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <link rel="stylesheet" href="../shared/styles/common.css" />
     <script defer src="../shared/scripts/lodash.core.js"></script>
     <script defer src="../shared/scripts/vue.js"></script>
     <script defer src="../shared/scripts/vuecg.js"></script>
     <script defer src="./omnibar.js"></script>
     <style>
-        .zd-omnibar {
-            height: 80px;
-            width: 1920px;
-            box-sizing: border-box;
-            margin-top: 80px;
-            position: relative;
-            border-top: 3px solid #f3ba33;
-            background: url("../shared/images/background.png"), linear-gradient(#1d4c6c,#0b1d29,#30414d);
+      .zd-omnibar {
+        height: 80px;
+        width: 1920px;
+        box-sizing: border-box;
+        margin-top: 80px;
+        position: relative;
+        border-top: 3px solid #f3ba33;
+        background: url("../shared/images/pattern-runes-green.png"),
+          linear-gradient(#1d4c6c, #0b1d29, #30414d);
+      }
+
+      .zd-omnibar > * {
+        position: relative;
+        display: inline-block;
+        height: 100%;
+        vertical-align: top;
+      }
+
+      .zd-omnibar__divider {
+        background-color: #f3ba33;
+        height: calc(100% - 10px);
+        width: 2px;
+        margin: 5px 0;
+      }
+
+      .zd-omnibar__logo {
+        width: 292px;
+        margin-left: 8px;
+      }
+
+      .zd-omnibar__logo > img {
+        position: absolute;
+        box-sizing: border-box;
+        height: 100%;
+        padding: 5px;
+      }
+
+      .zd-omnibar__logo-transition-enter-active,
+      .zd-omnibar__logo-transition-leave-active {
+        transition: opacity 1s;
+      }
+
+      .zd-omnibar__logo-transition-enter,
+      .zd-omnibar__logo-transition-leave-to {
+        opacity: 0;
+      }
+
+      .zd-omnibar__time {
+        width: 156px;
+        margin-right: 8px;
+        text-align: center;
+      }
+
+      .zd-bignumber {
+        font-size: 42px;
+        line-height: 48px;
+      }
+
+      .zd-omnibar__total {
+        width: 170px;
+        text-align: center;
+      }
+
+      .zd-omnibar__total__rupee {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: -25px;
+      }
+
+      .rupee-enter {
+        top: 100%;
+      }
+
+      .rupee-leave-to {
+        top: -100%;
+        opacity: 0;
+      }
+
+      .rupee-enter-active,
+      .rupee-leave-active {
+        transition: all 0.3s;
+      }
+
+      .zd-omnibar__ticker {
+        width: 1230px; /* zd-omnibar__ticker__active--scroll must match */
+        overflow: hidden;
+      }
+
+      .zd-omnibar__ticker__active--label {
+        animation-name: slidedown;
+        animation-duration: 1s;
+        position: absolute;
+        top: 0;
+        margin-top: 5px;
+      }
+
+      .zd-omnibar__ticker__active--message {
+        animation-name: slideup;
+        animation-duration: 1s;
+        position: absolute;
+        bottom: 0;
+        margin-bottom: 5px;
+        white-space: nowrap;
+      }
+
+      .zd-omnibar__ticker__active--full {
+        animation-name: slideleft;
+        animation-duration: 1s;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        font-size: 32px;
+      }
+
+      .zd-omnibar__ticker__staging--label {
+        animation-name: fadeouttop;
+        animation-duration: 1s;
+        position: absolute;
+        top: -100%;
+        margin-top: 5px;
+      }
+
+      .zd-omnibar__ticker__staging--message {
+        animation-name: fadeoutbottom;
+        animation-duration: 1s;
+        position: absolute;
+        bottom: -100%;
+        margin-bottom: 5px;
+        white-space: nowrap;
+      }
+
+      .zd-omnibar__ticker__staging--full {
+        animation-name: fadeoutleft;
+        animation-duration: 1s;
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        font-size: 32px;
+      }
+
+      .zd-omnibar__ticker img {
+        height: 0.9em;
+      }
+
+      .zd-omnibar__ticker__active--scroll {
+        animation: scroll 3s linear;
+        transform: translateX(
+          calc(1230px - 100%)
+        ); /* 1230px = width of ticker */
+      }
+
+      .zd-omnibar__slideover {
+        position: absolute;
+        width: 1560px;
+        left: 0px;
+        z-index: 1;
+        background: url("../shared/images/background.png"),
+          linear-gradient(#1d4c6c, #0b1d29, #30414d);
+      }
+
+      .zd-omnibar__slideover::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: -8px;
+        width: 100px; /* Feather: 34 */
+        height: 100%;
+        background: right / auto 66px no-repeat
+          url("../shared/images/ZD_Icon.png");
+        background-position-x: 0px;
+      }
+
+      .zd-omnibar__slideover-body {
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: center;
+        text-overflow: ellipsis;
+        padding-right: 96px; /* Feather: 30 */
+        height: 100%;
+      }
+
+      .zd-omnibar__slideover-icon {
+        vertical-align: middle;
+        height: 100%;
+        max-width: 85px;
+        margin-bottom: 0;
+        margin-right: 0.5em;
+      }
+
+      .slide-enter-active,
+      .slide-leave-active {
+        transition: all 0.8s;
+      }
+
+      .slide-enter,
+      .slide-leave-to {
+        left: -1454px; /* Feather: -1520 */
+        background-position-x: 1454px; /* Feather: 1520 */
+      }
+
+      @keyframes slidedown {
+        from {
+          top: -100%;
         }
 
-        .zd-omnibar > * {
-            position: relative;
-            display: inline-block;
-            height: 100%;
-            vertical-align: top;
+        to {
+          top: 0%;
+        }
+      }
+
+      @keyframes slideup {
+        from {
+          bottom: -100%;
         }
 
-        .zd-omnibar__divider {
-            background-color: #f3ba33;
-            height: calc(100% - 10px);
-            width: 2px;
-            margin: 5px 0;
+        to {
+          bottom: 0%;
+        }
+      }
+
+      @keyframes slideleft {
+        from {
+          opacity: 0;
+          left: 50%;
         }
 
-        .zd-omnibar__logo {
-            width: 292px;
-            margin-left: 8px;
+        to {
+          opacity: 1;
+          left: 0%;
+        }
+      }
+
+      @keyframes fadeouttop {
+        from {
+          opacity: 1;
+          top: 0%;
         }
 
-        .zd-omnibar__logo > img {
-            position: absolute;
-            box-sizing: border-box;
-            height: 100%;
-            padding: 5px;
+        to {
+          opacity: 0;
+          top: 0%;
+        }
+      }
+
+      @keyframes fadeoutbottom {
+        from {
+          opacity: 1;
+          bottom: 0%;
         }
 
-        .zd-omnibar__logo-transition-enter-active, .zd-omnibar__logo-transition-leave-active {
-            transition: opacity 1s;
+        to {
+          opacity: 0;
+          bottom: 0%;
+        }
+      }
+
+      @keyframes fadeoutleft {
+        from {
+          opacity: 1;
+          left: 0%;
         }
 
-        .zd-omnibar__logo-transition-enter, .zd-omnibar__logo-transition-leave-to {
-            opacity: 0;
+        to {
+          opacity: 0;
+          left: 0%;
+        }
+      }
+
+      @keyframes scroll {
+        from {
+          transform: translateX(0);
         }
 
-        .zd-omnibar__time {
-            width: 156px;
-            margin-right: 8px;
-            text-align: center;
+        to {
+          transform: translateX(
+            calc(1230px - 100%)
+          ); /* 1230px = width of ticker */
         }
-
-        .zd-bignumber {
-            font-size: 42px;
-            line-height: 48px;
-        }
-        
-        .zd-omnibar__total {
-            width: 170px;
-            text-align: center;
-        }
-
-        .zd-omnibar__total__rupee {
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: -25px;
-        }
-
-        .rupee-enter {
-            top: 100%;
-        }
-
-        .rupee-leave-to {
-            top: -100%;
-            opacity: 0;
-        }
-
-        .rupee-enter-active, .rupee-leave-active {
-            transition: all .3s;
-        }
-
-        .zd-omnibar__ticker {
-            width: 1230px; /* zd-omnibar__ticker__active--scroll must match */
-            overflow: hidden;
-        }
-
-        .zd-omnibar__ticker__active--label {
-            animation-name: slidedown;
-            animation-duration: 1s;
-            position: absolute;
-            top: 0;
-            margin-top: 5px;
-        }
-
-        .zd-omnibar__ticker__active--message {
-            animation-name: slideup;
-            animation-duration: 1s;
-            position: absolute;
-            bottom: 0;
-            margin-bottom: 5px;
-            white-space: nowrap;
-        }
-
-        .zd-omnibar__ticker__active--full {
-            animation-name: slideleft;
-            animation-duration: 1s;
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            font-size: 32px;
-        }
-        
-        .zd-omnibar__ticker__staging--label {
-            animation-name: fadeouttop;
-            animation-duration: 1s;
-            position: absolute;
-            top: -100%;
-            margin-top: 5px;
-        }
-
-        .zd-omnibar__ticker__staging--message {
-            animation-name: fadeoutbottom;
-            animation-duration: 1s;
-            position: absolute;
-            bottom: -100%;
-            margin-bottom: 5px;
-            white-space: nowrap;
-        }
-
-        .zd-omnibar__ticker__staging--full {
-            animation-name: fadeoutleft;
-            animation-duration: 1s;
-            position: absolute;
-            left: 100%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            font-size: 32px;
-        }
-
-        .zd-omnibar__ticker img {
-            height: .9em;
-        }
-
-        .zd-omnibar__ticker__active--scroll {
-            animation: scroll 3s linear;
-            transform: translateX(calc(1230px - 100%)); /* 1230px = width of ticker */
-        }
-
-        .zd-omnibar__slideover {
-            position: absolute;
-            width: 1560px;
-            left: 0px;
-            z-index: 1;
-            background: url("../shared/images/background.png"), linear-gradient(#1d4c6c,#0b1d29,#30414d);
-        }
-
-        .zd-omnibar__slideover::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: -8px;
-            width: 100px; /* Feather: 34 */
-            height: 100%;
-            background: right / auto 66px no-repeat url("../shared/images/ZD_Icon.png");
-            background-position-x: 0px;
-        }
-
-        .zd-omnibar__slideover-body {
-            overflow: hidden;
-            white-space: nowrap;
-            text-align: center;
-            text-overflow: ellipsis;
-            padding-right: 96px; /* Feather: 30 */
-            height: 100%;
-        }
-
-        .zd-omnibar__slideover-icon {
-            vertical-align: middle;
-            height: 100%;
-            max-width: 85px;
-            margin-bottom: 0;
-            margin-right: 0.5em;
-        }
-
-        .slide-enter-active, .slide-leave-active {
-            transition: all .8s;
-        }
-
-        .slide-enter, .slide-leave-to {
-            left: -1454px; /* Feather: -1520 */
-            background-position-x: 1454px; /* Feather: 1520 */
-        }
-
-        @keyframes slidedown {
-            from {
-                top: -100%;
-            }
-
-            to {
-                top: 0%;
-            }
-        }
-
-        @keyframes slideup {
-            from {
-                bottom: -100%;
-            }
-
-            to {
-                bottom: 0%;
-            }
-        }
-
-        @keyframes slideleft {
-            from {
-                opacity: 0;
-                left: 50%;
-            }
-
-            to {
-                opacity: 1;
-                left: 0%;
-            }
-        }
-
-        @keyframes fadeouttop {
-            from {
-                opacity: 1;
-                top: 0%;
-            }
-
-            to {
-                opacity: 0;
-                top: 0%;
-            }
-        }
-
-        @keyframes fadeoutbottom {
-            from {
-                opacity: 1;
-                bottom: 0%;
-            }
-
-            to {
-                opacity: 0;
-                bottom: 0%;
-            }
-        }
-
-        @keyframes fadeoutleft {
-            from {
-                opacity: 1;
-                left: 0%;
-            }
-
-            to {
-                opacity: 0;
-                left: 0%;
-            }
-        }
-
-        @keyframes scroll {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(calc(1230px - 100%)); /* 1230px = width of ticker */
-            }
-        }
+      }
     </style>
-</head>
-<body> 
+  </head>
+  <body>
     <div id="app"></div>
-</body>
+  </body>
 </html>
