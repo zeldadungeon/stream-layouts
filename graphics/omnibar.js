@@ -93,7 +93,7 @@
 							return {
 								id: event.id,
 								image: "rupee_anim.gif",
-								text: `${event.name ? `<strong>${event.name}</strong>` : `Someone`} donated <strong>$${event.amount}</strong>!`
+								text: `${event.name ? `<strong>${event.name}</strong>` : `Someone`} donated <strong>$${event.amount.toFixed(2)}</strong>!`
 							};
 						case "cheer":
 							return {
