@@ -175,7 +175,10 @@
                 this.showEditDialog = true;
             },
             saveChanges() {
-                fetch(`https://api.twitch.tv/helix/games?name=${encodeURIComponent(this.edit.game)}`, {
+                const twitchApiUrl = (this.edit.game === "The Legend of Zelda: Link's Awakening") ?
+                    "https://api.twitch.tv/helix/games?id=959980201" :
+                    `https://api.twitch.tv/helix/games?name=${encodeURIComponent(this.edit.game)}`;
+                fetch(twitchApiUrl, {
                     headers: {
                         Authorization: `Bearer ${nodecg.bundleConfig.twitch.oauthToken}`,
                         "Client-ID": nodecg.bundleConfig.twitch.clientId
