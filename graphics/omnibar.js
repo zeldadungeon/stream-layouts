@@ -23,9 +23,9 @@
             <div class="zd-omnibar__divider" />
             <div ref="boundary" class="zd-omnibar__ticker">
                 <div class="zd-label" :class="slot1.labelClass">{{ slot1.label }}</div>
-                <div ref="frame0Message" :class="slot1.messageClass" v-html="slot1.message"></div>
+                <div ref="slot1Message" :class="slot1.messageClass" v-html="slot1.message"></div>
                 <div class="zd-label" :class="slot2.labelClass">{{ slot2.label }}</div>
-                <div ref="frame1Message" :class="slot2.messageClass" v-html="slot2.message"></div>
+                <div ref="slot2Message" :class="slot2.messageClass" v-html="slot2.message"></div>
             </div>
             <div class="zd-omnibar__divider" />
             <div class="zd-omnibar__total">
@@ -42,13 +42,18 @@
         data: {
             now: new Date().toLocaleString("en-US", { hour: "numeric", minute: "numeric", hour12: true }),
             total: 0,
+            showSlot1: false,
             slot1: {
                 label: "",
-                message: ""
+                message: "",
+                labelClass: "",
+                messageClass: ""
             },
             slot2: {
                 label: "",
-                message: ""
+                message: "",
+                labelClass: "",
+                messageClass: ""
             },
             rupee: "../shared/images/BotW_Green_Rupee_Icon.png"
         },
@@ -73,9 +78,6 @@
                 const tick = this.ticker && Math.floor(this.ticker.tick / 3) % 6;
                 return false; // BGC's and ZD's logos are small so we can keep them both up all the time
                 // return tick == 0;
-            },
-            frame: function() {
-                return this.ticker.tick % 2;
             },
 			event: function() {
 				const event = this.social_event;
@@ -123,8 +125,9 @@
             setInterval(() => this.now = new Date().toLocaleString("en-US", { hour: "numeric", minute: "numeric", hour12: true }), 1000);
 
             this._nodecgReplicants["message"].on("change", (newVal, oldVal) => {
-                const activeSlot = this.frame === 0 ? this.slot1 : this.slot2;
-                const stagingSlot = this.frame === 0 ? this.slot2 : this.slot1;
+                this.showSlot1 = !this.showSlot1;
+                const activeSlot = this.showSlot1 ? this.slot1 : this.slot2;
+                const stagingSlot = this.showSlot1 ? this.slot2 : this.slot1;
                 activeSlot.label = newVal.label;
                 activeSlot.message = newVal.message;
                 activeSlot.labelClass = `zd-omnibar__ticker__active--label`;
@@ -134,7 +137,7 @@
 
                 if (activeSlot.label) {
                     setTimeout(() => {
-                        const messageRef = this.frame === 0 ? this.$refs.frame0Message : this.$refs.frame1Message;
+                        const messageRef = this.showSlot1 ? this.$refs.slot1Message : this.$refs.slot2Message;
                         if (messageRef && this.$refs.boundary && messageRef.getBoundingClientRect().width > this.$refs.boundary.getBoundingClientRect().width) {
                             activeSlot.messageClass += " zd-omnibar__ticker__active--scroll";
                         }
