@@ -69,34 +69,36 @@ module.exports = function (nodecg) {
                         label: "Now playing",
                         message: runs.value.start.current
                     });
-                }
-                if (runs.value.start.next) {
-                    queue.push({
-                        label: "Next up",
-                        message: runs.value[runs.value.start.current].next
-                    });
+                    if (runs.value[runs.value.start.current] && runs.value[runs.value.start.current].next) {
+                        queue.push({
+                            label: "Next up",
+                            message: runs.value[runs.value.start.current].next
+                        });
+                    }
                 }
             } else if (nextTemplate.template === "incentives") {
                 let ptr = runs.value.start.current;
-                while (ptr && queue.length < 3) {
-                    if (runs.value[ptr].incentives && runs.value[ptr].incentives.length > 0) {
-                        runs.value[ptr].incentives.forEach(incentive => {
-                            const options = Object.keys(incentive.options);
-                            queue.push({
-                                label: `${ptr} - ${incentive.name}`,
-                                message: options.length === 0 ? "No donations yet!" : options
-                                    .sort((a, b) => incentive.options[b] - incentive.options[a])
-                                    .filter((v, i, a) => incentive.options[v] >= (incentive.options[a[runs.value[ptr].racers.length - 1]] || 0))
-                                    .map((v, i, a) => {
-                                        const result = `${v} $${incentive.options[v].toFixed(2)}`;
-                                        return a.length > runs.value[ptr].racers.length && incentive.options[v] === incentive.options[a[runs.value[ptr].racers.length - 1]] ?
-                                            `<strong>${result}</strong>` : result;
-                                    })
-                                    .join(` <strong>〉</strong>`)
+                if (ptr && runs.value[ptr]) {
+                    while (ptr && queue.length < 3) {
+                        if (runs.value[ptr].incentives && runs.value[ptr].incentives.length > 0) {
+                            runs.value[ptr].incentives.forEach(incentive => {
+                                const options = Object.keys(incentive.options);
+                                queue.push({
+                                    label: `${ptr} - ${incentive.name}`,
+                                    message: options.length === 0 ? "No donations yet!" : options
+                                        .sort((a, b) => incentive.options[b] - incentive.options[a])
+                                        .filter((v, i, a) => incentive.options[v] >= (incentive.options[a[runs.value[ptr].racers.length - 1]] || 0))
+                                        .map((v, i, a) => {
+                                            const result = `${v} $${incentive.options[v].toFixed(2)}`;
+                                            return a.length > runs.value[ptr].racers.length && incentive.options[v] === incentive.options[a[runs.value[ptr].racers.length - 1]] ?
+                                                `<strong>${result}</strong>` : result;
+                                        })
+                                        .join(` <strong>〉</strong>`)
+                                });
                             });
-                        });
+                        }
+                        ptr = runs.value[ptr].next;
                     }
-                    ptr = runs.value[ptr].next;
                 }
                 if (queue.length === 0) {
                     advanceQueue(); // no incentives left

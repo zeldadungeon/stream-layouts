@@ -25,7 +25,7 @@
             <hr />
             <label><input type="checkbox" v-model="twitter.enabled" /> Twitter Link Enabled</label>
             <br />
-            <label><input v-model="tweet.text" /> Text
+            <label><input v-model="tweet.text" /> Text</label>
             <br />
             <button @click="addTweet">Add Tweet</button>
             <br />

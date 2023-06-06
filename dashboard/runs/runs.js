@@ -104,14 +104,14 @@
             runNames() {
                 const names = [];
                 let name = this.runs.start.next;
-                while(name) {
+                while(name && this.runs[name]) {
                     names.push(name);
                     name = this.runs[name].next;
                 }
                 return names;
             },
             selectedRun() {
-                return this.runs[this.selectedRunName];
+                return this.runs[this.selectedRunName] ?? {};
             },
             newRunNameValid() {
                 return !this.runs[this.newRun.name];
@@ -188,6 +188,9 @@
                 }
                 this.$delete(this.runs, this.selectedRunName);
                 this.selectedRunName = next || prev !== "start" && prev || undefined;
+                if (prev === "start") {
+                    this.runs.start.current = this.selectedRunName;
+                }
             }
         }
 	});

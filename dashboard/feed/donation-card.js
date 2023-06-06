@@ -69,7 +69,7 @@
             runNames() {
                 const names = [];
                 let name = this.runs.start && (this.runs.start.current || this.runs.start.next);
-                while(name) {
+                while(name && this.runs[name]) {
                     if (this.runs[name].state !== "running" && this.runs[name].incentives.length > 0) {
                         names.push(name);
                     }

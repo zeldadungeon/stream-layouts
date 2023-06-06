@@ -25,7 +25,7 @@
                         <md-icon>swap_horiz</md-icon>
                     </md-menu-item>
         
-                    <md-menu-item @click="showRemoveDialog = true">
+                    <md-menu-item :disabled="run.state === 'running'" @click="showRemoveDialog = true">
                         <span>Remove</span>
                         <md-icon>remove</md-icon>
                     </md-menu-item>
