@@ -74,9 +74,21 @@
             "type": ["object", "null"],
             "additionalProperties": false,
             "properties": {
+                "clientId": {
+                    "type": "string",
+                    "description": "Client auth client ID"
+                },
+                "clientSecret": {
+                    "type": "string",
+                    "description": "Client auth client secret"
+                },
                 "oauthToken": {
                     "type": "string",
                     "description": "The OAuth token to use to make API requests."
+                },
+                "campaignLegacyId": {
+                    "type": "string",
+                    "description": "Campaign ID to track donations and total for"
                 },
                 "campaignId": {
                     "type": "string",

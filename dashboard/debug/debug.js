@@ -14,6 +14,8 @@
             <br />
             <label>Last donation <input type="number" v-model.number.lazy="donations.lastDonation" style="width: 6em"></label>
             <br />
+            <label>Last donation match <input type="number" v-model.number.lazy="donations.lastMatchInsertedMs" style="width: 6em"></label>
+            <br />
             <button @click="clearDonations">Clear Donations</button>
             <br />
             <label><input v-model="donation.displayName" /> Name</label>

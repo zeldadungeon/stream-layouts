@@ -34,6 +34,9 @@
                 <transition name="rupee">
                     <img v-if="total < donations.total" class="zd-omnibar__total__rupee" :src="rupee" />
                 </transition>
+                <transition name="match">
+                    <div v-if="donations.isMatchActive" class="zd-omnibar__total__match zd-label">Match Active</div>
+                </transition>
             </div>
             <div class="zd-omnibar__divider" />
             <div class="zd-omnibar__time"><div class="zd-bignumber">{{ now }}</div><div class="zd-label">Local Time</div></div>
@@ -95,6 +98,26 @@
 								image: "rupee_anim.gif",
 								text: `${event.name ? `<strong>${event.name}</strong>` : `Someone`} donated <strong>$${event.amount.toFixed(2)}</strong>!`
 							};
+                        case "donationMatch":
+                            const endsAt = new Date(event.endsAt);
+                            const sameDay = new Date().getDate() == endsAt.getDate();
+                            const endTime = endsAt.toLocaleString("en-US", sameDay ? {
+                                hour: "numeric",
+                                minute: "2-digit",
+                                timeZoneName: "shortGeneric"
+                            } : {
+                                month: "long",
+                                day: "numeric",
+                                hour: "numeric",
+                                minute: "2-digit",
+                                timeZoneName: "shortGeneric"
+                            });
+                            nodecg.playSound("Beedle");
+                            return {
+                                id: event.id,
+                                image: "Beedle.png",
+                                text: `${event.name ? `<strong>${event.name}</strong>` : `Someone`} is matching donations until <strong>${endTime}</strong>!`
+                            }
 						case "cheer":
 							return {
 								id: event.id,

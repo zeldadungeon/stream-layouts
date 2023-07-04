@@ -86,8 +86,26 @@
         opacity: 0;
       }
 
+      .zd-omnibar__total__match {
+        position: absolute;
+        top: -26px;
+        width: 100%;
+        background: url(../shared/images/pattern-runes-green.png);
+      }
+
+      .match-enter {
+        top: 50%;
+        opacity: 0;
+      }
+
+      .match-leave-to {
+        opacity: 0;
+      }
+
       .rupee-enter-active,
-      .rupee-leave-active {
+      .rupee-leave-active,
+      .match-enter-active,
+      .match-leave-active {
         transition: all 0.3s;
       }
 
