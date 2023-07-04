@@ -9,46 +9,32 @@
     <script defer src="../shared/scripts/lodash.core.js"></script>
     <script defer src="../shared/scripts/vue.js"></script>
     <script defer src="../shared/scripts/vuecg.js"></script>
-    <script defer src="../shared/components/placeholder.js"></script>
+    <script defer src="../shared/components/feed.js"></script>
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
-    <script defer src="../shared/scripts/app.js"></script>
+    <script defer src="./layout.js"></script>
     <style>
-        #p1 {
-            top: 560px;
-            left: 120px;
-        }
-
-        #p2 {
-            top: 560px;
-            left: 760px;
-        }
-
-        #p3 {
-            top: 560px;
-            right: 120px;
-        }
-
         .zd-timer {
-            bottom: 242px;
-            left: 160px;
+            bottom: 240px;
+            left: 100px;
         }
 
         .zd-social {
             right: 0px;
-            bottom: 83px;
-            width: 520px;
-            height: 377px;
+            bottom: 80px;
+            width: 400px;
+            height: 380px;
         }
     </style>
 </head>
 <body> 
     <div id="app">
+        <zd-feed kind="8x7" left="0" top="0" width="640" height="560" :run-name="runName" player-num="0"></zd-feed>
+        <zd-feed kind="8x7" left="640" top="0" width="640" height="560" :run-name="runName" player-num="1"></zd-feed>
+        <zd-feed kind="8x7" left="1280" top="0" width="640" height="560" :run-name="runName" player-num="2"></zd-feed>
+        <zd-feed kind="cam" left="400" top="620" width="1120" height="380" :run-name="runName"></zd-feed>
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0"></zd-player>
-        <zd-player id="p2" :num="1"></zd-player>
-        <zd-player id="p3" :num="2"></zd-player>
         <zd-social></zd-social>
     </div>
 </body>

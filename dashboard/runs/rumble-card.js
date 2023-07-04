@@ -6,7 +6,7 @@
     Vue.component("zd-rumble-card", {
         template: `<md-card>
             <md-card-media-cover md-text-scrim>
-                <md-card-media md-ratio="16:9"><img :src="background" /></md-card-media>
+                <md-card-media md-ratio="16:9"><!--img :src="background" /--></md-card-media>
 
                 <md-card-area>
                     <zd-racer-card-header :racer="racer" :run="run"></zd-racer-card-header>
@@ -14,6 +14,12 @@
                     <md-card-content>
                         <div class="md-layout md-gutter">
                             <div class="md-layout-item">
+                                <md-field md-inline>
+                                    <label>Filename</label>
+                                    <md-input v-model="racer.filename"></md-input>
+                                </md-field>
+                            </div>
+                            <!--div class="md-layout-item">
                                 <md-field md-inline>
                                     <label>Link</label>
                                     <md-input v-model="racer.filename"></md-input>
@@ -24,7 +30,7 @@
                                     <label>Epona</label>
                                     <md-input v-model="racer.filename2"></md-input>
                                 </md-field>
-                            </div>
+                            </div-->
                         </div>
                     </md-card-content>
                 </md-card-area>
@@ -50,7 +56,7 @@
                                 :disabled="run.state !== 'running' || timeToStart > 0">
                             {{ splitButtonText }}
                         </md-button>
-                        <zd-finish-button v-else :racer="racer" @finish="finish" @reset="racer.checkpoint--"></zd-finish-button>
+                        <zd-finish-button v-else :racer="racer" :disabled="run.state !== 'running'" @finish="finish" @reset="racer.checkpoint--"></zd-finish-button>
                     </div>
                 </md-card-actions>
 
@@ -109,7 +115,7 @@
         data() {
             return {
                 checkpoints: [
-                    "Lantern",
+                    /*"Lantern",
                     "Goats 2",
                     "Forest Temple",
                     "Gale Boomerang",
@@ -142,7 +148,7 @@
                     "Master Sword L2",
                     "Zant",
                     "Hyrule Castle",
-                    "Big Key"
+                    "Big Key"*/
                 ],
                 viewSplit: null
             }

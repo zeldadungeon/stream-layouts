@@ -259,7 +259,17 @@
                 "height": 1080
             },
             {
+                "file": "4x5x3+4x4x3.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
                 "file": "6x5x3.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "6x8x7.html",
                 "width": 1920,
                 "height": 1080
             },

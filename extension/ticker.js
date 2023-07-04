@@ -2,7 +2,7 @@
 
 module.exports = function (nodecg) {
     const template = [{
-        message: "Welcome to the Zelda Dungeon Marathon supporting Starlight Children's Foundation!"
+        message: "Welcome to the Zelda Dungeon Marathon supporting No Kid Hungry!"
     }, {
         template: "games"
     }, {

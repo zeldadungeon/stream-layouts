@@ -127,7 +127,8 @@
 			resultClass() {
 				return this.racer && (this.racer.finish ||
 					this.run.rules === "Elimination" && this.racer.state === "eliminated" ||
-					this.run.rules === "Royal Rumble" && (this.positionChange || this.gainedTime)) ?
+					// don't show position changes for OoT
+					false && this.run.rules === "Royal Rumble" && (this.positionChange || this.gainedTime)) ?
 						`zd-player__result--${this.pos || "topleft"}` : "";
 			},
             specialClass() {
@@ -139,14 +140,17 @@
 			info() {
 				if (this.run.rules === "Royal Rumble") {
 					const longestEstimate = this.run.racers.reduce((longest, racer) => Math.max(longest, racer.estimate), 0);
-					if (this.racer.position === 1 || !this.racer.position && this.racer.estimate === longestEstimate) {
-						return " - Leader";
-					}
+					// no checkpoints for OoT
+					//if (this.racer.position === 1 || !this.racer.position && this.racer.estimate === longestEstimate) {
+					//	return " - Leader";
+					//}
 
 					const offset = longestEstimate - this.racer.estimate;
 					if (this.stopwatch.time < offset) {
 						return " joins in " + this.format(offset - this.stopwatch.time);
 					}
+
+					return ""; // no checkpoints for OoT
 
 					if (!this.racer.checkpoint) {
 						return ` - ${this.format(offset)} behind`;
@@ -160,6 +164,14 @@
 
 					console.log(mySplit, first);
 					return  ` - ${this.format(mySplit - first)} behind`;
+				} else if (this.run.rules == "Individual Levels") {
+					return ` - ${this.run.levels
+						.map(l => {
+							const place = l.results.findIndex(r => r === this.racer.name);
+
+							return place === -1 ? 0 : (this.run.racers.length - place - 1) * (l.multiplier || 1);
+						})
+						.reduce((acc, cur) => acc + cur, 0)}pts`
 				} else return "";
 			}
 		},

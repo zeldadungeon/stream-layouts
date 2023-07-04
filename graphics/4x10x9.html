@@ -9,43 +9,34 @@
     <script defer src="../shared/scripts/lodash.core.js"></script>
     <script defer src="../shared/scripts/vue.js"></script>
     <script defer src="../shared/scripts/vuecg.js"></script>
-    <script defer src="../shared/components/placeholder.js"></script>
+    <script defer src="../shared/components/feed.js"></script>
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
     <script defer src="./layout.js"></script>
     <style>
-        #p1, #p3 {
-            left: 556px;
-        }
-
-        #p2, #p4 {
-            right: 556px;
-        }
-
-        #p3, #p4 {
-            bottom: 80px;
-        }
-
         .zd-timer {
-            top: 470px;
-            right: 636px;
+            right: 658px;
+            top: 690px;
         }
 
         .zd-social {
-            top: 470px;
             left: 556px;
+            top: 500px;
+            width: 404px;
+            height: 440px;
         }
     </style>
 </head>
 <body> 
     <div id="app">
+        <zd-feed kind="10x9" left="0" top="0" width="556" height="500" :run-name="runName" player-num="0" nameplate-pos="righttop"></zd-feed>
+        <zd-feed kind="10x9" left="1364" top="0" width="556" height="500" :run-name="runName" player-num="1" nameplate-pos="lefttop"></zd-feed>
+        <zd-feed kind="10x9" left="0" top="500" width="556" height="500" :run-name="runName" player-num="2" nameplate-pos="rightbottom"></zd-feed>
+        <zd-feed kind="10x9" left="1364" top="500" width="556" height="500" :run-name="runName" player-num="3" nameplate-pos="leftbottom"></zd-feed>
+        <zd-feed kind="cam" left="556" top="60" width="808" height="440" :run-name="runName"></zd-feed>
         <zd-timer></zd-timer>
-        <zd-player id="p1" :num="0" :run-name="runName" :pos="'left'"></zd-player>
-        <zd-player id="p2" :num="1" :run-name="runName" :pos="'right'"></zd-player>
-        <zd-player id="p3" :num="2" :run-name="runName" :pos="'left'"></zd-player>
-        <zd-player id="p4" :num="3" :run-name="runName" :pos="'right'"></zd-player>
-        <zd-social class="zd-social--small"></zd-social>
+        <zd-social></zd-social>
     </div>
 </body>
 </html>

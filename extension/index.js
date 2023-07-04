@@ -104,6 +104,6 @@ module.exports = function(nodecg) {
     }
 
     if (nodecg.bundleConfig.twitter) {
-        require("./twitter")(nodecg, enqueue);
+        //require("./twitter")(nodecg, enqueue);
     }
 }

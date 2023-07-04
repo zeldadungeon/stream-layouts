@@ -15,8 +15,7 @@
         margin-top: 80px;
         position: relative;
         border-top: 3px solid #f3ba33;
-        background: url("../shared/images/pattern-runes-green.png"),
-          linear-gradient(#1d4c6c, #0b1d29, #30414d);
+        background: url("../shared/images/pattern-runes-green.png");
       }
 
       .zd-omnibar > * {
@@ -34,11 +33,11 @@
       }
 
       .zd-omnibar__logo {
-        width: 292px;
+        width: 332px;
         margin-left: 8px;
       }
 
-      .zd-omnibar__logo > img {
+      .zd-omnibar__logo > * {
         position: absolute;
         box-sizing: border-box;
         height: 100%;
@@ -93,7 +92,7 @@
       }
 
       .zd-omnibar__ticker {
-        width: 1230px; /* zd-omnibar__ticker__active--scroll must match */
+        width: 1190px; /* zd-omnibar__ticker__active--scroll must match */
         overflow: hidden;
       }
 
@@ -160,8 +159,8 @@
       .zd-omnibar__ticker__active--scroll {
         animation: scroll 3s linear;
         transform: translateX(
-          calc(1230px - 100%)
-        ); /* 1230px = width of ticker */
+          calc(1190px - 100%)
+        ); /* 1190px = width of ticker */
       }
 
       .zd-omnibar__slideover {
@@ -169,8 +168,8 @@
         width: 1560px;
         left: 0px;
         z-index: 1;
-        background: url("../shared/images/background.png"),
-          linear-gradient(#1d4c6c, #0b1d29, #30414d);
+        background: url("../shared/images/pattern-runes-green.png");
+        overflow: visible clip;
       }
 
       .zd-omnibar__slideover::after {
@@ -181,8 +180,9 @@
         width: 100px; /* Feather: 34 */
         height: 100%;
         background: right / auto 66px no-repeat
-          url("../shared/images/ZD_Icon.png");
+          url("../shared/images/ZDM23_Logo.png");
         background-position-x: 0px;
+        transform: scale(1.5);
       }
 
       .zd-omnibar__slideover-body {
@@ -288,8 +288,8 @@
 
         to {
           transform: translateX(
-            calc(1230px - 100%)
-          ); /* 1230px = width of ticker */
+            calc(1190px - 100%)
+          ); /* 1190px = width of ticker */
         }
       }
     </style>

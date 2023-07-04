@@ -9,91 +9,37 @@
     <script defer src="../shared/scripts/lodash.core.js"></script>
     <script defer src="../shared/scripts/vue.js"></script>
     <script defer src="../shared/scripts/vuecg.js"></script>
-    <script defer src="../shared/components/placeholder.js"></script>
+    <script defer src="../shared/components/feed.js"></script>
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
     <script defer src="./layout.js"></script>
     <style>
-        #place1, #place2, #place3, #place4, #place5, #place6 {
-            width: 600px;
-            height: 360px;
-        }
-
-        #place2, #place5 {
-            left: 660px;
-        }
-
-        #place3, #place6 {
-            right: 0;
-        }
-
-        #place4, #place5, #place6 {
-            bottom: 80px;
-        }
-
-        #placecam1, #placecam2 {
-            top: 360px;
-            width: 360px;
-            height: 280px;
-        }
-
-        #placecam1 {
-            left: 400px;
-        }
-
-        #placecam2 {
-            right: 400px;
-        }
-
-        #p1, #p2, #p3 {
-            top: 360px;
-        }
-
-        #p4, #p5, #p6 {
-            top: 580px;
-        }
-
-        #p1, #p4 {
-            left: 0px;
-        }
-
-        #p2, #p5 {
-            left: 760px;
-        }
-
-        #p3, #p6 {
-            right: 0px;
-        }
-
         .zd-timer {
-            top: 470px;
-            right: 100px;
+            left: 1070px;
+            top: 440px;
         }
 
         .zd-social {
-            top: 470px;
+            left: 555px;
+            top: 333px;
+            width: 400px;
+            height: 273px;
         }
     </style>
 </head>
 <body> 
     <div id="app">
-        <zd-timer v-if="showTimer"></zd-timer>
-        <zd-placeholder :kind="'5x3'" :left="0" :top="0" :width="600" :height="360" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'5x3'" :left="660" :top="0" :width="600" :height="360" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'5x3'" :left="1320" :top="0" :width="600" :height="360" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'5x3'" :left="0" :top="640" :width="600" :height="360" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'5x3'" :left="660" :top="640" :width="600" :height="360" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'5x3'" :left="1320" :top="640" :width="600" :height="360" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'cam'" :left="400" :top="360" :width="360" :height="280" :run-name="runName"></zd-placeholder>
-        <zd-placeholder :kind="'cam'" :left="1160" :top="360" :width="360" :height="280" :run-name="runName"></zd-placeholder>
-        <zd-player id="p1" :num="0" :run-name="runName" :pos="'topright'"></zd-player>
-        <zd-player id="p2" :num="1" :run-name="runName"></zd-player>
-        <zd-player id="p3" :num="2" :run-name="runName"></zd-player>
-        <zd-player id="p4" :num="3" :run-name="runName" :pos="'bottomright'"></zd-player>
-        <zd-player id="p5" :num="4" :run-name="runName" :pos="'bottomleft'"></zd-player>
-        <zd-player id="p6" :num="5" :run-name="runName" :pos="'bottomleft'"></zd-player>
-        <zd-social class="zd-social--small"></zd-social>
+        <zd-feed kind="5x3" left="0" top="0" width="555" height="333" :run-name="runName" nameplate-pos="righttop" player-num="0"></zd-feed>
+        <zd-feed kind="5x3" left="1365" top="0" width="555" height="333" :run-name="runName" nameplate-pos="lefttop" player-num="1"></zd-feed>
+        <zd-feed kind="5x3" left="0" top="333" width="555" height="333" :run-name="runName" nameplate-pos="rightbottom" player-num="2"></zd-feed>
+        <zd-feed kind="5x3" left="1365" top="333" width="555" height="333" :run-name="runName" nameplate-pos="leftbottom" player-num="3"></zd-feed>
+        <zd-feed kind="5x3" left="0" top="666" width="555" height="333" :run-name="runName" nameplate-pos="rightbottom" player-num="4"></zd-feed>
+        <zd-feed kind="5x3" left="1365" top="666" width="555" height="333" :run-name="runName" nameplate-pos="leftbottom" player-num="5"></zd-feed>
+        <zd-feed kind="cam" left="555" top="60" width="810" height="273" :run-name="runName"></zd-feed>
+        <zd-feed kind="cam" left="555" top="666" width="810" height="273" :run-name="runName"></zd-feed>
+        <zd-timer></zd-timer>
+        <zd-social></zd-social>
     </div>
 </body>
 </html>
