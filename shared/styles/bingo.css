@@ -80,5 +80,6 @@
 }
 
 .zd-bingo-beasts__icon {
-    height: 100%;
+    /* height: 100%; */
+    width: 16.6%; /* fit 6 of them */
 }

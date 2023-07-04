@@ -50,7 +50,7 @@
 
 	Vue.component("zd-bingo-beasts", {
 		template: `<div class="zd-bingo-beasts">
-			<img class="zd-bingo-beasts__icon" v-for="beast in ['Vah Medoh', 'Vah Naboris', 'Vah Rudania', 'Vah Ruta']" :key="beast" v-if="isDone(beast)" :src="'../shared/images/' + beast + '.png'" />
+			<img class="zd-bingo-beasts__icon" v-for="beast in ['Wind Temple', 'Fire Temple', 'Water Temple', 'Lightning Temple', 'Spirit Temple', 'Hyrule Castle']" :key="beast" v-if="isDone(beast)" :src="'../shared/images/' + beast + '.png'" />
 		</div>`,
 		props: ["team"],
 		replicants: ["bingo"],
