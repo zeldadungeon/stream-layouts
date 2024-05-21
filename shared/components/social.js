@@ -25,15 +25,11 @@
 					text: 'ZeldaDungeon.net'
 				}, {
 					id: 1,
-					logo: 'Discord-Logo-Color.svg',
-					text: 'discord.io/zelda'
-				}, {
-					id: 2,
-					logo: 'ST_Logo-Tagline_Orange.png',
+					logo: 'STREAM-Logo_RGB_primary-full-color.png',
 					style: 'max-width: 100%;',
 					text: 'nokidhungry.org'
 				}, {
-					id: 3,
+					id: 2,
 					qrcode: 'qr_donate_24.png',
 					style: 'height: 100%;',
 					text: 'Donate'
