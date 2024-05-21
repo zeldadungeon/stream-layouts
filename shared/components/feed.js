@@ -2,7 +2,7 @@
 	"use strict";
 
 	Vue.component("zd-feed", {
-		template: `<div class="zd-feed" :style="wrapperStyle">
+		template: `<div :class="wrapperClass" :style="wrapperStyle">
 			<div :style="guidesStyle">
 				<table style="position: absolute; width: 100%; height: 100%; text-align: center; text-shadow: 0 0 5px black;">
 					<tr><td>L: {{ left }}</td><td>T: {{ top }}</td></tr>
@@ -30,6 +30,9 @@
             return {};
         },
 		computed: {
+			wrapperClass() {
+				return `zd-feed zd-feed--${ this.kind }`;
+			},
 			wrapperStyle() {
 				return `left: ${ this.left }px;
 					top: ${ this.top }px;

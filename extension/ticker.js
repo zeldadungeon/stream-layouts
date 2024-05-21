@@ -7,7 +7,7 @@ module.exports = function (nodecg) {
         template: "games"
     }, {
         label: 'Follow us',
-        message: '<img src="../shared/images/youtube_social_icon_red.png" /> ZeldaDungeon &nbsp; <img src="../shared/images/Twitter_Logo_Blue.svg" style="transform: scale(1.6);" /> ZeldaDungeon &nbsp; <img src="../shared/images/flogo_RGB_HEX-72.svg" /> ZeldaDungeon &nbsp; <img src="../shared/images/instagram.png" style="transform: scale(1.4)" /> Zelda_Dungeon'
+        message: '<img src="../shared/images/youtube_social_icon_red.png" /> &nbsp; <img src="../shared/images/X.svg" /> &nbsp; <img src="../shared/images/flogo_RGB_HEX-72.svg" /> &nbsp; <img src="../shared/images/Tiktok.webp" /> ZeldaDungeon &nbsp; <img src="../shared/images/instagram.png" style="transform: scale(1.4)" /> Zelda_Dungeon'
     }, {
         message: "Donate, view the schedule, get merch, and more at zeldadungeon.net/marathon"
     }, {

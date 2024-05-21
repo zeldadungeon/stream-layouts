@@ -177,7 +177,7 @@ module.exports = function (nodecg, enqueue) {
     function getFollowers() {
         request({
             method: "get",
-            uri: `https://api.twitch.tv/helix/users/follows?to_id=${config.channelId}`,
+            uri: `https://api.twitch.tv/helix/channels/followers?broadcaster_id=${config.channelId}`,
             headers: {
                 Authorization: `Bearer ${config.oauthToken}`,
                 "Client-ID": config.clientId,
