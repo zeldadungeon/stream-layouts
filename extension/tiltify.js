@@ -258,7 +258,7 @@ module.exports = function (nodecg, enqueue) {
                     Authorization: `Bearer ${oauthToken}`
                 },
                 json: true
-            }).then(response => callback(response.data));
+            }).then(response => callback(response.data.filter(m => Date.parse(m.endsAt) > Date.UTC())));
         } else {
             callback(mockDonationMatches);
         }

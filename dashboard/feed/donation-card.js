@@ -7,13 +7,13 @@
         template: `<md-card>
             <md-card-header>
                 <md-card-header-text>
-                    <div class="md-title">{{ donation.name }}</div>
-                    <div>\${{ donation.amount }}</div>
+                    <div class="md-title">{{ donation.donor_name }}</div>
+                    <div>\${{ donation.amount.value }}</div>
                 </md-card-header-text>
             </md-card-header>
 
             <md-card-content>
-                {{ donation.comment }}
+                {{ donation.donor_comment }}
             </md-card-content>
 
             <md-card-actions md-alignment="space-between">
@@ -88,11 +88,11 @@
             apply() {
                 const name = this.option === "New option" ? this.newOption : this.option;
                 const current = this.runs[this.run].incentives[this.incentive].options[name];
-                console.log(name, current, this.donation.amount);
+                console.log(name, current, this.donation.amount.value);
                 if (current) {
-                    this.runs[this.run].incentives[this.incentive].options[name] += this.donation.amount;
+                    this.runs[this.run].incentives[this.incentive].options[name] += this.donation.amount.value;
                 } else {
-                    this.$set(this.runs[this.run].incentives[this.incentive].options, name, this.donation.amount);
+                    this.$set(this.runs[this.run].incentives[this.incentive].options, name, this.donation.amount.value);
                 }
 
                 this.showIncentiveDialog = false;

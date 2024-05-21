@@ -11,10 +11,11 @@
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
     <style>
-        #app {
+        body {
             height: 1080px;
             width: 1920px;
             position: relative;
+            background: black;
         }
     </style>
 </head>
@@ -28,9 +29,9 @@ window.onload = function() {
     const app = new Vue({
         el: "#app",
         template: `<div>
-            <img style="display: block; height: 300px; margin: auto; margin-top: 100px;" src="../shared/images/ZDM22.png" />
-            <div style="text-align: center; font-size: 2em; margin-top: 50px;">Coming up: {{ nextRun }}</div>
-            <zd-social style="margin-top: 50px;"></zd-social>
+            <img style="display: block; height: 300px; margin: 30px;" src="../shared/images/ZDM23_ClearLogo.png" />
+            <div style="display: flex; height: 240px; align-items: center; justify-content: center; font-size: 2em; flex-grow: 1; width: 920px;"><span>Coming up: {{ nextRun }}</span></div>
+            <zd-social style="width: 920px;"></zd-social>
         </div>`,
         replicants: ["runs"],
         computed: {
