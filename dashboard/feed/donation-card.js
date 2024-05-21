@@ -88,11 +88,12 @@
             apply() {
                 const name = this.option === "New option" ? this.newOption : this.option;
                 const current = this.runs[this.run].incentives[this.incentive].options[name];
-                console.log(name, current, this.donation.amount.value);
+                const value = Number(this.donation.amount.value);
+                console.log(name, current, value);
                 if (current) {
-                    this.runs[this.run].incentives[this.incentive].options[name] += this.donation.amount.value;
+                    this.runs[this.run].incentives[this.incentive].options[name] += value;
                 } else {
-                    this.$set(this.runs[this.run].incentives[this.incentive].options, name, this.donation.amount.value);
+                    this.$set(this.runs[this.run].incentives[this.incentive].options, name, value);
                 }
 
                 this.showIncentiveDialog = false;
