@@ -25,7 +25,10 @@ module.exports = function (nodecg, enqueue) {
     });
 
     const mockCampaign = {
-        amount_raised: 0
+        amount_raised: {
+            "currency": "USD",
+            value: "0.00"
+        }
     };
     const mockRewards = [
         {
@@ -87,10 +90,15 @@ module.exports = function (nodecg, enqueue) {
         }];
 
     nodecg.listenFor("donations:debug", d => {
-        d.id = mockDonations.length + 1;
+        d.legacy_id = mockDonations.length + 1;
         d.rewardId = parseInt(d.rewardId);
         mockDonations.unshift(d);
-        mockCampaign.amount_raised += d.amount;
+        let total = Number(mockCampaign.amount_raised.value)
+        if (isNaN(total)) {
+            mockCampaign.amount_raised.value = d.amount.value;
+        } else {
+            mockCampaign.amount_raised.value = (total + Number(d.amount.value)).toFixed(2);
+        }
     });
 
     let oauthToken = null;
@@ -154,12 +162,17 @@ module.exports = function (nodecg, enqueue) {
         if (oauthToken != null) {
             getCampaign(campaign => {
                 const totalRaised = Number(campaign.amount_raised.value);
+
                 if (donations.value.total == totalRaised) {
                     return;
                 }
 
                 getRecentDonations(recentDonations => {
                     let newDonations = recentDonations.filter(d => d.legacy_id > donations.value.lastDonation);
+
+                    if (newDonations.length == 0) {
+                        return;
+                    }
 
                     // First, fix any discrepency
                     let newDonationsTotal = newDonations.reduce((total, d) => total + Number(d.amount.value), 0);

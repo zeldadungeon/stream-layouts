@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../shared/styles/common.css" />
+    <link rel="stylesheet" href="../shared/styles/player.css" />
+    <link rel="stylesheet" href="../shared/styles/timer.css" />
+    <link rel="stylesheet" href="../shared/styles/social.css" />
+    <script defer src="../shared/scripts/lodash.core.js"></script>
+    <script defer src="../shared/scripts/vue.js"></script>
+    <script defer src="../shared/scripts/vuecg.js"></script>
+    <script defer src="../shared/components/feed.js"></script>
+    <script defer src="../shared/components/player.js"></script>
+    <script defer src="../shared/components/timer.js"></script>
+    <script defer src="../shared/components/social.js"></script>
+    <script defer src="./layout.js"></script>
+    <style>
+        .zd-timer {
+            right: 140px;
+            top: 860px;
+        }
+
+        .zd-social {
+            top: 780px;
+            left: 0px;
+            width: 480px;
+            height: 220px;
+        }
+    </style>
+</head>
+<body> 
+    <div id="app">
+        <zd-feed kind="4x3" left="0" top="0" width="480" height="360" :run-name="runName"></zd-feed>
+        <zd-feed kind="4x3" left="0" top="360" width="480" height="360" :run-name="runName" player-num="0" nameplate-pos="bottom"></zd-feed>
+        <zd-feed kind="4x3" left="480" top="0" width="480" height="360" :run-name="runName"></zd-feed>
+        <zd-feed kind="4x3" left="480" top="360" width="480" height="360" :run-name="runName" player-num="1" nameplate-pos="bottom"></zd-feed>
+        <zd-feed kind="4x3" left="960" top="0" width="480" height="360" :run-name="runName"></zd-feed>
+        <zd-feed kind="4x3" left="960" top="360" width="480" height="360" :run-name="runName" player-num="2" nameplate-pos="bottom"></zd-feed>
+        <zd-feed kind="4x3" left="1440" top="0" width="480" height="360" :run-name="runName"></zd-feed>
+        <zd-feed kind="4x3" left="1440" top="360" width="480" height="360" :run-name="runName" player-num="3" nameplate-pos="bottom"></zd-feed>
+        <zd-feed kind="cam" left="480" top="780" width="480" height="220" :run-name="runName"></zd-feed>
+        <zd-feed kind="cam" left="960" top="780" width="480" height="220" :run-name="runName"></zd-feed>
+        <zd-timer></zd-timer>
+        <zd-social></zd-social>
+    </div>
+</body>
+</html>

@@ -36,7 +36,6 @@ module.exports = function (nodecg) {
         let board = generateBoard();
         let bonus;
 
-        /*
         do { // this block rarely executes more than once
             // generate a new board just for bonus objectives
             let bonusCandidate = generateBoard().sort((a, b) => b.difficulty - a.difficulty);
@@ -56,7 +55,8 @@ module.exports = function (nodecg) {
             bonus[i].requires = [100, 225, 400, 600, 900, 1200][i];
             bonus[i].done = [];
         }
-        */
+
+        console.log(bonus);
 
         bingo.value = {
             teams: [
@@ -65,7 +65,7 @@ module.exports = function (nodecg) {
                 board.slice(11,16).sort((a, b) => a.difficulty - b.difficulty),
                 board.slice(16,21).sort((a, b) => a.difficulty - b.difficulty)
             ],
-            bonus: [{
+            bonus: bonus/*[{
                 name: "Camera Work in the Depths",
                 requires: 100,
                 done: []
@@ -89,7 +89,7 @@ module.exports = function (nodecg) {
                 name: "The Dragon's Tears",
                 requires: 1500,
                 done: []
-            }],
+            }]*/,
             required: ["Wind Temple", "Fire Temple", "Water Temple", "Lightning Temple", "Hyrule Castle", "Spirit Temple"].map(t => ({
                 name: t,
                 requires: 0,

@@ -40,7 +40,7 @@
 }
 
 .zd-player__twitter {
-    background: url("../images/Twitter_Logo_Blue.svg") no-repeat;
+    background: left / 1em url("../images/X.svg") no-repeat;
     padding-left: 1.25em;
 }
 

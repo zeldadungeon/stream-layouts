@@ -48,6 +48,7 @@
                     "Deepwood Shrine",
                     "Gust Jar",
                     "Earth Element",
+                    "Bottle",
                     "Grip Ring",
                     "Cave of Flames",
                     "Cane of Pacci",

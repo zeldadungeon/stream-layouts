@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../shared/styles/common.css" />
+    <link rel="stylesheet" href="../shared/styles/player.css" />
+    <link rel="stylesheet" href="../shared/styles/timer.css" />
+    <link rel="stylesheet" href="../shared/styles/social.css" />
+    <script defer src="../shared/scripts/lodash.core.js"></script>
+    <script defer src="../shared/scripts/vue.js"></script>
+    <script defer src="../shared/scripts/vuecg.js"></script>
+    <script defer src="../shared/components/feed.js"></script>
+    <script defer src="../shared/components/player.js"></script>
+    <script defer src="../shared/components/timer.js"></script>
+    <script defer src="../shared/components/social.js"></script>
+    <script defer src="./layout.js"></script>
+    <style>
+        .zd-timer {
+            top: 300px;
+            left: 92px;
+        }
+
+        .zd-social {
+            top: 360px;
+            left: 0px;
+            width: 384px;
+            height: 288px;
+        }
+        .zd-feed--4x3 .zd-player {
+            width: 384px;
+            left: 0 !important;
+        }
+    </style>
+</head>
+<body> 
+    <div id="app">
+        <zd-feed kind="5x3" left="64" top="0" width="400" height="240" :run-name="runName" player-num="0"></zd-feed>
+        <zd-feed kind="5x3" left="528" top="0" width="400" height="240" :run-name="runName" player-num="1"></zd-feed>
+        <zd-feed kind="5x3" left="992" top="0" width="400" height="240" :run-name="runName" player-num="2"></zd-feed>
+        <zd-feed kind="5x3" left="1456" top="0" width="400" height="240" :run-name="runName" player-num="3"></zd-feed>
+        <zd-feed kind="4x3" left="1536" top="300" width="384" height="288" :run-name="runName" player-num="4"></zd-feed>
+        <zd-feed kind="4x3" left="0" top="648" width="384" height="288" :run-name="runName" player-num="5"></zd-feed>
+        <zd-feed kind="4x3" left="384" top="648" width="384" height="288" :run-name="runName" player-num="6"></zd-feed>
+        <zd-feed kind="4x3" left="768" top="648" width="384" height="288" :run-name="runName" player-num="7"></zd-feed>
+        <zd-feed kind="4x3" left="1152" top="648" width="384" height="288" :run-name="runName" player-num="8"></zd-feed>
+        <zd-feed kind="4x3" left="1536" top="648" width="384" height="288" :run-name="runName" player-num="9"></zd-feed>
+        <zd-feed kind="cam" left="384" top="300" width="1152" height="348" :run-name="runName"></zd-feed>
+        <zd-timer></zd-timer>
+        <zd-social></zd-social>
+    </div>
+</body>
+</html>

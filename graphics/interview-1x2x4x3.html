@@ -16,28 +16,42 @@
     <script defer src="./layout.js"></script>
     <style>
         #corey {
-            height: 500px;
-            margin-left: 10px;
+            position: absolute;
+            bottom: 80px;
+            left: 65px;
+            height: 390px;
         }
 
         .zd-timer {
-            top: 110px;
-            left: 1160px;
+            top: 540px;
+            left: 860px;
         }
 
         .zd-social {
-            left: 520px;
-            width: 520px;
-            height: 500px;
+            top: 610px;
+            right: 0px;
+            width: 440px;
+            height: 390px;
+        }
+
+        .zd-feed--4x3 .zd-player {
+            width: 440px;
+        }
+
+        .zd-feed--cam .zd-highlight {
+            color: white;
+            font-weight: normal;
+            text-decoration: none;
         }
     </style>
 </head>
 <body> 
     <div id="app">
         <img id="corey" src="../shared/images/Corey_Net.png" />
-        <zd-feed kind="4x3" left="1480" top="0" width="440" height="330" :run-name="runName"></zd-feed>
-        <zd-feed kind="4x3" left="1040" top="340" width="880" height="660" :run-name="runName" player-num="0" nameplate-pos="topleft"></zd-feed>
-        <zd-feed kind="cam" left="0" top="500" width="1040" height="500" :run-name="runName"></zd-feed>
+        <zd-feed kind="cam" left="0" top="0" width="960" height="540" :run-name="runName" player-num="1"></zd-feed>
+        <zd-feed kind="cam" left="960" top="0" width="960" height="540" :run-name="runName" player-num="2"></zd-feed>
+        <zd-feed kind="4x3" left="520" top="610" width="440" height="330" :run-name="runName" player-num="0" nameplate-pos="bottomright"></zd-feed>
+        <zd-feed kind="4x3" left="960" top="610" width="520" height="390" :run-name="runName"></zd-feed>
         <zd-timer></zd-timer>
         <zd-social></zd-social>
     </div>

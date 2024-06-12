@@ -16,28 +16,35 @@
     <script defer src="./layout.js"></script>
     <style>
         #corey {
+            left: 0px;
+            top: 0px;
+            width: 500px;
             height: 500px;
-            margin-left: 10px;
         }
 
         .zd-timer {
-            top: 110px;
-            left: 1160px;
+            left: 1102px;
+            top: 95px;
         }
 
         .zd-social {
-            left: 520px;
-            width: 520px;
+            left: 500px;
+            top: 0px;
+            width: 500px;
             height: 500px;
+        }
+
+        .zd-player {
+            width: 405px;
         }
     </style>
 </head>
 <body> 
     <div id="app">
-        <img id="corey" src="../shared/images/Corey_Net.png" />
-        <zd-feed kind="4x3" left="1480" top="0" width="440" height="330" :run-name="runName"></zd-feed>
-        <zd-feed kind="4x3" left="1040" top="340" width="880" height="660" :run-name="runName" player-num="0" nameplate-pos="topleft"></zd-feed>
-        <zd-feed kind="cam" left="0" top="500" width="1040" height="500" :run-name="runName"></zd-feed>
+        <img id="corey" src="../shared/images/Corey_Ocarina.png" />
+        <zd-feed kind="5x3" left="1405" top="0" width="515" height="309" :run-name="runName"></zd-feed>
+        <zd-feed kind="4x3" left="1000" top="310" width="920" height="690" :run-name="runName" player-num="0" nameplate-pos="topleft"></zd-feed>
+        <zd-feed kind="cam" left="0" top="500" width="1000" height="500" :run-name="runName"></zd-feed>
         <zd-timer></zd-timer>
         <zd-social></zd-social>
     </div>

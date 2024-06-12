@@ -13,39 +13,31 @@
     <script defer src="../shared/components/player.js"></script>
     <script defer src="../shared/components/timer.js"></script>
     <script defer src="../shared/components/social.js"></script>
-    <script defer src="../shared/components/checkpoint.js"></script>
     <script defer src="./layout.js"></script>
     <style>
         .zd-timer {
-            top: 440px;
-            left: 200px;
+            right: 200px;
+            top: 470px;
         }
 
         .zd-social {
-            top: 500px;
-            left: 0px;
+            left: 660px;
+            top: 420px;
             width: 600px;
-            height: 440px;
-        }
-
-        .zd-checkpoint {
-            left: 0px;
-            top: 940px;
-            width: 600px;
-            height: 60px;
+            height: 280px;
         }
     </style>
 </head>
 <body> 
     <div id="app">
-        <zd-feed kind="3x2" left="600" top="0" width="660" height="440" :run-name="runName" :player-num="0" :total-num-displayed="4"></zd-feed>
-        <zd-feed kind="3x2" left="1260" top="0" width="660" height="440" :run-name="runName" :player-num="1" :total-num-displayed="4"></zd-feed>
-        <zd-feed kind="3x2" left="600" top="500" width="660" height="440" :run-name="runName" :player-num="2" :total-num-displayed="4"></zd-feed>
-        <zd-feed kind="3x2" left="1260" top="500" width="660" height="440" :run-name="runName" :player-num="3" :total-num-displayed="4"></zd-feed>
-        <zd-feed kind="cam" left="0" top="0" width="600" height="440" :run-name="runName"></zd-feed>
+        <zd-feed kind="5x3" left="0" top="0" width="600" height="360" :run-name="runName" player-num="0"></zd-feed>
+        <zd-feed kind="5x3" left="660" top="0" width="600" height="360" :run-name="runName" player-num="1"></zd-feed>
+        <zd-feed kind="5x3" left="1320" top="0" width="600" height="360" :run-name="runName" player-num="2"></zd-feed>
+        <zd-feed kind="5x3" left="0" top="640" width="600" height="360" :run-name="runName" nameplate-pos="top" player-num="3"></zd-feed>
+        <zd-feed kind="5x3" left="1320" top="640" width="600" height="360" :run-name="runName" nameplate-pos="top" player-num="4"></zd-feed>
+        <zd-feed kind="cam" left="660" top="700" width="600" height="300" :run-name="runName"></zd-feed>
         <zd-timer></zd-timer>
         <zd-social></zd-social>
-        <zd-checkpoint></zd-checkpoint>
     </div>
 </body>
 </html>

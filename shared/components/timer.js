@@ -102,4 +102,21 @@ function formatTime(time, mode) {
             }
         }
     });
+
+    Vue.component("zd-countdown", {
+        template: `<span class="zd-countdown"">Starts in {{ display }}</span>`,
+        data: function() {
+            return {
+                now: new Date()
+            }
+        },
+        computed: {
+            display() {
+                return formatTime((new Date(window.location.search.substring(2).split('&')[1]) - this.now)/1000);
+            }
+        },
+        created() {
+            setInterval(() => this.now = new Date(), 1000);
+        }
+    });
 })();

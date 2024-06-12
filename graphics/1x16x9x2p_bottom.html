@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../shared/styles/common.css" />
+    <link rel="stylesheet" href="../shared/styles/player.css" />
+    <link rel="stylesheet" href="../shared/styles/timer.css" />
+    <link rel="stylesheet" href="../shared/styles/social.css" />
+    <script defer src="../shared/scripts/lodash.core.js"></script>
+    <script defer src="../shared/scripts/vue.js"></script>
+    <script defer src="../shared/scripts/vuecg.js"></script>
+    <script defer src="../shared/components/feed.js"></script>
+    <script defer src="../shared/components/player.js"></script>
+    <script defer src="../shared/components/timer.js"></script>
+    <script defer src="../shared/components/social.js"></script>
+    <script defer src="./layout.js"></script>
+    <style>
+        .zd-social {
+            top: 330px;
+            width: 480px;
+            height: 340px;
+        }
+
+        .zd-player {
+            margin: 0 107px;
+        }
+
+        .zd-countdown {
+            width: 600px;
+            text-align: center;
+            font-size: 2em;
+        }
+    </style>
+</head>
+<body> 
+    <div id="app">
+        <div style="margin-left: 480px; width: 1440px; height: 130px; display: flex; justify-content: center; align-items: center;">
+            <img style="height: 100%;" src="../shared/images/ZDM24_Logo.png" />
+            <zd-countdown></zd-countdown>
+        </div>
+        <zd-feed kind="16x9" left="480" top="130" width="1440" height="810" :run-name="runName">
+            <template slot="bottom">
+                <zd-player num="0" :run-name="runName"></zd-player>
+                <zd-player num="1" :run-name="runName"></zd-player>
+            </template>
+        </zd-feed>
+        <zd-feed kind="cam" left="0" top="0" width="480" height="330" :run-name="runName"></zd-feed>
+        <zd-feed kind="cam" left="0" top="670" width="480" height="330" :run-name="runName"></zd-feed>
+        <zd-social></zd-social>
+    </div>
+</body>
+</html>
