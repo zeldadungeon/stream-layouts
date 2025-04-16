@@ -83,7 +83,7 @@
         },
         methods: {
             dismiss() {
-                this.$emit("dismiss", this.donation.createdDateUTC);
+                this.$emit("dismiss", this.donation.id);
             },
             apply() {
                 const name = this.option === "New option" ? this.newOption : this.option;

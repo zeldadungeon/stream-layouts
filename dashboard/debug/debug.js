@@ -57,7 +57,7 @@
                 nodecg.sendMessage("donations:debug", {
                     createdDateUTC: new Date().toISOString(),
                     displayName: this.donation.displayName,
-                    amount: Number(this.donation.amount),
+                    amount: { value: Number(this.donation.amount).toFixed(2) },
                     message: this.donation.message,
                     rewardId: this.donation.rewardId
                 });
