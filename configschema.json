@@ -86,10 +86,6 @@
                     "type": "string",
                     "description": "The OAuth token to use to make API requests."
                 },
-                "campaignLegacyId": {
-                    "type": "string",
-                    "description": "Campaign ID to track donations and total for"
-                },
                 "campaignId": {
                     "type": "string",
                     "description": "Campaign ID to track donations and total for"

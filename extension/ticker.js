@@ -4,16 +4,16 @@ module.exports = function (nodecg) {
     const template = [{
         message: "Welcome to the Zelda Dungeon Marathon supporting No Kid Hungry!"
     }, {
-        template: "games"
-    }, {
+    //    template: "games"
+    //}, {
         label: 'Follow us',
         message: '<img src="../shared/images/youtube_social_icon_red.png" /> &nbsp; <img src="../shared/images/X.svg" /> &nbsp; <img src="../shared/images/flogo_RGB_HEX-72.svg" /> &nbsp; <img src="../shared/images/Tiktok.webp" /> ZeldaDungeon &nbsp; <img src="../shared/images/instagram.png" style="transform: scale(1.4)" /> Zelda_Dungeon &nbsp; <img src="../shared/images/Discord-Logo-Color.svg" /> discord.io/zelda'
     }, {
-        message: "Donate, view the schedule, get merch, and more at zeldadungeon.net/marathon"
+        message: "Donate, view the schedule, and more at zeldadungeon.net/marathon"
     }, {
         message: "Donate $20 or more to move a game one spot in the ranking - tinyurl.com/zdmranking"
     }, {
-        message: "Include a game and filename in your donation message and we'll use the ones with the highest total"
+        message: "Include a game and filename in your donation message - we'll use the ones with the highest total"
     }, {
         template: "incentives"
     }];

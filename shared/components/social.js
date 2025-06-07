@@ -30,7 +30,7 @@
 					text: 'nokidhungry.org'
 				}, {
 					id: 2,
-					qrcode: 'qr_donate_24.png',
+					qrcode: 'qr_donate_25.png',
 					style: 'height: 100%;',
 					text: 'Donate'
 				}]

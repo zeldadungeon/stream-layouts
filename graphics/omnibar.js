@@ -11,10 +11,10 @@
 			</transition>
             <div class="zd-omnibar__logo">
                 <transition name="zd-omnibar__logo-transition">
-                    <img v-if="expandLogo" src="../shared/images/ZDM24_Logo_WhiteStroke.png" />
+                    <img v-if="expandLogo" src="../shared/images/ZDM25_BarLogo72.png" />
                 </transition>
                 <transition name="zd-omnibar__logo-transition">
-                    <div style="overflow: visible clip;"><img v-if="!expandLogo" style="left: 0px; height: 100%; transform: scale(1.6) translate(10px, 4px);" src="../shared/images/ZDM24_Logo_WhiteStroke.png" /></div>
+                    <div style="overflow: visible clip;"><img v-if="!expandLogo" style="left: 0px; height: 100%; /*transform: scale(1.6) translate(10px, 4px);*/" src="../shared/images/ZDM25_BarLogo72.png" /></div>
                 </transition>
                 <transition name="zd-omnibar__logo-transition">
                     <img v-if="!expandLogo" style="right: 0px;" src="../shared/images/STREAM-Logo_RGB_primary-full-color.png" />
