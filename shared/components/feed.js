@@ -51,17 +51,28 @@
 					background: center / 100% 100% url('placeholders/${ this.kind }.png')`;
 			},
 			nameplateStyle() {
-				const pos = this.nameplatePos ?? 'bottom';
+				let pos = this.nameplatePos ?? 'bottom';
+				const inside = pos?.startsWith('inside') ?? false;
+				if (inside)
+				{
+					pos = pos.substring(6).trim();
+
+					if (pos === '')
+					{
+						pos = 'bottom'
+					}
+				}
+
 				let style = 'position: absolute;';
 
 				if (['top', 'topleft', 'topright'].includes(pos)) {
-					style += ' top: -60px;';
+					style += inside ? ' top: 0px;' : ' top: -60px;';
 				} else if (['left', 'lefttop', 'leftbottom'].includes(pos)) {
-					style += ' left: -400px;';
+					style += inside ? ' left: 0px;' : ' left: -400px;';
 				} else if (['right', 'righttop', 'rightbottom'].includes(pos)) {
-					style += ' right: -400px;';
+					style += inside ? ' right: 0px;' : ' right: -400px;';
 				} else if (['bottom', 'bottomleft', 'bottomright'].includes(pos)) {
-					style += ' bottom: -60px;';
+					style += inside ? ' bottom: 0px;' : ' bottom: -60px;';
 				}
 
 				if (['top', 'bottom'].includes(pos)) {

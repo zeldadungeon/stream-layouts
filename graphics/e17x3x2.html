@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../shared/styles/common.css" />
+    <link rel="stylesheet" href="../shared/styles/player.css" />
+    <link rel="stylesheet" href="../shared/styles/timer.css" />
+    <link rel="stylesheet" href="../shared/styles/social.css" />
+    <script defer src="../shared/scripts/lodash.core.js"></script>
+    <script defer src="../shared/scripts/vue.js"></script>
+    <script defer src="../shared/scripts/vuecg.js"></script>
+    <script defer src="../shared/components/feed.js"></script>
+    <script defer src="../shared/components/player.js"></script>
+    <script defer src="../shared/components/timer.js"></script>
+    <script defer src="../shared/components/social.js"></script>
+    <script defer src="../shared/components/checkpoint.js"></script>
+    <script defer src="./layout.js"></script>
+    <style>
+        .zd-player {
+            width: 384px;
+            left: 0 !important;
+        }
+
+        .zd-timer {
+            top: 964px;
+            right: 476px;
+        }
+
+        .zd-checkpoint {
+            top: 956px;
+            left: 384px;
+            width: 768px;
+        }
+    </style>
+</head>
+<body> 
+    <div id="app">
+        <zd-feed kind="3x2" left="0" top="0" width="384" height="256" :run-name="runName" :player-num="0" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="3x2" left="384" top="0" width="384" height="256" :run-name="runName" :player-num="1" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="3x2" left="768" top="0" width="384" height="256" :run-name="runName" :player-num="2" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="3x2" left="1152" top="0" width="384" height="256" :run-name="runName" :player-num="3" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="3x2" left="1536" top="0" width="384" height="256" :run-name="runName" :player-num="4" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="3x2" left="0" top="256" width="384" height="256" :run-name="runName" :player-num="5" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="3x2" left="384" top="256" width="384" height="256" :run-name="runName" :player-num="6" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="3x2" left="768" top="256" width="384" height="256" :run-name="runName" :player-num="7" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="3x2" left="1152" top="256" width="384" height="256" :run-name="runName" :player-num="8" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="3x2" left="1536" top="256" width="384" height="256" :run-name="runName" :player-num="9" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="3x2" left="0" top="512" width="384" height="256" :run-name="runName" :player-num="10" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="3x2" left="384" top="512" width="384" height="256" :run-name="runName" :player-num="11" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="3x2" left="768" top="512" width="384" height="256" :run-name="runName" :player-num="12" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="3x2" left="1152" top="512" width="384" height="256" :run-name="runName" :player-num="13" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="3x2" left="1536" top="512" width="384" height="256" :run-name="runName" :player-num="14" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="3x2" left="0" top="768" width="384" height="256" :run-name="runName" :player-num="15" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="3x2" left="1536" top="768" width="384" height="256" :run-name="runName" :player-num="16" :total-num-displayed="17" nameplate-pos="inside"></zd-feed>
+        <zd-feed kind="cam" left="384" top="768" width="1152" height="256" :run-name="runName"></zd-feed>
+        <zd-timer></zd-timer>
+        <zd-checkpoint></zd-checkpoint>
+    </div>
+</body>
+</html>

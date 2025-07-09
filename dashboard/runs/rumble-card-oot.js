@@ -3,10 +3,10 @@
 
     Vue.use(VueMaterial.default);
 
-    Vue.component("zd-rumble-card", {
+    Vue.component("zd-rumble-card-oot", {
         template: `<md-card>
             <md-card-media-cover md-text-scrim>
-                <md-card-media md-ratio="16:9"><!--img :src="background" /--></md-card-media>
+                <md-card-media md-ratio="16:9"></md-card-media>
 
                 <md-card-area>
                     <zd-racer-card-header :racer="racer" :run="run"></zd-racer-card-header>
@@ -19,18 +19,6 @@
                                     <md-input v-model="racer.filename"></md-input>
                                 </md-field>
                             </div>
-                            <!--div class="md-layout-item">
-                                <md-field md-inline>
-                                    <label>Link</label>
-                                    <md-input v-model="racer.filename"></md-input>
-                                </md-field>
-                            </div>
-                            <div class="md-layout-item">
-                                <md-field md-inline>
-                                    <label>Epona</label>
-                                    <md-input v-model="racer.filename2"></md-input>
-                                </md-field>
-                            </div-->
                         </div>
                     </md-card-content>
                 </md-card-area>
@@ -114,42 +102,7 @@
         replicants: ["players", "stopwatch"],
         data() {
             return {
-                checkpoints: [
-                    /*"Lantern",
-                    "Goats 2",
-                    "Forest Temple",
-                    "Gale Boomerang",
-                    "Diababa",
-                    "Demolition",
-                    "Iron Boots",
-                    "Goron Mines",
-                    "Hero's Bow",
-                    "Fyrus",
-                    "Zora's Domain",
-                    "Lanayru Vessel",
-                    "Lakebed Temple",
-                    "Clawshot",
-                    "Morpheel",
-                    "Master Sword",
-                    "Arbiter's Grounds",
-                    "Spinner",
-                    "Stallord",
-                    "Snowpeak Ruins",
-                    "Ball and Chain",
-                    "Blizzeta",
-                    "Temple of Time",
-                    "Dominion Rod",
-                    "Armogohma",
-                    "Ancient Sky Book",
-                    "City in the Sky",
-                    "Double Clawshots",
-                    "Argorok",
-                    "Palace of Twilight",
-                    "Master Sword L2",
-                    "Zant",
-                    "Hyrule Castle",
-                    "Big Key"*/
-                ],
+                checkpoints: [],
                 viewSplit: null
             }
         },

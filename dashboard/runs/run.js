@@ -31,8 +31,11 @@
             <div v-if="run.rules === 'Elimination'">
                 <zd-elimination-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
             </div>
-            <div v-else-if="run.rules === 'Royal Rumble'">
-                <zd-rumble-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
+            <div v-else-if="run.rules === 'Royal Rumble' && run.name === 'Twilight Princess HD'">
+                <zd-rumble-card-tp v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
+            </div>
+            <div v-else-if="run.rules === 'Royal Rumble' && run.name === 'Ocarina of Time'">
+                <zd-rumble-card-oot v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" @finish="stopRun" @remove="removeRacer(index)" />
             </div>
             <div v-else-if="run.rules === 'Bingo'">
                 <zd-bingo-card v-for="(racer, index) in run.racers" :racer="racer" :key="'racer-' + index" :run="run" :team="index" @finish="stopRun" @remove="removeRacer(index)" />
@@ -241,9 +244,9 @@
                 if (this.run.rules === "Bingo") {
                     nodecg.sendMessage("bingo:reset");
                 }
-                if (this.run.name === "Majora's Mask") {
+                /*if (this.run.name === "Majora's Mask") {
                     nodecg.sendMessage("masks:reset"); // TODO I need to come up with some sort of plugin model for these...
-                }
+                }*/
                 this.$set(this.runs.start, "current", this.runName);
                 this.$set(this.run, "state", "queued"); // $set because it starts out undefined. after this, can assign normally.
             },
@@ -306,9 +309,12 @@
                         {name: "L9", multiplier: 5, results: []},
                     ];
                 }
-                if (this.run.name === "Majora's Mask") {
-                    nodecg.sendMessage("masks:reset"); // TODO I need to come up with some sort of plugin model for these...
+                if (this.run.rules === "Bingo") {
+                    nodecg.sendMessage("bingo:reset");
                 }
+                /*if (this.run.name === "Majora's Mask") {
+                    nodecg.sendMessage("masks:reset"); // TODO I need to come up with some sort of plugin model for these...
+                }*/
             },
             addRacer() {
                 if (this.run.rules === "Teams") {

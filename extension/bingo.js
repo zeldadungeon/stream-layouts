@@ -1,6 +1,9 @@
 "use strict";
 
 module.exports = function (nodecg) {
+    //const required = ["Wind Temple", "Fire Temple", "Water Temple", "Lightning Temple", "Hyrule Castle", "Spirit Temple"];
+    const required = ["Odolwa", "Goht", "Gyorg", "Twinmold"];
+
     const bingo = nodecg.Replicant("bingo", {
         defaultValue: {
             teams: [[], [], [], []],
@@ -18,9 +21,9 @@ module.exports = function (nodecg) {
 
     nodecg.listenFor("bingo:reset", () => {
         bingo.value = {
-            teams: Array(4).fill(Array(5).fill({ name: "TBD" })),
+            teams: Array(4).fill(Array(6).fill({ name: "TBD" })),
             bonus: [],
-            required: ["Wind Temple", "Fire Temple", "Water Temple", "Lightning Temple", "Hyrule Castle", "Spirit Temple"].map(t => {
+            required: required.map(t => {
                 return {
                     name: t,
                     requires: 0,
@@ -33,7 +36,7 @@ module.exports = function (nodecg) {
     });
 
     nodecg.listenFor("bingo:shuffle", () => {
-        let board = generateBoard();
+        /*let board = generateBoard();
         let bonus;
 
         do { // this block rarely executes more than once
@@ -56,41 +59,45 @@ module.exports = function (nodecg) {
             bonus[i].done = [];
         }
 
-        console.log(bonus);
+        console.log(bonus);*/
 
         bingo.value = {
             teams: [
-                board.slice(1,6).sort((a, b) => a.difficulty - b.difficulty),
-                board.slice(6,11).sort((a, b) => a.difficulty - b.difficulty),
-                board.slice(11,16).sort((a, b) => a.difficulty - b.difficulty),
-                board.slice(16,21).sort((a, b) => a.difficulty - b.difficulty)
+//                board.slice(1,6).sort((a, b) => a.difficulty - b.difficulty),
+//                board.slice(6,11).sort((a, b) => a.difficulty - b.difficulty),
+//                board.slice(11,16).sort((a, b) => a.difficulty - b.difficulty),
+//                board.slice(16,21).sort((a, b) => a.difficulty - b.difficulty)
+                ["Great Fairy's Mask", "Give Paper to ???", "Graveyard Bottle", "Circus Leader's Mask", "Mushroom for Blue Potion", "Couple's Mask"].map(t => ({name:t})),
+                ["Kafei's Mask", "Woodfall Stray Fairies", "Beaver Race Bottle", "Bremen Mask", "Goron Moon Heart Piece", "Stone Tower Fairies"].map(t => ({name:t})),
+                ["Stone Mask", "Takkuri Orange Rupee", "Bunny Hood", "Swamp Skulltula House", "Peahat Heart Piece", "Postman's Hat"].map(t => ({name:t})),
+                ["Kamaro's Mask", "Defeat the Aliens", "Complete Title Deed Quest", "Oceanside Skulltula House", "All-Night Mask", "Great Bay Stray Fairies"].map(t => ({name:t}))
             ],
-            bonus: bonus/*[{
-                name: "Camera Work in the Depths",
+            bonus: [{
+                name: "Gilded Sword",
                 requires: 100,
                 done: []
             }, {
-                name: "Impa and the Geoglyphs",
+                name: "Town Shooting Gallery HP",
                 requires: 250,
                 done: []
             }, {
-                name: "A Mystery in the Depths",
+                name: "Blast Mask",
                 requires: 450,
                 done: []
             }, {
-                name: "Trail of the Master Sword",
+                name: "Doggy Racetrack HP",
                 requires: 700,
                 done: []
             }, {
-                name: "Recovering the Hero's Sword",
+                name: "Mask of Scents",
                 requires: 1000,
                 done: []
             }, {
-                name: "The Dragon's Tears",
+                name: "Snowhead Stray Fairies",
                 requires: 1500,
                 done: []
-            }]*/,
-            required: ["Wind Temple", "Fire Temple", "Water Temple", "Lightning Temple", "Hyrule Castle", "Spirit Temple"].map(t => ({
+            }],
+            required: required.map(t => ({
                 name: t,
                 requires: 0,
                 done: []

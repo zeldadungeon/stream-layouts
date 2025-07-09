@@ -28,7 +28,9 @@
                     "Fortress of Winds",
                     "Mole Mitts",
                     "Ocarina",
-                    "Temple of Droplets"
+                    "Temple of Droplets",
+                    "Flame Lantern",
+                    "Water Element"
                 ]
             };
         },

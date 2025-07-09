@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../shared/styles/common.css" />
+    <link rel="stylesheet" href="../shared/styles/player.css" />
+    <link rel="stylesheet" href="../shared/styles/timer.css" />
+    <link rel="stylesheet" href="../shared/styles/social.css" />
+    <link rel="stylesheet" href="../shared/styles/bingo.css" />
+    <script defer src="../shared/scripts/lodash.core.js"></script>
+    <script defer src="../shared/scripts/vue.js"></script>
+    <script defer src="../shared/scripts/vuecg.js"></script>
+    <script defer src="../shared/components/feed.js"></script>
+    <script defer src="../shared/components/player.js"></script>
+    <script defer src="../shared/components/timer.js"></script>
+    <script defer src="../shared/components/bingo.js"></script>
+    <script defer src="../shared/components/social.js"></script>
+    <script defer src="./layout.js"></script>
+    <style>
+        .zd-border {
+            width: 679px;
+            height: 409px;
+            box-sizing: border-box;
+            border: 2px solid #f3ba33;
+        }
+
+        #border1 {
+            border-color: #04f702;
+        }
+
+        #border2 {
+            right: 0px;
+            border-color: #fe0200;
+        }
+
+        #border3 {
+            bottom: 80px;
+            border-color: #198afd;
+        }
+
+        #border4 {
+            bottom: 80px;
+            right: 0px;
+            border-color: #f34ffd;
+        }
+
+        #b3, #b4 {
+            bottom: 80px;
+        }
+
+        #b1, #b3 {
+            left: 677px;
+        }
+
+        #b2, #b4 {
+            right: 677px;
+        }
+
+        #bonus1, #bonus2 {
+            top: 409px;
+            width: 279px;
+            height: 182px;
+        }
+
+        #bonus1 {
+            left: 400px;
+        }
+
+        #bonus2 {
+            right: 400px;
+        }
+
+        .zd-bingo-beasts {
+            width: 256px;
+            height: 50px;
+        }
+
+        #beasts1, #beasts2 {
+            top: 350px;
+        }
+
+        #beasts3, #beasts4 {
+            bottom: 430px;
+        }
+
+        #beasts1, #beasts3 {
+            left: 679px;
+        }
+
+        #beasts2, #beasts4 {
+            right: 679px;
+            text-align: right;
+        }
+
+        .zd-bingo-card--vertical {
+            width: 283px;
+            height: 350px;
+            line-height: 32px;
+        }
+
+        .zd-timer {
+            top: 470px;
+            right: 100px;
+        }
+
+        #rules {
+            top: 470px;
+            width: 400px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body> 
+    <div id="app">
+        <zd-feed kind="5x3" left="2" top="2" width="675" height="405" :run-name="runName" player-num="0" nameplate-pos="bottomleft"></zd-feed>
+        <zd-feed kind="5x3" left="1243" top="2" width="675" height="405" :run-name="runName" player-num="1" nameplate-pos="bottomright"></zd-feed>
+        <zd-feed kind="5x3" left="2" top="593" width="675" height="405" :run-name="runName" player-num="2" nameplate-pos="topleft"></zd-feed>
+        <zd-feed kind="5x3" left="1243" top="593" width="675" height="405" :run-name="runName" player-num="3" nameplate-pos="topright"></zd-feed>
+        <zd-feed kind="cam" left="679" top="350" width="562" height="300" :run-name="runName"></zd-feed>
+        <div class="zd-border" id="border1"></div>
+        <div class="zd-border" id="border2"></div>
+        <div class="zd-border" id="border3"></div>
+        <div class="zd-border" id="border4"></div>
+        <zd-bingo-beasts v-for="n in 4" :key="'beasts'+n" :id="'beasts'+n" :team="n - 1"></zd-bingo-beasts>
+        <zd-bingo-card id="b1" num="1" orientation="vertical"></zd-bingo-card>
+        <zd-bingo-card id="b2" num="2" orientation="vertical"></zd-bingo-card>
+        <zd-bingo-card id="b3" num="3" orientation="vertical"></zd-bingo-card>
+        <zd-bingo-card id="b4" num="4" orientation="vertical"></zd-bingo-card>
+        <zd-bingo-shared id="bonus1" type="even"></zd-bingo-shared>
+        <zd-bingo-shared id="bonus2" type="odd"></zd-bingo-shared>
+        <zd-timer></zd-timer>
+        <div id="rules">!rules !teams</div>
+    </div>
+</body>
+</html>
